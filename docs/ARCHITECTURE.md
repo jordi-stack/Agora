@@ -24,7 +24,7 @@
 │         │                                    │           │
 │         ▼                                    ▼           │
 │  ┌─────────────────────────────────────────────────┐    │
-│  │              STATE STORE (Redis)                 │    │
+│  │              STATE STORE (In-Memory)                 │    │
 │  │  revenue[] · expenses[] · decisions[] · pricing  │    │
 │  └─────────────────────────────────────────────────┘    │
 │         │                                                │
@@ -33,10 +33,10 @@
 │  │           AUTONOMOUS AGENT LOOP (5 min)          │    │
 │  │                                                   │    │
 │  │  1. getBalances() ──▶ WDK Wallet (Plasma RPC)    │    │
-│  │  2. analyzeRevenue() ──▶ Redis history            │    │
+│  │  2. analyzeRevenue() ──▶ state history            │    │
 │  │  3. getDecision() ──▶ Groq LLaMA reasoning       │    │
 │  │  4. execute() ──▶ reprice / transfer / hold       │    │
-│  │  5. logDecision() ──▶ Redis + console             │    │
+│  │  5. logDecision() ──▶ state store + console             │    │
 │  └─────────────────────────────────────────────────┘    │
 │         │                                                │
 │         ▼                                                │
@@ -101,7 +101,7 @@ Buyer ──POST──▶ /api/analyze
           Facilitator settles on-chain
           (USDT0 transferred on Plasma)
                   │
-          Revenue logged to Redis
+          Revenue logged to state store
                   │
           Response returned to buyer
 ```
@@ -147,7 +147,7 @@ Every 5 minutes:
 | Wallet | @tetherto/wdk-wallet-evm |
 | Payments | @x402/express, @x402/evm, @x402/core |
 | LLM | Groq SDK (LLaMA 3.1) / OpenAI / Anthropic |
-| State | Upstash Redis + in-memory fallback |
+| State | In-memory (Redis optional) |
 | Frontend | React + Vite |
 | Chain | Plasma (eip155:9745) |
 | Token | USDT0 (6 decimals) |
