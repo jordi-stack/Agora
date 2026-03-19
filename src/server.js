@@ -52,7 +52,12 @@ async function main() {
   // 7. Dashboard API routes (free)
   app.use(routes)
 
-  // 8. Serve React dashboard
+  // 8. Serve SKILL.md for OpenClaw discovery
+  app.get('/SKILL.md', (req, res) => {
+    res.type('text/plain').sendFile(path.join(__dirname, '..', 'SKILL.md'))
+  })
+
+  // 9. Serve React dashboard
   const clientDist = path.join(__dirname, '..', 'client', 'dist')
   app.use(express.static(clientDist))
   app.use((req, res, next) => {
