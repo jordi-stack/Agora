@@ -106,8 +106,8 @@ Built-in test client that triggers real x402 payments with one click. Revenue sh
 ### Interactive Help
 A "How It Works" button in the header opens a step-by-step guide covering how the agent earns, decides, manages, and how to test it.
 
-### OpenClaw Integration
-Agora includes a [SKILL.md](./SKILL.md) following the [AgentSkills specification](https://agentskills.io/specification), so any OpenClaw-compatible agent can discover it.
+### Agent Skills (OpenClaw / Hermes)
+Agora includes a [SKILL.md](./SKILL.md) compliant with the [AgentSkills specification](https://agentskills.io/specification). Compatible with Hermes Agent, OpenClaw, and any agent platform that supports the standard.
 
 ```bash
 npx skills add jordi-stack/agora

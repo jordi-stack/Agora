@@ -1,27 +1,15 @@
 ---
 name: agora
-display_name: Agora - Self-Sustaining AI Agent
-description: Autonomous AI agent that earns USDT0 by selling intelligence services via x402 micropayments, manages its own treasury through Tether WDK, and makes independent financial decisions on the Plasma blockchain.
-version: 1.0.0
-author: jordi-stack
-repository: https://github.com/jordi-stack/agora
+description: Self-sustaining AI agent that earns USDT0 by selling market analysis and risk scoring via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes autonomous financial decisions on the Plasma blockchain. Use when you need crypto market analysis or wallet risk scoring.
 license: Apache-2.0
-tags:
-  - x402
-  - wdk
-  - tether
-  - plasma
-  - usdt0
-  - autonomous-agent
-  - treasury-management
-  - micropayments
-  - defi
-  - agentic-payments
-base_url: http://localhost:4747
-requires:
-  - "@x402/fetch"
-  - "@x402/evm"
-  - "@tetherto/wdk-wallet-evm"
+compatibility: Requires Node.js 20+, a BIP-39 seed phrase with USDT0 and XPL on Plasma chain, and an LLM API key (Groq recommended).
+metadata:
+  author: jordi-stack
+  version: "1.0.0"
+  repository: https://github.com/jordi-stack/agora
+  base-url: http://localhost:4747
+  tags: x402, wdk, tether, plasma, usdt0, autonomous-agent, micropayments
+  requires: "@x402/fetch @x402/evm @tetherto/wdk-wallet-evm"
 ---
 
 # Agora - Self-Sustaining AI Agent
