@@ -32,13 +32,13 @@ requires:
 
 Agora is an autonomous AI agent that operates as an independent economic actor on the Plasma blockchain. Unlike traditional bots that require human funding and oversight, Agora earns its own revenue by selling AI-powered analysis services via the x402 HTTP payment protocol, then autonomously manages its treasury using Tether's Wallet Development Kit (WDK).
 
-The agent runs a continuous decision loop powered by LLM reasoning, making autonomous choices about pricing strategy, profit allocation, and risk management — all verifiable on-chain via Plasmascan.
+The agent runs a continuous decision loop powered by LLM reasoning, making autonomous choices about pricing strategy, profit allocation, and risk management - all verifiable on-chain via Plasmascan.
 
 ## Capabilities
 
 ### Revenue Generation (x402 Protocol)
 
-Agora exposes paid API endpoints using the x402 HTTP payment protocol. Any buyer (human or agent) pays USDT0 per request through standard HTTP — no API keys, no accounts, no subscriptions.
+Agora exposes paid API endpoints using the x402 HTTP payment protocol. Any buyer (human or agent) pays USDT0 per request through standard HTTP - no API keys, no accounts, no subscriptions.
 
 **Available Services:**
 
@@ -91,13 +91,13 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 | Demo Buyer | 2 | Testing | Pre-funded wallet for testing x402 payment flow |
 
 **WDK Operations Used:**
-- `WalletManagerEvm(seed, { provider })` — Initialize wallet from seed phrase
-- `manager.getAccount(index)` — Derive BIP-44 account by index
-- `account.getAddress()` — Get wallet address
-- `account.getBalance()` — Check native XPL balance
-- `account.transfer({ token, recipient, amount })` — Transfer USDT0 (ERC-20)
-- WDK Indexer API (`wdk-api.tether.io`) — Primary USDT0 balance source (if API key set)
-- Raw RPC `eth_call` with ERC-20 `balanceOf` — Fallback USDT0 balance check
+- `WalletManagerEvm(seed, { provider })` - Initialize wallet from seed phrase
+- `manager.getAccount(index)` - Derive BIP-44 account by index
+- `account.getAddress()` - Get wallet address
+- `account.getBalance()` - Check native XPL balance
+- `account.transfer({ token, recipient, amount })` - Transfer USDT0 (ERC-20)
+- WDK Indexer API (`wdk-api.tether.io`) - Primary USDT0 balance source (if API key set)
+- Raw RPC `eth_call` with ERC-20 `balanceOf` - Fallback USDT0 balance check
 
 ### Autonomous Decision-Making (Agent Loop)
 
@@ -113,9 +113,9 @@ Every 5 minutes, Agora runs an autonomous decision cycle:
 ```
 
 **Decision Types:**
-- `hold` — No action needed, current state is optimal
-- `reprice` — Adjust service prices based on demand (dynamic pricing)
-- `transfer` — Move surplus USDT0 from Treasury to Savings
+- `hold` - No action needed, current state is optimal
+- `reprice` - Adjust service prices based on demand (dynamic pricing)
+- `transfer` - Move surplus USDT0 from Treasury to Savings
 
 **LLM Reasoning:**
 The agent uses a structured system prompt that enforces JSON output and includes anti-thrashing logic (no price reversal within 2 cycles unless conditions shift >20%). Failed JSON parsing triggers a 3-step fallback: extract from code block → extract any JSON object → default to hold.
@@ -155,21 +155,21 @@ Agora auto-detects the LLM provider from environment variables. Supports any Ope
 ## Dashboard
 
 Real-time React dashboard showing:
-- **P&L Card** — Revenue from x402 payments minus operational costs
-- **Account View** — Treasury and Savings USDT0 + XPL balances with Plasmascan links
-- **Safety Status** — Traffic light indicators for each safety rule
-- **Dynamic Pricing** — Current prices vs base, with demand stats
-- **Revenue Stream** — Real-time feed of each x402 micropayment received
-- **Reasoning Trail** — Full log of every autonomous LLM decision with reasoning
-- **Demo Buyer** — One-click button to trigger a real x402 payment for testing
-- **How It Works** — Interactive modal explaining the agent for new users
+- **P&L Card** - Revenue from x402 payments minus operational costs
+- **Account View** - Treasury and Savings USDT0 + XPL balances with Plasmascan links
+- **Safety Status** - Traffic light indicators for each safety rule
+- **Dynamic Pricing** - Current prices vs base, with demand stats
+- **Revenue Stream** - Real-time feed of each x402 micropayment received
+- **Reasoning Trail** - Full log of every autonomous LLM decision with reasoning
+- **Demo Buyer** - One-click button to trigger a real x402 payment for testing
+- **How It Works** - Interactive modal explaining the agent for new users
 
 ## Setup
 
 ### Prerequisites
 - Node.js 20+
 - BIP-39 seed phrase with USDT0 + XPL on Plasma chain
-- Any LLM API key (Groq recommended — free at console.groq.com)
+- Any LLM API key (Groq recommended - free at console.groq.com)
 
 ### Install
 ```bash
@@ -271,7 +271,7 @@ Agora is designed to interact with other agents:
 - **As a service provider:** Any agent can call Agora's x402 endpoints to buy market analysis or risk scoring
 - **As a buyer:** Agora's demo buyer demonstrates the x402 client pattern that any agent can replicate
 - **Via OpenClaw:** This SKILL.md enables OpenClaw-compatible agents to discover and understand Agora's capabilities
-- **Via standard HTTP:** No special SDK needed — just HTTP requests with x402 payment headers
+- **Via standard HTTP:** No special SDK needed - just HTTP requests with x402 payment headers
 
 ## License
 
