@@ -6,6 +6,7 @@ import AccountView from './components/AccountView.jsx'
 import SafetyStatus from './components/SafetyStatus.jsx'
 import PricingChart from './components/PricingChart.jsx'
 import DemoBuyer from './components/DemoBuyer.jsx'
+import HowItWorks from './components/HowItWorks.jsx'
 
 const header = {
   borderBottom: '1px solid #222', paddingBottom: 16, marginBottom: 24,
@@ -85,7 +86,10 @@ export default function App() {
               </span>
             </div>
           </div>
-          {error && <span style={{ color: '#ff4444', fontSize: 11 }}>Connection error</span>}
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <HowItWorks />
+            {error && <span style={{ color: '#ff4444', fontSize: 11 }}>Connection error</span>}
+          </div>
         </div>
       </div>
 

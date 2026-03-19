@@ -12,9 +12,10 @@ function timeAgo(ts) {
 export default function RevenueStream({ revenue }) {
   return (
     <div style={card}>
-      <h3 style={{ color: '#888', fontSize: 12, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>
+      <h3 style={{ color: '#888', fontSize: 12, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>
         Revenue Stream ({revenue.length})
       </h3>
+      <div style={{ color: '#444', fontSize: 10, marginBottom: 10 }}>Each x402 micropayment received by the agent</div>
       {revenue.length === 0 ? (
         <div style={{ color: '#444', fontSize: 12, textAlign: 'center', padding: 20 }}>
           No payments yet — click Demo Buyer to start

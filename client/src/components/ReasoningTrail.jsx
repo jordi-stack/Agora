@@ -19,9 +19,10 @@ function timeAgo(ts) {
 export default function ReasoningTrail({ decisions }) {
   return (
     <div style={card}>
-      <h3 style={{ color: '#888', fontSize: 12, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>
+      <h3 style={{ color: '#888', fontSize: 12, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>
         Agent Reasoning Trail
       </h3>
+      <div style={{ color: '#444', fontSize: 10, marginBottom: 10 }}>Autonomous decisions made by the LLM every 5 minutes</div>
       {decisions.length === 0 ? (
         <div style={{ color: '#444', fontSize: 12, textAlign: 'center', padding: 20 }}>
           Waiting for first agent cycle (30s after start)...

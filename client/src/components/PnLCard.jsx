@@ -8,9 +8,10 @@ export default function PnLCard({ pnl }) {
 
   return (
     <div style={card}>
-      <h3 style={{ color: '#888', fontSize: 12, marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 }}>
+      <h3 style={{ color: '#888', fontSize: 12, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>
         Profit & Loss
       </h3>
+      <div style={{ color: '#444', fontSize: 10, marginBottom: 10 }}>Revenue from x402 payments minus operational costs</div>
       <div style={{ fontSize: 32, fontWeight: 'bold', color: profitColor, marginBottom: 8 }}>
         {pnl.profit >= 0 ? '+' : ''}{pnl.profit.toFixed(6)} USDT0
       </div>
