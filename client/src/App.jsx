@@ -10,7 +10,7 @@ import DemoBuyer from './components/DemoBuyer.jsx'
 const header = {
   borderBottom: '1px solid #222', paddingBottom: 16, marginBottom: 24,
 }
-const grid2 = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }
+const grid2 = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 16, marginBottom: 16 }
 const badge = {
   display: 'inline-block', padding: '2px 8px', borderRadius: 4,
   fontSize: 10, fontWeight: 'bold', marginLeft: 8,
@@ -46,9 +46,17 @@ export default function App() {
   if (!status) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column' }}>
-        <div style={{ fontSize: 32, marginBottom: 12 }}>⚡</div>
-        <div style={{ color: '#00ff88', fontSize: 16 }}>Connecting to Agora Agent...</div>
-        <div style={{ color: '#444', fontSize: 12, marginTop: 8 }}>Loading wallet state from Plasma chain</div>
+        <div style={{ fontSize: 48, marginBottom: 16 }}>⚡</div>
+        <div style={{ color: '#00ff88', fontSize: 18, fontWeight: 'bold' }}>AGORA</div>
+        <div style={{ color: '#666', fontSize: 13, marginTop: 4 }}>Self-Sustaining AI Agent</div>
+        <div style={{ color: '#444', fontSize: 12, marginTop: 16 }}>
+          {error ? `Connection error: ${error}` : 'Connecting to Plasma blockchain...'}
+        </div>
+        {error && (
+          <button onClick={fetchData} style={{ marginTop: 12, padding: '6px 16px', background: '#00ff88', color: '#000', border: 'none', borderRadius: 4, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12 }}>
+            Retry
+          </button>
+        )}
       </div>
     )
   }
