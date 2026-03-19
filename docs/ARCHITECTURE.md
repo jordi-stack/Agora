@@ -147,7 +147,7 @@ Every 5 minutes:
 | Wallet | @tetherto/wdk-wallet-evm |
 | Payments | @x402/express, @x402/evm, @x402/core |
 | LLM | Groq SDK (LLaMA 3.1) / OpenAI / Anthropic |
-| State | In-memory (Redis optional) |
+| State | In-memory |
 | Frontend | React + Vite |
 | Chain | Plasma (eip155:9745) |
 | Token | USDT0 (6 decimals) |
