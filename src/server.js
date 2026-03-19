@@ -13,7 +13,7 @@ import { startLoop, stopLoop } from './agent/loop.js'
 import routes from './api/routes.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4747
 const HOST = process.env.HOST || '0.0.0.0'
 
 async function main() {
