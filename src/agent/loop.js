@@ -30,9 +30,9 @@ async function runCycle(savingsAddress) {
 
   try {
     const balances = await getBalances()
-    const treasuryBalance = balances.treasury.native
-    const savingsBalance = balances.savings.native
-    console.log(`[agent] Treasury: ${treasuryBalance} XPL | Savings: ${savingsBalance} XPL`)
+    const treasuryBalance = balances.treasury.usdt0 || 0
+    const savingsBalance = balances.savings.usdt0 || 0
+    console.log(`[agent] Treasury: ${treasuryBalance} USDT0 (${balances.treasury.native.toFixed(4)} XPL) | Savings: ${savingsBalance} USDT0`)
 
     const revenue = await store.getRevenue(100)
     const expenses = await store.getExpenses(100)
