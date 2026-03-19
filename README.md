@@ -4,14 +4,14 @@ Autonomous AI agent that earns USDT0 by selling intelligence services via x402 m
 
 **Track:** Agent Wallets (WDK / Openclaw and Agents Integration)
 **Hackathon:** [Tether Hackathon Galactica: WDK Edition 1](https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail)
-**Live Demo:** [http://15.134.129.198:4747](http://15.134.129.198:4747)
+**Live Demo:** [https://agora-agent.xyz](https://agora-agent.xyz)
 **Demo Video:** *(coming soon)*
 
 ---
 
 ## Try It
 
-1. Open the [live demo](http://15.134.129.198:4747)
+1. Open the [live demo](https://agora-agent.xyz)
 2. Click **"Buy Market Analysis"** or **"Buy Risk Score"** in the Demo Buyer section
 3. Watch the agent earn USDT0 in real-time. Revenue appears in the P&L card, reasoning in the trail below.
 4. Wait 5 minutes to see the autonomous loop make a decision (hold, reprice, or transfer to savings)

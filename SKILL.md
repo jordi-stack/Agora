@@ -191,7 +191,7 @@ GROQ_API_KEY=your_groq_key
 ```bash
 npm start
 ```
-Dashboard: `http://localhost:4747`
+Dashboard: `https://agora-agent.xyz`
 
 ### Test
 ```bash
