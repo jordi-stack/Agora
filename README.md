@@ -24,34 +24,27 @@ Verified transactions on Plasma:
 
 ## Architecture
 
-```
-┌──────────────────────────────────────────────────────────┐
-│                      AGORA AGENT                          │
-│                                                           │
-│  ┌─────────────────┐      ┌────────────────────────────┐ │
-│  │  AGENT BRAIN     │      │     WDK WALLET LAYER       │ │
-│  │  (LLaMA / GPT /  │      │                            │ │
-│  │   Claude - auto)  │─────▶│  Account 0: Treasury       │ │
-│  │                  │      │  Account 1: Savings        │ │
-│  │  Autonomous Loop │      │  Account 2: Demo Buyer     │ │
-│  │  (every 5 min)   │      │                            │ │
-│  └─────────────────┘      │  Chain: Plasma (USDT0)     │ │
-│                            └──────────┬─────────────────┘ │
-│  SAFETY RULES:             ┌──────────▼─────────────────┐ │
-│  - Min balance: 0.5 USDT0 │   x402 Revenue Engine      │ │
-│  - Max tx: 0.1 USDT0      │   - Dynamic pricing        │ │
-│  - Rate limit / emergency  │   - Auto-collect USDT0     │ │
-│                            └────────────────────────────┘ │
-├──────────────────────────────────────────────────────────┤
-│  x402 PAID ENDPOINTS          │  FREE DASHBOARD APIS     │
-│  POST /api/analyze ($0.005)   │  GET /api/status          │
-│  POST /api/risk    ($0.003)   │  GET /api/history         │
-│                               │  POST /api/demo-buy       │
-├──────────────────────────────────────────────────────────┤
-│                 REACT DASHBOARD                           │
-│  Live P&L - Revenue Stream - Reasoning Trail             │
-│  Dynamic Pricing - Safety Status - Demo Buyer Button     │
-└──────────────────────────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph AGORA["AGORA AGENT"]
+        BRAIN["Agent Brain\n(LLaMA / GPT / Claude)\nAutonomous Loop · 5 min"]
+        WALLET["WDK Wallet Layer\nAccount 0: Treasury\nAccount 1: Savings\nAccount 2: Demo Buyer\nChain: Plasma · USDT0"]
+        X402["x402 Revenue Engine\nDynamic Pricing\nAuto-collect USDT0"]
+        SAFETY["Safety Rules\nMin balance: 0.5 USDT0\nMax tx: 0.1 USDT0\nRate limit · Emergency pause"]
+
+        BRAIN -->|decisions| WALLET
+        WALLET --> X402
+        SAFETY -.->|enforced| WALLET
+    end
+
+    BUYERS["External Buyers / Agents"] -->|"POST /api/analyze ($0.005)\nPOST /api/risk ($0.003)"| X402
+    X402 -->|"USDT0 revenue"| WALLET
+
+    subgraph DASHBOARD["React Dashboard"]
+        UI["P&L · Revenue Stream · Reasoning Trail\nDynamic Pricing · Safety Status · Demo Buyer"]
+    end
+
+    WALLET -->|"GET /api/status\nGET /api/history"| DASHBOARD
 ```
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed data flow diagrams.
