@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Agora - Self-Sustaining AI Agent" width="100%">
+  <img src="assets/banner.png" alt="AGORA-AGENT" width="500">
 </p>
 
 Autonomous AI agent that earns USDT0 by selling intelligence services via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes its own financial decisions on the Plasma blockchain.

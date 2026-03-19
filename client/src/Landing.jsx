@@ -124,7 +124,7 @@ export default function Landing() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 0', borderBottom: `1px solid ${t.border}` }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 20 }}>&#9889;</span>
+          <img src="/logo.png" alt="Agora" style={{ width: 28, height: 28 }} />
           <span style={{ fontSize: 16, fontWeight: 'bold', color: t.accent, letterSpacing: 2 }}>AGORA</span>
         </div>
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>

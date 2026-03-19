@@ -37,7 +37,7 @@ export default function App() {
   if (!status) return (
     <ThemeCtx.Provider value={{ t, mode, toggle }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column', background: t.bg }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>⚡</div>
+        <img src="/logo.png" alt="Agora" style={{ width: 64, height: 64, marginBottom: 16 }} />
         <div style={{ color: t.accent, fontSize: 18, fontWeight: 'bold' }}>AGORA</div>
         <div style={{ color: t.muted, fontSize: 13, marginTop: 4 }}>Self-Sustaining AI Agent</div>
         <div style={{ color: t.dim, fontSize: 12, marginTop: 16 }}>{error ? `Connection error: ${error}` : 'Connecting to Plasma blockchain...'}</div>
