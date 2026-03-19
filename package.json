@@ -1,16 +1,16 @@
 {
-  "name": "hackathon-galactica-wdk",
+  "name": "agora",
   "version": "1.0.0",
-  "description": "",
+  "description": "Autonomous AI agent that sells intelligence via x402 micropayments and manages its own treasury on Plasma",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
     "dev": "node --watch src/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": "[\"ai-agent\",\"x402\",\"wdk\",\"tether\",\"plasma\",\"usdt0\",\"autonomous\",\"defi\"]",
+  "author": "jordi-stack",
+  "license": "Apache-2.0",
   "type": "module",
   "dependencies": {
     "@tetherto/wdk-wallet-evm": "^1.0.0-beta.8",
@@ -23,5 +23,9 @@
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "groq-sdk": "^1.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jordi-stack/agora.git"
   }
 }
