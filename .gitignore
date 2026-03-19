@@ -34,8 +34,8 @@ docs/superpowers/
 
 # Test/spike files
 spike.js
-competitor-analysis.md
-DEMO_SCRIPT.md
+
+es.md
 *.png
 
 me.pem
