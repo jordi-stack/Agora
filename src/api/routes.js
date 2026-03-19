@@ -5,6 +5,7 @@ import { checkSafety } from '../config/safety.js'
 import { calculatePnL } from '../agent/treasury.js'
 import { store } from '../state/store.js'
 import { getProvider } from '../agent/llm.js'
+import { isIndexerEnabled, getTokenBalance, getTokenTransfers } from '../state/indexer.js'
 
 const router = Router()
 
@@ -100,9 +101,30 @@ router.post('/api/demo-buy', async (req, res) => {
   }
 })
 
+// On-chain transfer history via WDK Indexer API
+router.get('/api/transfers', async (req, res) => {
+  if (!isIndexerEnabled()) {
+    return res.json({ enabled: false, message: 'Set WDK_INDEXER_API_KEY to enable' })
+  }
+  try {
+    const addresses = getAddresses()
+    const [treasuryTransfers, savingsTransfers] = await Promise.all([
+      getTokenTransfers('plasma', 'usdt', addresses.treasury, 20),
+      getTokenTransfers('plasma', 'usdt', addresses.savings, 20),
+    ])
+    res.json({
+      enabled: true,
+      treasury: treasuryTransfers,
+      savings: savingsTransfers,
+    })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
 // Health check
 router.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', agent: 'agora', uptime: process.uptime() })
+  res.json({ status: 'ok', agent: 'agora', uptime: process.uptime(), indexer: isIndexerEnabled() })
 })
 
 export default router

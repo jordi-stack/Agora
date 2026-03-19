@@ -34,8 +34,24 @@ export function getAddresses() {
 }
 
 async function getUSDT0Balance(account) {
+  const addr = await account.getAddress()
+
+  // Try WDK Indexer API first (official Tether API)
+  if (process.env.WDK_INDEXER_API_KEY) {
+    try {
+      const res = await fetch(`https://wdk-api.tether.io/api/v1/plasma/usdt/${addr}/token-balances`, {
+        headers: { 'x-api-key': process.env.WDK_INDEXER_API_KEY },
+        signal: AbortSignal.timeout(5000),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        return parseFloat(data.tokenBalance?.amount || '0')
+      }
+    } catch {}
+  }
+
+  // Fallback: raw RPC call
   try {
-    const addr = await account.getAddress()
     const res = await fetch(PLASMA.rpc, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
