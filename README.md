@@ -183,7 +183,8 @@ node scripts/fund-demo.js
 | GET | `/api/reasoning` | Agent decision trail with LLM reasoning |
 | GET | `/api/pricing-history` | Dynamic pricing changes over time |
 | POST | `/api/demo-buy` | Trigger a test x402 payment from the demo buyer wallet |
-| GET | `/api/health` | Health check |
+| GET | `/api/transfers` | On-chain USDT0 transfer history via WDK Indexer API |
+| GET | `/api/health` | Health check (includes indexer status) |
 
 ## Tech Stack
 
@@ -194,6 +195,7 @@ node scripts/fund-demo.js
 | LLM | [Groq](https://groq.com/) / OpenAI / Anthropic / any | Universal provider, auto-detected |
 | Chain | [Plasma](https://plasma.to/) (eip155:9745) | Tether's chain, near-zero gas |
 | State | In-memory store | Lightweight, no external dependencies |
+| Indexer | [WDK Indexer API](https://wdk-api.tether.io) | Official Tether token balances and transfer history |
 | Server | Express.js | x402 middleware compatible |
 | Frontend | React + Vite | Lightweight, fast builds |
 | Testing | Vitest | Fast unit testing |
@@ -218,7 +220,7 @@ agora/
 │   ├── wallet/                # WDK wallet manager, TX pipeline
 │   ├── x402/                  # Payment middleware, dynamic pricing, services
 │   ├── agent/                 # LLM wrapper, reasoning engine, treasury, loop
-│   ├── state/                 # In-memory state store
+│   ├── state/                 # In-memory store + WDK Indexer API
 │   └── api/                   # Dashboard API routes
 ├── client/                    # React dashboard (Vite)
 ├── test/                      # Unit tests (22 tests)
@@ -238,6 +240,7 @@ agora/
 | [x402 Protocol](https://www.x402.org/) | HTTP payment protocol |
 | [Semantic Facilitator](https://semanticpay.io/) | x402 payment verification and settlement |
 | [Groq](https://groq.com/) | LLM inference (LLaMA, open-source) |
+| [WDK Indexer API](https://wdk-api.tether.io) | Token balances and transfer history |
 | [Bitfinex API](https://docs.bitfinex.com/) | Market price data (primary) |
 | [CoinGecko API](https://www.coingecko.com/) | Market price data (fallback) |
 
