@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, createContext, useContext } from 'react'
+import { getTheme } from './theme.js'
 import PnLCard from './components/PnLCard.jsx'
 import RevenueStream from './components/RevenueStream.jsx'
 import ReasoningTrail from './components/ReasoningTrail.jsx'
@@ -8,113 +9,74 @@ import PricingChart from './components/PricingChart.jsx'
 import DemoBuyer from './components/DemoBuyer.jsx'
 import HowItWorks from './components/HowItWorks.jsx'
 
-const header = {
-  borderBottom: '1px solid #222', paddingBottom: 16, marginBottom: 24,
-}
-const grid2 = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 16, marginBottom: 16 }
-const badge = {
-  display: 'inline-block', padding: '2px 8px', borderRadius: 4,
-  fontSize: 10, fontWeight: 'bold', marginLeft: 8,
-}
+export const ThemeCtx = createContext()
+export const useT = () => useContext(ThemeCtx)
 
 export default function App() {
   const [status, setStatus] = useState(null)
   const [history, setHistory] = useState(null)
   const [error, setError] = useState(null)
-  const [lastFetch, setLastFetch] = useState(null)
+  const [mode, setMode] = useState(() => localStorage.getItem('agora-theme') || 'dark')
+
+  const t = getTheme(mode)
+  const toggle = () => { const n = mode === 'dark' ? 'light' : 'dark'; setMode(n); localStorage.setItem('agora-theme', n) }
 
   const fetchData = async () => {
     try {
-      const [s, h] = await Promise.all([
-        fetch('/api/status').then(r => r.json()),
-        fetch('/api/history').then(r => r.json()),
-      ])
-      setStatus(s)
-      setHistory(h)
-      setError(null)
-      setLastFetch(Date.now())
-    } catch (err) {
-      setError(err.message)
-    }
+      const [s, h] = await Promise.all([fetch('/api/status').then(r => r.json()), fetch('/api/history').then(r => r.json())])
+      setStatus(s); setHistory(h); setError(null)
+    } catch (err) { setError(err.message) }
   }
 
-  useEffect(() => {
-    fetchData()
-    const interval = setInterval(fetchData, 10_000)
-    return () => clearInterval(interval)
-  }, [])
+  useEffect(() => { fetchData(); const i = setInterval(fetchData, 10_000); return () => clearInterval(i) }, [])
+  useEffect(() => { document.body.style.background = t.bg; document.body.style.color = t.text }, [mode])
 
-  if (!status) {
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column' }}>
+  const grid = { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 16, marginBottom: 16 }
+  const badge = { display: 'inline-block', padding: '2px 8px', borderRadius: 4, fontSize: 10, fontWeight: 'bold', marginLeft: 8 }
+
+  if (!status) return (
+    <ThemeCtx.Provider value={{ t, mode, toggle }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column', background: t.bg }}>
         <div style={{ fontSize: 48, marginBottom: 16 }}>⚡</div>
-        <div style={{ color: '#00ff88', fontSize: 18, fontWeight: 'bold' }}>AGORA</div>
-        <div style={{ color: '#666', fontSize: 13, marginTop: 4 }}>Self-Sustaining AI Agent</div>
-        <div style={{ color: '#444', fontSize: 12, marginTop: 16 }}>
-          {error ? `Connection error: ${error}` : 'Connecting to Plasma blockchain...'}
-        </div>
-        {error && (
-          <button onClick={fetchData} style={{ marginTop: 12, padding: '6px 16px', background: '#00ff88', color: '#000', border: 'none', borderRadius: 4, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12 }}>
-            Retry
-          </button>
-        )}
+        <div style={{ color: t.accent, fontSize: 18, fontWeight: 'bold' }}>AGORA</div>
+        <div style={{ color: t.muted, fontSize: 13, marginTop: 4 }}>Self-Sustaining AI Agent</div>
+        <div style={{ color: t.dim, fontSize: 12, marginTop: 16 }}>{error ? `Connection error: ${error}` : 'Connecting to Plasma blockchain...'}</div>
+        {error && <button onClick={fetchData} style={{ marginTop: 12, padding: '6px 16px', background: t.accent, color: t.btnText, border: 'none', borderRadius: 4, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12 }}>Retry</button>}
       </div>
-    )
-  }
+    </ThemeCtx.Provider>
+  )
 
   return (
-    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 24px' }}>
-      <div style={header}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div>
-            <h1 style={{ fontSize: 22, color: '#00ff88', letterSpacing: 2 }}>
-              Agora
-              <span style={{ color: '#444', fontSize: 14, fontWeight: 'normal', marginLeft: 12 }}>
-                Self-Sustaining AI Agent
-              </span>
-            </h1>
-            <div style={{ color: '#555', fontSize: 11, marginTop: 4 }}>
-              Earning USDT0 via x402 on Plasma
-              <span style={{ ...badge, background: '#00ff8822', color: '#00ff88' }}>
-                {status.safety?.overall === 'green' ? 'ACTIVE' : status.safety?.overall === 'yellow' ? 'CAUTION' : 'PAUSED'}
-              </span>
-              <span style={{ ...badge, background: '#00ccff22', color: '#00ccff' }}>
-                {status.llmProvider?.toUpperCase()}
-              </span>
-              <span style={{ ...badge, background: '#ffffff11', color: '#666' }}>
-                Plasma (Chain 9745)
-              </span>
+    <ThemeCtx.Provider value={{ t, mode, toggle }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px 24px', background: t.bg, minHeight: '100vh', transition: 'background 0.3s' }}>
+        <div style={{ borderBottom: `1px solid ${t.border}`, paddingBottom: 16, marginBottom: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+            <div>
+              <h1 style={{ fontSize: 22, color: t.accent, letterSpacing: 2 }}>
+                Agora <span style={{ color: t.dim, fontSize: 14, fontWeight: 'normal', marginLeft: 12 }}>Self-Sustaining AI Agent</span>
+              </h1>
+              <div style={{ color: t.muted, fontSize: 11, marginTop: 4 }}>
+                Earning USDT0 via x402 on Plasma
+                <span style={{ ...badge, background: t.accentBg, color: t.accent }}>{status.safety?.overall === 'green' ? 'ACTIVE' : status.safety?.overall === 'yellow' ? 'CAUTION' : 'PAUSED'}</span>
+                <span style={{ ...badge, background: t.blueBg, color: t.blue }}>{status.llmProvider?.toUpperCase()}</span>
+                <span style={{ ...badge, background: mode === 'dark' ? '#ffffff11' : '#00000011', color: t.muted }}>Plasma</span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+              <HowItWorks />
+              <button onClick={toggle} style={{ padding: '6px 12px', borderRadius: 6, border: `1px solid ${t.border}`, background: t.card, color: t.sub, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12 }}>
+                {mode === 'dark' ? '☀ Light' : '🌙 Dark'}
+              </button>
+              {error && <span style={{ color: t.red, fontSize: 11 }}>Error</span>}
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <HowItWorks />
-            {error && <span style={{ color: '#ff4444', fontSize: 11 }}>Connection error</span>}
-          </div>
         </div>
+        <div style={grid}><PnLCard pnl={status.pnl} /><AccountView treasury={status.treasury} savings={status.savings} /></div>
+        <div style={grid}><SafetyStatus safety={status.safety} /><PricingChart pricing={status.pricing} /></div>
+        <div style={{ marginBottom: 16 }}><DemoBuyer onPayment={fetchData} /></div>
+        <div style={grid}><RevenueStream revenue={history?.revenue || []} /><ReasoningTrail decisions={history?.decisions || []} /></div>
+        <div style={{ textAlign: 'center', padding: '24px 0', color: t.dim, fontSize: 10 }}>Agora Agent - Hackathon Galactica: WDK Edition 1 - Tether WDK + x402 + {status.llmProvider}</div>
       </div>
-
-      <div style={grid2}>
-        <PnLCard pnl={status.pnl} />
-        <AccountView treasury={status.treasury} savings={status.savings} />
-      </div>
-
-      <div style={grid2}>
-        <SafetyStatus safety={status.safety} />
-        <PricingChart pricing={status.pricing} />
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <DemoBuyer onPayment={fetchData} />
-      </div>
-
-      <div style={grid2}>
-        <RevenueStream revenue={history?.revenue || []} />
-        <ReasoningTrail decisions={history?.decisions || []} />
-      </div>
-
-      <div style={{ textAlign: 'center', padding: '24px 0', color: '#333', fontSize: 10 }}>
-        Agora Agent — Hackathon Galactica: WDK Edition 1 — Powered by Tether WDK + x402 + {status.llmProvider}
-      </div>
-    </div>
+    </ThemeCtx.Provider>
   )
 }
