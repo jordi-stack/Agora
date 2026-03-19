@@ -264,6 +264,13 @@ agora/
 | **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. They're enforced in code before any transaction is signed. |
 | **WDK Indexer API** | Official Tether API for token balances and transfer history. More reliable than raw RPC parsing, with graceful fallback if the key isn't set. |
 
+## Security
+
+- Zero known vulnerabilities (`npm audit` clean)
+- No hardcoded secrets. All API keys and seed phrases read from environment variables.
+- Sensitive files (`.env`, `me.pem`, `spike.js`) excluded via `.gitignore`
+- Self-custodial wallet. Keys never leave the server.
+
 ## Known Limitations
 
 - x402 payment settlement depends on the Semantic facilitator being available
