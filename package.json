@@ -4,7 +4,7 @@
   "description": "Autonomous AI agent that sells intelligence via x402 micropayments and manages its own treasury on Plasma",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
     "start": "node src/server.js",
     "dev": "node --watch src/server.js"
   },
@@ -27,5 +27,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jordi-stack/agora.git"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.0"
   }
 }
