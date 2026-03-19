@@ -14,6 +14,7 @@ import routes from './api/routes.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PORT = process.env.PORT || 3000
+const HOST = process.env.HOST || '0.0.0.0'
 
 async function main() {
   console.log('╔══════════════════════════════════════════╗')
@@ -66,7 +67,7 @@ async function main() {
   })
 
   // 9. Start server
-  const server = app.listen(PORT, () => {
+  const server = app.listen(PORT, HOST, () => {
     console.log()
     console.log(`✅ Agora Agent running on port ${PORT}`)
     console.log(`📊 Dashboard: http://localhost:${PORT}`)
