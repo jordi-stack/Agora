@@ -139,7 +139,15 @@ cp .env.example .env
 npm start
 ```
 
-Open `http://localhost:3000` to see the dashboard.
+Open `http://localhost:4747` to see the dashboard.
+
+### Production (pm2)
+
+```bash
+npm install -g pm2
+pm2 start src/server.js --name agora
+pm2 save
+```
 
 ### Test
 
