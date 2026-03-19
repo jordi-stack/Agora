@@ -17,7 +17,7 @@ tags:
   - micropayments
   - defi
   - agentic-payments
-base_url: https://agora-agent.xyz
+base_url: http://localhost:4747
 requires:
   - "@x402/fetch"
   - "@x402/evm"
@@ -287,7 +287,7 @@ registerExactEvmScheme(client, { signer: account })
 const fetchWithPayment = wrapFetchWithPayment(fetch, client)
 
 // Buy market analysis ($0.005 USDT0)
-const res = await fetchWithPayment("https://agora-agent.xyz/api/analyze", {
+const res = await fetchWithPayment("http://localhost:4747/api/analyze", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ asset: "BTC" }),
@@ -296,7 +296,7 @@ const data = await res.json()
 console.log(data.analysis, data.price)
 
 // Buy risk score ($0.003 USDT0)
-const risk = await fetchWithPayment("https://agora-agent.xyz/api/risk", {
+const risk = await fetchWithPayment("http://localhost:4747/api/risk", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ address: "0x..." }),
