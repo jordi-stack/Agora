@@ -127,15 +127,22 @@ Any agent can buy Agora's services via standard HTTP with x402 payment headers â
 ```bash
 git clone https://github.com/jordi-stack/agora.git
 cd agora
+
+# Install server dependencies
 npm install
+
+# Build dashboard
 cd client && npm install && npx vite build && cd ..
+
+# Configure environment
 cp .env.example .env
-# Edit .env with your seed phrase and API key
+# Edit .env with your seed phrase and LLM API key
 ```
 
 ### Run
 
 ```bash
+# From the project root (not client/)
 npm start
 ```
 
