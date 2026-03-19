@@ -4,7 +4,6 @@ description: Self-sustaining AI agent that earns USDT0 by selling market analysi
 license: Apache-2.0
 compatibility: Requires Node.js 20+, a BIP-39 seed phrase with USDT0 and XPL on Plasma chain, and an LLM API key (Groq recommended).
 metadata:
-  author: jordi-stack
   version: "1.0.0"
   repository: https://github.com/jordi-stack/agora
   base-url: http://localhost:4747
