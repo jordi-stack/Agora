@@ -2,7 +2,7 @@
   "name": "agora",
   "version": "1.0.0",
   "description": "Autonomous AI agent that sells intelligence via x402 micropayments and manages its own treasury on Plasma",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "vitest run",
     "start": "node src/server.js",

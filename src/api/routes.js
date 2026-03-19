@@ -68,7 +68,7 @@ router.get('/api/pricing-history', async (req, res) => {
   res.json({ history: getPriceHistory() })
 })
 
-// Demo buyer — judges click this to test x402
+// Demo buyer — triggers a test x402 payment
 router.post('/api/demo-buy', async (req, res) => {
   try {
     const { x402Client, wrapFetchWithPayment } = await import('@x402/fetch')
@@ -81,7 +81,7 @@ router.post('/api/demo-buy', async (req, res) => {
 
     const allowed = ['analyze', 'risk']
     const endpoint = allowed.includes(req.body?.endpoint) ? req.body.endpoint : 'analyze'
-    const port = process.env.PORT || 3000
+    const port = process.env.PORT || 4747
     const url = `http://localhost:${port}/api/${endpoint}`
 
     const body = endpoint === 'risk'

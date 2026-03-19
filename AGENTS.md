@@ -9,7 +9,7 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 - `src/agent/` - Agent brain (LLM reasoning, autonomous loop, treasury management)
 - `src/wallet/` - WDK wallet layer (3 BIP-44 accounts, USDT0 transfers)
 - `src/x402/` - Revenue engine (x402 payment middleware, dynamic pricing, services)
-- `src/state/` - In-memory state store
+- `src/state/` - In-memory state store + WDK Indexer API client
 - `src/api/` - Dashboard API routes
 - `src/config/` - Chain config, safety rules
 - `client/` - React dashboard (Vite)
@@ -25,17 +25,17 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 
 ## Key Patterns
 
-- Multi-provider LLM: auto-detects GROQ_API_KEY / OPENAI_API_KEY / ANTHROPIC_API_KEY
-- TX Pipeline: estimate gas -> validate safety -> send -> confirm -> retry (3x)
+- Multi-provider LLM: auto-detects GROQ_API_KEY / OPENAI_API_KEY / TOGETHER_API_KEY / FIREWORKS_API_KEY / ANTHROPIC_API_KEY
+- TX Pipeline: validate amount -> convert to base units -> send via WDK -> retry (3x)
 - Agent Loop: runs every 5 min via setInterval, decisions logged with reasoning
 - x402: Express middleware, Semantic facilitator handles settlement
 
 ## Testing
 
 - Start server: `npm start`
-- Test health: `curl http://localhost:3000/api/health`
-- Test demo buyer: `curl -X POST http://localhost:3000/api/demo-buy -H 'Content-Type: application/json' -d '{"endpoint":"analyze"}'`
-- Fund demo buyer: `node fund-demo.js`
+- Test health: `curl http://localhost:4747/api/health`
+- Test demo buyer: `curl -X POST http://localhost:4747/api/demo-buy -H 'Content-Type: application/json' -d '{"endpoint":"analyze"}'`
+- Fund demo buyer: `node scripts/fund-demo.js`
 
 ## Safety Rules (hardcoded, agent cannot override)
 

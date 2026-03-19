@@ -5,8 +5,16 @@ An autonomous AI agent that earns USDT0 by selling intelligence services via x40
 **Track:** Agent Wallets (WDK / Openclaw and Agents Integration)
 **Hackathon:** [Tether Hackathon Galactica: WDK Edition 1](https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail)
 **Live Demo:** [http://15.134.129.198:4747](http://15.134.129.198:4747)
+**Demo Video:** *(coming soon)*
 
 ---
+
+## Try It
+
+1. Open the [live demo](http://15.134.129.198:4747)
+2. Click **"Buy Market Analysis"** or **"Buy Risk Score"** in the Demo Buyer section
+3. Watch the agent earn USDT0 in real-time — revenue appears in the P&L card, reasoning in the trail below
+4. Wait 5 minutes to see the autonomous loop make a decision (hold, reprice, or transfer to savings)
 
 ## Overview
 
@@ -33,7 +41,6 @@ graph TD
         SAFETY["Safety Rules\nMin balance: 0.5 USDT0\nMax tx: 0.1 USDT0\nRate limit · Emergency pause"]
 
         BRAIN -->|decisions| WALLET
-        WALLET --> X402
         SAFETY -.->|enforced| WALLET
     end
 
@@ -67,7 +74,7 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 |---------|-------|---------|
 | Treasury | 0 | Receives x402 revenue, pays expenses |
 | Savings | 1 | Receives autonomous profit transfers |
-| Demo Buyer | 2 | Pre-funded for judges to test payments |
+| Demo Buyer | 2 | Pre-funded to test x402 payments |
 
 ### Autonomous Agent Loop
 Every 5 minutes, the agent independently:
@@ -94,7 +101,7 @@ Auto-detects provider from environment variables. Supports any OpenAI-compatible
 - `LLM_API_KEY` + `LLM_BASE_URL` - Any custom OpenAI-compatible provider
 
 ### Demo Buyer
-A built-in test client that lets judges trigger real x402 payments with one click and observe the agent earning revenue in real-time through the dashboard.
+A built-in test client that triggers real x402 payments with one click. Observe the agent earning revenue in real-time through the dashboard.
 
 ### Interactive Help
 A "How It Works" button in the dashboard header opens a step-by-step guide explaining how the agent earns, decides, manages, and how to test it. Each dashboard section includes descriptive subtitles for clarity.
@@ -192,7 +199,7 @@ node scripts/fund-demo.js
 |-------|-----------|-----|
 | Wallet | [@tetherto/wdk-wallet-evm](https://docs.wallet.tether.io/) | Self-custodial, BIP-44, multi-account |
 | Payments | [x402 Protocol](https://www.x402.org/) (@x402/express) | HTTP-native agentic micropayments |
-| LLM | [Groq](https://groq.com/) / OpenAI / Anthropic / any | Universal provider, auto-detected |
+| LLM | [Groq](https://groq.com/) / OpenAI / Together / Fireworks / Anthropic / any | Universal provider, auto-detected |
 | Chain | [Plasma](https://plasma.to/) (eip155:9745) | Tether's chain, near-zero gas |
 | State | In-memory store | Lightweight, no external dependencies |
 | Indexer | [WDK Indexer API](https://wdk-api.tether.io) | Official Tether token balances and transfer history |
@@ -227,6 +234,7 @@ agora/
 ├── docs/                      # Architecture diagrams
 ├── scripts/                   # Utility scripts (fund-demo)
 ├── .env.example               # Environment template
+├── SKILL.md                   # OpenClaw agent skill definition
 ├── AGENTS.md                  # AI agent guidelines
 ├── LICENSE                    # Apache 2.0
 └── README.md
@@ -243,6 +251,18 @@ agora/
 | [WDK Indexer API](https://wdk-api.tether.io) | Token balances and transfer history |
 | [Bitfinex API](https://docs.bitfinex.com/) | Market price data (primary) |
 | [CoinGecko API](https://www.coingecko.com/) | Market price data (fallback) |
+
+## Design Decisions
+
+| Decision | Why |
+|----------|-----|
+| **Plasma chain** | Tether's own chain. Near-zero gas (~$0.0001/tx) makes micropayments viable. No bridging needed for USDT0. |
+| **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header — no signup, no OAuth, no billing dashboard. |
+| **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
+| **In-memory state** | The agent is stateless by design — wallet state lives on-chain, reasoning is ephemeral. No database means zero setup friction and no data to leak. |
+| **Open-source LLM default** | Groq + LLaMA is free and fast. Anyone can run this without paying for API access. Any OpenAI-compatible provider works as a drop-in swap. |
+| **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. These are not suggestions — they're enforced in code before any transaction is signed. |
+| **WDK Indexer API** | Official Tether API for token balances and transfer history. More reliable than raw RPC parsing, with graceful fallback if the key isn't set. |
 
 ## Known Limitations
 

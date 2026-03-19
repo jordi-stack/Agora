@@ -94,7 +94,8 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 - `account.getAddress()` — Get wallet address
 - `account.getBalance()` — Check native XPL balance
 - `account.transfer({ token, recipient, amount })` — Transfer USDT0 (ERC-20)
-- Raw RPC `eth_call` with ERC-20 `balanceOf` — Check USDT0 token balance
+- WDK Indexer API (`wdk-api.tether.io`) — Primary USDT0 balance source (if API key set)
+- Raw RPC `eth_call` with ERC-20 `balanceOf` — Fallback USDT0 balance check
 
 ### Autonomous Decision-Making (Agent Loop)
 
@@ -115,7 +116,7 @@ Every 5 minutes, Agora runs an autonomous decision cycle:
 - `transfer` — Move surplus USDT0 from Treasury to Savings
 
 **LLM Reasoning:**
-The agent uses a structured system prompt that enforces JSON output and includes anti-thrashing logic (no price reversal within 2 cycles unless conditions shift >20%). Failed JSON parsing triggers a 3-step fallback: extract from code block → retry with stricter prompt → default to hold.
+The agent uses a structured system prompt that enforces JSON output and includes anti-thrashing logic (no price reversal within 2 cycles unless conditions shift >20%). Failed JSON parsing triggers a 3-step fallback: extract from code block → extract any JSON object → default to hold.
 
 ### Safety System
 
@@ -225,7 +226,8 @@ Wallet risk scoring on Plasma chain.
 | `GET /api/reasoning` | Agent decision trail with full LLM reasoning |
 | `GET /api/pricing-history` | Dynamic pricing changes over time |
 | `POST /api/demo-buy` | Trigger test x402 payment from demo buyer |
-| `GET /api/health` | Health check |
+| `GET /api/transfers` | On-chain USDT0 transfer history via WDK Indexer API |
+| `GET /api/health` | Health check (includes indexer status) |
 
 ## Architecture
 

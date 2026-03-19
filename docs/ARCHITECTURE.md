@@ -17,9 +17,10 @@
 │  │ x402 Payment │  │   Service    │  │  Dashboard    │ │
 │  │ Middleware   │─▶│   Handlers   │  │  API Routes   │ │
 │  │              │  │              │  │               │ │
-│  │ - Verify pay │  │ - Bitfinex   │  │ GET /status   │ │
-│  │ - Settle     │  │ - CoinGecko  │  │ GET /history  │ │
-│  │ - Log revenue│  │ - Groq LLaMA │  │ POST /demo-buy│ │
+│  │ - Verify pay │  │ - Bitfinex   │  │ GET /status    │ │
+│  │ - Settle     │  │ - CoinGecko  │  │ GET /history   │ │
+│  │ - Log revenue│  │ - LLM        │  │ GET /transfers │ │
+│  │              │  │              │  │ POST /demo-buy │ │
 │  └──────────────┘  └──────────────┘  └───────────────┘ │
 │         │                                    │           │
 │         ▼                                    ▼           │
@@ -34,9 +35,9 @@
 │  │                                                   │    │
 │  │  1. getBalances() ──▶ WDK Wallet (Plasma RPC)    │    │
 │  │  2. analyzeRevenue() ──▶ state history            │    │
-│  │  3. getDecision() ──▶ Groq LLaMA reasoning       │    │
+│  │  3. getDecision() ──▶ LLM reasoning          │    │
 │  │  4. execute() ──▶ reprice / transfer / hold       │    │
-│  │  5. logDecision() ──▶ state store + console             │    │
+│  │  5. logDecision() ──▶ state store + console  │    │
 │  └─────────────────────────────────────────────────┘    │
 │         │                                                │
 │         ▼                                                │
@@ -50,6 +51,15 @@
 │  │  Chain: Plasma (eip155:9745)                      │    │
 │  │  Token: USDT0                                     │    │
 │  │  Self-custodial (BIP-44 from seed phrase)         │    │
+│  └─────────────────────────────────────────────────┘    │
+│         │                                                │
+│         ▼                                                │
+│  ┌─────────────────────────────────────────────────┐    │
+│  │         WDK INDEXER API (wdk-api.tether.io)      │    │
+│  │                                                   │    │
+│  │  - Token balances (USDT0 per account)            │    │
+│  │  - Transfer history (on-chain tx log)            │    │
+│  │  - Fallback: raw RPC if API key not set          │    │
 │  └─────────────────────────────────────────────────┘    │
 │         │                                                │
 │         ▼                                                │
@@ -96,7 +106,7 @@ Buyer ──POST──▶ /api/analyze
                   │ payment valid
                   ▼
           Service handler runs
-          (Bitfinex + Groq LLaMA)
+          (Bitfinex + LLM)
                   │
           Facilitator settles on-chain
           (USDT0 transferred on Plasma)
@@ -115,8 +125,8 @@ Every 5 minutes:
   └────────┬─────────┘
            ▼
   ┌──────────────────┐
-  │ Groq LLaMA       │
-  │ analyzes:         │
+  │ LLM analyzes:     │
+  │                    │
   │ - revenue trend   │
   │ - balance vs min  │
   │ - request volume  │
@@ -146,7 +156,7 @@ Every 5 minutes:
 | Server | Express.js |
 | Wallet | @tetherto/wdk-wallet-evm |
 | Payments | @x402/express, @x402/evm, @x402/core |
-| LLM | Groq SDK (LLaMA 3.1) / OpenAI / Anthropic |
+| LLM | Groq / OpenAI / Together / Fireworks / Anthropic / custom |
 | State | In-memory |
 | Frontend | React + Vite |
 | Chain | Plasma (eip155:9745) |
