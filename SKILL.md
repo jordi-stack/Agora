@@ -53,7 +53,7 @@ cp .env.example .env
 npm start
 ```
 
-Dashboard available at `http://localhost:3000`
+Dashboard available at `http://localhost:4747`
 
 ## API Reference
 
