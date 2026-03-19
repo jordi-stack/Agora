@@ -91,14 +91,20 @@ Hard-coded rules that the agent cannot override:
 - Spending rate limit: 0.2 USDT0/hour
 - Emergency pause if balance drops more than 50% in 1 hour
 
-### Multi-Provider LLM
-Auto-detects which provider to use from environment variables:
+### Universal LLM Support
+Auto-detects provider from environment variables. Supports any OpenAI-compatible API:
 - `GROQ_API_KEY` - Groq with LLaMA (open-source, recommended)
 - `OPENAI_API_KEY` - OpenAI with GPT
+- `TOGETHER_API_KEY` - Together AI
+- `FIREWORKS_API_KEY` - Fireworks AI
 - `ANTHROPIC_API_KEY` - Anthropic with Claude
+- `LLM_API_KEY` + `LLM_BASE_URL` - Any custom OpenAI-compatible provider
 
 ### Demo Buyer
 A built-in test client that lets judges trigger real x402 payments with one click and observe the agent earning revenue in real-time through the dashboard.
+
+### Interactive Help
+A "How It Works" button in the dashboard header opens a step-by-step guide explaining how the agent earns, decides, manages, and how to test it. Each dashboard section includes descriptive subtitles for clarity.
 
 ## Quick Start
 
@@ -168,7 +174,7 @@ node scripts/fund-demo.js
 |-------|-----------|-----|
 | Wallet | [@tetherto/wdk-wallet-evm](https://docs.wallet.tether.io/) | Self-custodial, BIP-44, multi-account |
 | Payments | [x402 Protocol](https://www.x402.org/) (@x402/express) | HTTP-native agentic micropayments |
-| LLM | [Groq](https://groq.com/) (LLaMA 3.1) | Free, fast, open-source model |
+| LLM | [Groq](https://groq.com/) / OpenAI / Anthropic / any | Universal provider, auto-detected |
 | Chain | [Plasma](https://plasma.to/) (eip155:9745) | Tether's chain, near-zero gas |
 | State | [Upstash Redis](https://upstash.com/) | Persistent state, free tier |
 | Server | Express.js | x402 middleware compatible |
