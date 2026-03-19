@@ -4,7 +4,7 @@ An autonomous AI agent that earns USDT0 by selling intelligence services via x40
 
 **Track:** Agent Wallets (WDK / Openclaw and Agents Integration)
 **Hackathon:** [Tether Hackathon Galactica: WDK Edition 1](https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail)
-**Live Demo:** [http://15.134.129.198:3000](http://15.134.129.198:3000)
+**Live Demo:** [http://15.134.129.198:4747](http://15.134.129.198:4747)
 
 ---
 
