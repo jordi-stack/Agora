@@ -200,7 +200,7 @@ node scripts/fund-demo.js
 | Payments | [x402 Protocol](https://www.x402.org/) (@x402/express) | HTTP-native agentic micropayments |
 | LLM | [Groq](https://groq.com/) / OpenAI / Anthropic / any | Universal provider, auto-detected |
 | Chain | [Plasma](https://plasma.to/) (eip155:9745) | Tether's chain, near-zero gas |
-| State | [Upstash Redis](https://upstash.com/) | Persistent state, free tier |
+| State | In-memory store | Lightweight, no external dependencies |
 | Server | Express.js | x402 middleware compatible |
 | Frontend | React + Vite | Lightweight, fast builds |
 | Testing | Vitest | Fast unit testing |
@@ -225,7 +225,7 @@ agora/
 │   ├── wallet/                # WDK wallet manager, TX pipeline
 │   ├── x402/                  # Payment middleware, dynamic pricing, services
 │   ├── agent/                 # LLM wrapper, reasoning engine, treasury, loop
-│   ├── state/                 # Redis + in-memory store
+│   ├── state/                 # In-memory state store
 │   └── api/                   # Dashboard API routes
 ├── client/                    # React dashboard (Vite)
 ├── test/                      # Unit tests (22 tests)
@@ -245,7 +245,6 @@ agora/
 | [x402 Protocol](https://www.x402.org/) | HTTP payment protocol |
 | [Semantic Facilitator](https://semanticpay.io/) | x402 payment verification and settlement |
 | [Groq](https://groq.com/) | LLM inference (LLaMA, open-source) |
-| [Upstash](https://upstash.com/) | Redis state persistence |
 | [Bitfinex API](https://docs.bitfinex.com/) | Market price data (primary) |
 | [CoinGecko API](https://www.coingecko.com/) | Market price data (fallback) |
 

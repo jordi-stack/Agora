@@ -9,7 +9,7 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 - `src/agent/` - Agent brain (LLM reasoning, autonomous loop, treasury management)
 - `src/wallet/` - WDK wallet layer (3 BIP-44 accounts, USDT0 transfers)
 - `src/x402/` - Revenue engine (x402 payment middleware, dynamic pricing, services)
-- `src/state/` - State persistence (Redis + in-memory fallback)
+- `src/state/` - In-memory state store
 - `src/api/` - Dashboard API routes
 - `src/config/` - Chain config, safety rules
 - `client/` - React dashboard (Vite)

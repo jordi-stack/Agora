@@ -260,7 +260,6 @@ Agent Brain (LLM) ──▶ WDK Wallet (Plasma) ──▶ x402 Revenue Engine
 | `@x402/fetch` | x402 buyer client (for demo buyer) |
 | `groq-sdk` | OpenAI-compatible LLM client |
 | `express` | HTTP server |
-| `@upstash/redis` | Optional state persistence |
 
 ## Composability
 
