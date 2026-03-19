@@ -49,12 +49,12 @@ Agora exposes paid API endpoints using the x402 HTTP payment protocol. Any buyer
 
 **Request Examples:**
 
-```json
-// Market Analysis
+**Market Analysis:**
+```
 POST /api/analyze
 { "asset": "BTC" }
-
-// Response
+```
+```json
 {
   "asset": "BTC",
   "price": { "lastPrice": 70560, "high": 71200, "low": 69800, "changePercent": -0.046 },
@@ -62,12 +62,14 @@ POST /api/analyze
   "confidence": 0.85,
   "poweredBy": "CoinGecko + groq"
 }
+```
 
-// Risk Scoring
+**Risk Scoring:**
+```
 POST /api/risk
 { "address": "0x51329BA9cE9703A44CBFB437a668187b505fACa7" }
-
-// Response
+```
+```json
 {
   "address": "0x51329...",
   "riskScore": 60,

@@ -28,11 +28,15 @@ export async function initLLM() {
 
   // Detect provider from key or env
   if (process.env.ANTHROPIC_API_KEY) {
-    const Anthropic = (await import('@anthropic-ai/sdk')).default
-    client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-    provider = { name: 'Anthropic (Claude)', type: 'anthropic', model: process.env.LLM_MODEL || 'claude-haiku-4-5-20251001' }
-    console.log(`[llm] Provider: ${provider.name}`)
-    return provider.name
+    try {
+      const Anthropic = (await import('@anthropic-ai/sdk')).default
+      client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+      provider = { name: 'Anthropic (Claude)', type: 'anthropic', model: process.env.LLM_MODEL || 'claude-haiku-4-5-20251001' }
+      console.log(`[llm] Provider: ${provider.name}`)
+      return provider.name
+    } catch {
+      console.warn('[llm] ANTHROPIC_API_KEY set but @anthropic-ai/sdk not installed. Run: npm install @anthropic-ai/sdk')
+    }
   }
 
   // All others use OpenAI-compatible API

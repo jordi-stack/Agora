@@ -1,6 +1,6 @@
 # Agora - Self-Sustaining AI Agent
 
-An autonomous AI agent that earns USDT0 by selling intelligence services via x402 micropayments, manages its own multi-account treasury through Tether WDK, and makes financial decisions independently on the Plasma blockchain.
+Autonomous AI agent that earns USDT0 by selling intelligence services via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes financial decisions on its own on the Plasma blockchain.
 
 **Track:** Agent Wallets (WDK / Openclaw and Agents Integration)
 **Hackathon:** [Tether Hackathon Galactica: WDK Edition 1](https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail)
@@ -13,16 +13,16 @@ An autonomous AI agent that earns USDT0 by selling intelligence services via x40
 
 1. Open the [live demo](http://15.134.129.198:4747)
 2. Click **"Buy Market Analysis"** or **"Buy Risk Score"** in the Demo Buyer section
-3. Watch the agent earn USDT0 in real-time — revenue appears in the P&L card, reasoning in the trail below
+3. Watch the agent earn USDT0 in real-time. Revenue appears in the P&L card, reasoning in the trail below.
 4. Wait 5 minutes to see the autonomous loop make a decision (hold, reprice, or transfer to savings)
 
 ## Overview
 
-Agora operates as an **independent economic actor** with zero human intervention:
+Agora operates as an independent economic actor with zero human intervention:
 
 - **Earns** - Sells market analysis and wallet risk scoring via [x402](https://www.x402.org/) micropayments. Buyers pay USDT0 per request through standard HTTP.
-- **Decides** - Runs an autonomous loop every 5 minutes. LLM reasoning evaluates revenue trends, adjusts pricing based on demand, and determines when to secure profits.
-- **Manages** - Surplus revenue is transferred to a separate savings wallet via real on-chain transactions. All decisions are logged with full AI reasoning.
+- **Decides** - Runs an autonomous loop every 5 minutes. The LLM evaluates revenue trends, adjusts pricing based on demand, and determines when to move profits to savings.
+- **Manages** - Surplus revenue gets transferred to a separate savings wallet via real on-chain transactions. Every decision is logged with the full AI reasoning.
 
 ## On-Chain Proof
 
@@ -59,13 +59,13 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed data flow diagrams
 ## Key Features
 
 ### x402 Agentic Payments
-The agent monetizes its services using the [x402 protocol](https://www.x402.org/). Buyers pay USDT0 per request. No API keys, no accounts, just HTTP.
+The agent sells its services using the [x402 protocol](https://www.x402.org/). Buyers pay USDT0 per request. No API keys, no accounts, just HTTP.
 
-- `POST /api/analyze` - Real-time market analysis (Bitfinex/CoinGecko + LLM reasoning)
-- `POST /api/risk` - On-chain wallet risk scoring (Plasma RPC + LLM assessment)
+- `POST /api/analyze` - Market analysis (Bitfinex/CoinGecko + LLM reasoning)
+- `POST /api/risk` - Wallet risk scoring (Plasma RPC + LLM assessment)
 
 ### Dynamic Pricing
-The agent autonomously adjusts prices based on demand. High request volume increases prices. Low demand returns to base. The agent decides its own pricing strategy through LLM reasoning.
+The agent adjusts prices based on demand. High request volume raises prices. Low demand drops them back to base. Pricing strategy is decided by the LLM.
 
 ### Multi-Account Treasury (WDK)
 Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wallet-evm`:
@@ -77,7 +77,7 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 | Demo Buyer | 2 | Pre-funded to test x402 payments |
 
 ### Autonomous Agent Loop
-Every 5 minutes, the agent independently:
+Every 5 minutes, the agent:
 1. Checks USDT0 and XPL balances via WDK
 2. Analyzes revenue trends from state history
 3. Queries the LLM for a decision (hold / transfer / reprice)
@@ -92,28 +92,28 @@ Hard-coded rules that the agent cannot override:
 - Emergency pause if balance drops more than 50% in 1 hour
 
 ### Universal LLM Support
-Auto-detects provider from environment variables. Supports any OpenAI-compatible API:
+Auto-detects provider from environment variables. Works with any OpenAI-compatible API:
 - `GROQ_API_KEY` - Groq with LLaMA (open-source, recommended)
 - `OPENAI_API_KEY` - OpenAI with GPT
 - `TOGETHER_API_KEY` - Together AI
 - `FIREWORKS_API_KEY` - Fireworks AI
 - `ANTHROPIC_API_KEY` - Anthropic with Claude
-- `LLM_API_KEY` + `LLM_BASE_URL` - Any custom OpenAI-compatible provider
+- `LLM_API_KEY` + `LLM_BASE_URL` - Any custom provider
 
 ### Demo Buyer
-A built-in test client that triggers real x402 payments with one click. Observe the agent earning revenue in real-time through the dashboard.
+Built-in test client that triggers real x402 payments with one click. Revenue shows up in the dashboard immediately.
 
 ### Interactive Help
-A "How It Works" button in the dashboard header opens a step-by-step guide explaining how the agent earns, decides, manages, and how to test it. Each dashboard section includes descriptive subtitles for clarity.
+A "How It Works" button in the header opens a step-by-step guide covering how the agent earns, decides, manages, and how to test it.
 
 ### OpenClaw Integration
-Agora includes a [SKILL.md](./SKILL.md) following the [AgentSkills specification](https://agentskills.io/specification), enabling discovery by any OpenClaw-compatible agent.
+Agora includes a [SKILL.md](./SKILL.md) following the [AgentSkills specification](https://agentskills.io/specification), so any OpenClaw-compatible agent can discover it.
 
 ```bash
 npx skills add jordi-stack/agora
 ```
 
-Any agent can buy Agora's services via standard HTTP with x402 payment headers — no SDK needed. See [SKILL.md](./SKILL.md) for full capability listing, API reference, and integration details.
+Any agent can call Agora's x402 endpoints via standard HTTP. No SDK needed. See [SKILL.md](./SKILL.md) for the full API reference.
 
 ## Quick Start
 
@@ -257,11 +257,11 @@ agora/
 | Decision | Why |
 |----------|-----|
 | **Plasma chain** | Tether's own chain. Near-zero gas (~$0.0001/tx) makes micropayments viable. No bridging needed for USDT0. |
-| **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header — no signup, no OAuth, no billing dashboard. |
+| **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header. No signup, no OAuth, no billing dashboard. |
 | **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
-| **In-memory state** | The agent is stateless by design — wallet state lives on-chain, reasoning is ephemeral. No database means zero setup friction and no data to leak. |
+| **In-memory state** | Wallet state lives on-chain, reasoning is ephemeral. No database means zero setup friction and no data to leak. |
 | **Open-source LLM default** | Groq + LLaMA is free and fast. Anyone can run this without paying for API access. Any OpenAI-compatible provider works as a drop-in swap. |
-| **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. These are not suggestions — they're enforced in code before any transaction is signed. |
+| **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. They're enforced in code before any transaction is signed. |
 | **WDK Indexer API** | Official Tether API for token balances and transfer history. More reliable than raw RPC parsing, with graceful fallback if the key isn't set. |
 
 ## Known Limitations
