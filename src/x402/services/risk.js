@@ -19,7 +19,7 @@ export async function handleRisk(req, res) {
     const aiAssessment = await assessRisk(address, { balance, txCount })
 
     // Extract score from AI response
-    const scoreMatch = aiAssessment.match(/(\d{1,3})/)
+    const scoreMatch = aiAssessment.match(/(?:score|risk)[:\s]*(\d{1,3})/i) || aiAssessment.match(/(\d{1,3})(?:\s*(?:out of|\/)\s*100)?/i)
     const riskScore = scoreMatch ? Math.min(100, parseInt(scoreMatch[1])) : 50
 
     res.json({

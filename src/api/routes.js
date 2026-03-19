@@ -21,7 +21,7 @@ router.get('/api/status', async (req, res) => {
     const recentExpenses = expenses
       .filter(e => Date.now() - e.timestamp < 3600000)
       .reduce((sum, e) => sum + (e.amount || 0), 0)
-    const safety = checkSafety(balances.treasury.native, recentExpenses, balances.treasury.native)
+    const safety = checkSafety(balances.treasury.usdt0 || 0, recentExpenses, balances.treasury.usdt0 || 0)
 
     res.json({
       agent: 'agora',
@@ -78,11 +78,10 @@ router.post('/api/demo-buy', async (req, res) => {
     registerExactEvmScheme(client, { signer: demoBuyerAccount })
     const fetchWithPayment = wrapFetchWithPayment(fetch, client)
 
-    const endpoint = req.body?.endpoint || 'analyze'
+    const allowed = ['analyze', 'risk']
+    const endpoint = allowed.includes(req.body?.endpoint) ? req.body.endpoint : 'analyze'
     const port = process.env.PORT || 3000
-    const host = req.headers.host || `localhost:${port}`
-    const protocol = req.secure ? 'https' : 'http'
-    const url = `${protocol}://${host}/api/${endpoint}`
+    const url = `http://localhost:${port}/api/${endpoint}`
 
     const body = endpoint === 'risk'
       ? { address: getAddresses().treasury }

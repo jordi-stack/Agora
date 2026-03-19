@@ -55,10 +55,14 @@ async function getUSDT0Balance(account) {
 }
 
 export async function getBalances() {
+  const safeGetBalance = async (account) => {
+    try { return await account.getBalance() } catch { return BigInt(0) }
+  }
+
   const [treasuryNative, savingsNative, demoBuyerNative] = await Promise.all([
-    accounts.treasury.getBalance(),
-    accounts.savings.getBalance(),
-    accounts.demoBuyer.getBalance(),
+    safeGetBalance(accounts.treasury),
+    safeGetBalance(accounts.savings),
+    safeGetBalance(accounts.demoBuyer),
   ])
 
   const [treasuryUSDT, savingsUSDT, demoBuyerUSDT] = await Promise.all([

@@ -45,15 +45,11 @@ export async function initLLM() {
   const customBaseURL = process.env.LLM_BASE_URL || PROVIDERS[detected]?.baseURL
   const name = process.env.LLM_BASE_URL ? `Custom (${customBaseURL})` : (PROVIDERS[detected]?.name || detected)
 
-  if (detected === 'groq') {
-    // Groq SDK handles its own base URL
-    const Groq = (await import('groq-sdk')).default
-    client = new Groq({ apiKey })
-  } else {
-    // Other providers use OpenAI-compatible SDK
-    const Groq = (await import('groq-sdk')).default
-    client = new Groq({ apiKey, baseURL: customBaseURL })
-  }
+  // Groq SDK is OpenAI-compatible, works with any provider
+  const Groq = (await import('groq-sdk')).default
+  const opts = { apiKey }
+  if (customBaseURL) opts.baseURL = customBaseURL
+  client = new Groq(opts)
 
   provider = { name, type: 'openai-compatible', model }
 
