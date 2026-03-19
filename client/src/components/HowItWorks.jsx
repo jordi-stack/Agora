@@ -64,7 +64,10 @@ export default function HowItWorks() {
               <div style={num}>3. MANAGE</div>
               <div style={text}>
                 The agent manages 3 wallets: Treasury (operating funds), Savings (secured profits),
-                and Demo Buyer (for testing). Safety rules prevent overspending. The agent cannot override these limits.
+                and Demo Buyer (for testing). Hard-coded safety rules protect the treasury:
+                minimum balance (0.5 USDT0), max transaction (0.1 USDT0), spending rate limit (0.2 USDT0/hr),
+                and emergency pause if balance drops too fast. The agent cannot override these limits.
+                Click the "?" button on the Safety Status card for details.
               </div>
             </div>
 
