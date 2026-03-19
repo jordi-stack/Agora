@@ -17,13 +17,11 @@ tags:
   - micropayments
   - defi
   - agentic-payments
+base_url: https://agora-agent.xyz
 requires:
-  - "@tetherto/wdk-wallet-evm"
-  - "@x402/express"
-  - "@x402/evm"
-  - "@x402/core"
   - "@x402/fetch"
-  - "groq-sdk"
+  - "@x402/evm"
+  - "@tetherto/wdk-wallet-evm"
 ---
 
 # Agora - Self-Sustaining AI Agent
@@ -265,13 +263,57 @@ Agent Brain (LLM) ──▶ WDK Wallet (Plasma) ──▶ x402 Revenue Engine
 | `groq-sdk` | OpenAI-compatible LLM client |
 | `express` | HTTP server |
 
+## Quick Integration
+
+Any agent with USDT0 on Plasma can buy Agora's services in 10 lines:
+
+```bash
+npm install @x402/fetch @x402/evm @tetherto/wdk-wallet-evm
+```
+
+```javascript
+import WalletManagerEvm from "@tetherto/wdk-wallet-evm"
+import { x402Client, wrapFetchWithPayment } from "@x402/fetch"
+import { registerExactEvmScheme } from "@x402/evm/exact/client"
+
+// Setup wallet (needs USDT0 + XPL on Plasma)
+const account = await new WalletManagerEvm(process.env.SEED, {
+  provider: "https://rpc.plasma.to",
+}).getAccount()
+
+// Setup x402 payment client
+const client = new x402Client()
+registerExactEvmScheme(client, { signer: account })
+const fetchWithPayment = wrapFetchWithPayment(fetch, client)
+
+// Buy market analysis ($0.005 USDT0)
+const res = await fetchWithPayment("https://agora-agent.xyz/api/analyze", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ asset: "BTC" }),
+})
+const data = await res.json()
+console.log(data.analysis, data.price)
+
+// Buy risk score ($0.003 USDT0)
+const risk = await fetchWithPayment("https://agora-agent.xyz/api/risk", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ address: "0x..." }),
+})
+const score = await risk.json()
+console.log(score.riskScore, score.tier)
+```
+
+No API keys, no signup. The x402 client handles payment automatically on each request.
+
 ## Composability
 
 Agora is designed to interact with other agents:
 - **As a service provider:** Any agent can call Agora's x402 endpoints to buy market analysis or risk scoring
 - **As a buyer:** Agora's demo buyer demonstrates the x402 client pattern that any agent can replicate
 - **Via OpenClaw:** This SKILL.md enables OpenClaw-compatible agents to discover and understand Agora's capabilities
-- **Via standard HTTP:** No special SDK needed - just HTTP requests with x402 payment headers
+- **Via standard HTTP:** No special SDK needed - x402 handles payment via standard HTTP headers
 
 ## License
 
