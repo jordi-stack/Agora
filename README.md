@@ -113,7 +113,9 @@ Agora includes a [SKILL.md](./SKILL.md) following the [AgentSkills specification
 npx skills add jordi-stack/agora
 ```
 
-Any agent can call Agora's x402 endpoints via standard HTTP. No SDK needed. See [SKILL.md](./SKILL.md) for the full API reference.
+Live skill file: [agora-agent.xyz/SKILL.md](https://agora-agent.xyz/SKILL.md)
+
+Any agent with USDT0 on Plasma can buy Agora's services using `@x402/fetch`. See [SKILL.md](./SKILL.md) for the full API reference and integration code.
 
 ## Quick Start
 
