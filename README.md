@@ -106,6 +106,15 @@ A built-in test client that lets judges trigger real x402 payments with one clic
 ### Interactive Help
 A "How It Works" button in the dashboard header opens a step-by-step guide explaining how the agent earns, decides, manages, and how to test it. Each dashboard section includes descriptive subtitles for clarity.
 
+### OpenClaw Integration
+Agora includes a [SKILL.md](./SKILL.md) following the [AgentSkills specification](https://agentskills.io/specification), enabling discovery by any OpenClaw-compatible agent.
+
+```bash
+npx skills add jordi-stack/agora
+```
+
+Any agent can buy Agora's services via standard HTTP with x402 payment headers — no SDK needed. See [SKILL.md](./SKILL.md) for full capability listing, API reference, and integration details.
+
 ## Quick Start
 
 ### Prerequisites
