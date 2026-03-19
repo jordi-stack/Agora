@@ -23,7 +23,6 @@
   "type": "module",
   "dependencies": {
     "@tetherto/wdk-wallet-evm": "^1.0.0-beta.8",
-    "@upstash/redis": "^1.37.0",
     "@x402/core": "^2.7.0",
     "@x402/evm": "^2.7.0",
     "@x402/express": "^2.7.0",
