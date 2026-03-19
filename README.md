@@ -142,7 +142,7 @@ cp .env.example .env
 ### Run
 
 ```bash
-# From the project root (not client/)
+# Make sure you're in the project root: /agora (not /agora/client)
 npm start
 ```
 
