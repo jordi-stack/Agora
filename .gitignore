@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# Build output
+dist/
+client/dist/
+.next/
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code / internal context
+.claude/
+CLAUDE.md
+ex.md
+
+# Internal planning docs
+docs/superpowers/
+
+# IDE
+.vscode/
+.idea/
+
+# Test/spike files
+spike.js
+competitor-analysis.md
+image.png
