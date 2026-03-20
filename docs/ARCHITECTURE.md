@@ -34,7 +34,7 @@
 │  ┌────────────────────────────────────────────────────┐   │
 │  │          AUTONOMOUS AGENT LOOP (5 min)             │   │
 │  │                                                    │   │
-│  │  1. getBalances()     ──▶ WDK Wallet (Plasma RPC)  │   │
+│  │  1. getBalances()     ──▶ MCP Toolkit ──▶ WDK     │   │
 │  │  2. analyzeRevenue()  ──▶ state history            │   │
 │  │  3. getDecision()     ──▶ LLM reasoning            │   │
 │  │  4. execute()         ──▶ reprice / transfer / hold│   │
@@ -125,7 +125,7 @@ Every 5 minutes:
 
   ┌──────────────────┐
   │ Check USDT0      │
-  │ balances via WDK  │
+  │ via MCP Toolkit   │
   └────────┬─────────┘
            ▼
   ┌──────────────────┐
@@ -159,6 +159,7 @@ Every 5 minutes:
 | Runtime | Node.js 20+ (ESM) |
 | Server | Express.js |
 | Wallet | @tetherto/wdk-wallet-evm |
+| Agent Framework | @tetherto/wdk-mcp-toolkit (15 tools) |
 | Payments | @x402/express, @x402/evm, @x402/core |
 | LLM | Groq / OpenAI / Together / Fireworks / Anthropic / custom |
 | State | In-memory |

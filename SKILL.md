@@ -75,21 +75,22 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 | Savings | 1 | Profit storage | Receives autonomous profit transfers when treasury exceeds threshold |
 | Demo Buyer | 2 | Testing | Pre-funded wallet for testing x402 payment flow |
 
-**WDK Operations Used:**
-- `WalletManagerEvm(seed, { provider })` - Initialize wallet from seed phrase
-- `manager.getAccount(index)` - Derive BIP-44 account by index
-- `account.getAddress()` - Get wallet address
-- `account.getBalance()` - Check native XPL balance
-- `account.transfer({ token, recipient, amount })` - Transfer USDT0 (ERC-20)
-- WDK Indexer API (`wdk-api.tether.io`) - Primary USDT0 balance source (if API key set)
-- Raw RPC `eth_call` with ERC-20 `balanceOf` - Fallback USDT0 balance check
+**WDK Operations (via MCP Toolkit, 15 tools registered):**
+- `WdkMcpServer` - Agent reasoning layer with registered wallet, pricing, and indexer tools
+- `getBalance` - Check native XPL balance
+- `getTokenBalance` - Check registered USDT0 balance
+- `transfer` - Transfer USDT0 (ERC-20)
+- `getCurrentPrice` / `getHistoricalPrice` - Bitfinex market data
+- `getIndexerTokenBalance` / `getTokenTransfers` - WDK Indexer API
+- `sign` / `verify` - Message signing and verification
+- Fallback: direct WDK calls via `WalletManagerEvm` if MCP unavailable
 
 ### Autonomous Decision-Making (Agent Loop)
 
 Every 5 minutes, Agora runs an autonomous decision cycle:
 
 ```
-1. CHECK    → Read USDT0 + XPL balances via WDK
+1. CHECK    → Read USDT0 + XPL balances via MCP Toolkit
 2. ANALYZE  → Compare revenue trends from state history
 3. REASON   → Query LLM with full context (balances, revenue, pricing, safety rules)
 4. DECIDE   → LLM returns structured JSON: { action, confidence, reasoning }

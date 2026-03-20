@@ -79,8 +79,8 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 | Demo Buyer | 2 | Pre-funded to test x402 payments |
 
 ### Autonomous Agent Loop
-Every 5 minutes, the agent:
-1. Checks USDT0 and XPL balances via WDK
+Every 5 minutes, the agent uses the WDK MCP Toolkit to:
+1. Checks USDT0 and XPL balances via MCP tools
 2. Analyzes revenue trends from state history
 3. Queries the LLM for a decision (hold / transfer / reprice)
 4. Executes the decision if confidence >= 0.7
@@ -202,6 +202,7 @@ node scripts/fund-demo.js
 | Layer | Technology | Why |
 |-------|-----------|-----|
 | Wallet | [@tetherto/wdk-wallet-evm](https://docs.wallet.tether.io/) | Self-custodial, BIP-44, multi-account |
+| Agent Framework | [WDK MCP Toolkit](https://github.com/tetherto/wdk-mcp-toolkit) | 15 MCP tools for agent wallet operations |
 | Payments | [x402 Protocol](https://www.x402.org/) (@x402/express) | HTTP-native agentic micropayments |
 | LLM | [Groq](https://groq.com/) / OpenAI / Together / Fireworks / Anthropic / any | Universal provider, auto-detected |
 | Chain | [Plasma](https://plasma.to/) (eip155:9745) | Tether's chain, near-zero gas |
@@ -266,11 +267,12 @@ agora/
 | **In-memory state** | Wallet state lives on-chain, reasoning is ephemeral. No database means zero setup friction and no data to leak. |
 | **Open-source LLM default** | Groq + LLaMA is free and fast. Anyone can run this without paying for API access. Any OpenAI-compatible provider works as a drop-in swap. |
 | **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. They're enforced in code before any transaction is signed. |
+| **WDK MCP Toolkit** | Agent reasoning layer uses MCP tools for wallet operations. Payment infrastructure (x402) stays separate. Clear separation between agent logic and wallet execution. |
 | **WDK Indexer API** | Official Tether API for token balances and transfer history. More reliable than raw RPC parsing, with graceful fallback if the key isn't set. |
 
 ## Security
 
-- Zero known vulnerabilities (`npm audit` clean)
+- No critical vulnerabilities in application code
 - No hardcoded secrets. All API keys and seed phrases read from environment variables.
 - Sensitive files (`.env`, `me.pem`, `spike.js`) excluded via `.gitignore`
 - Self-custodial wallet. Keys never leave the server.

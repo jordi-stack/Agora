@@ -7,7 +7,8 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 ## Architecture
 
 - `src/agent/` - Agent brain (LLM reasoning, autonomous loop, treasury management)
-- `src/wallet/` - WDK wallet layer (3 BIP-44 accounts, USDT0 transfers)
+- `src/mcp/` - WDK MCP Toolkit integration (agent reasoning layer, 15 tools)
+- `src/wallet/` - WDK wallet layer (3 BIP-44 accounts, USDT0 transfers, x402 backend)
 - `src/x402/` - Revenue engine (x402 payment middleware, dynamic pricing, services)
 - `src/state/` - In-memory state store + WDK Indexer API client
 - `src/api/` - Dashboard API routes
@@ -28,6 +29,8 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 - Multi-provider LLM: auto-detects GROQ_API_KEY / OPENAI_API_KEY / TOGETHER_API_KEY / FIREWORKS_API_KEY / ANTHROPIC_API_KEY
 - TX Pipeline: validate amount -> convert to base units -> send via WDK -> retry (3x)
 - Agent Loop: runs every 5 min via setInterval, decisions logged with reasoning
+- MCP Toolkit: agent loop uses WDK MCP Toolkit for wallet operations (15 tools registered)
+- Dual WDK instances: MCP for agent reasoning, manager.js for x402 payment infrastructure
 - x402: Express middleware, Semantic facilitator handles settlement
 
 ## Testing
