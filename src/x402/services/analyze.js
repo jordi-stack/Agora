@@ -1,8 +1,26 @@
 import { analyzeMarket } from '../../agent/reasoning.js'
 import { getProvider } from '../../agent/llm.js'
+import { getMCP } from '../../mcp/server.js'
 
-async function fetchPrice(asset) {
-  // Try Bitfinex first
+async function fetchPriceViaMCP(asset) {
+  const mcp = getMCP()
+  if (!mcp?.pricingClient) return null
+
+  try {
+    const price = await mcp.pricingClient.getCurrentPrice(asset.toUpperCase(), 'USD')
+    if (price != null) {
+      return {
+        lastPrice: price, high: 'N/A', low: 'N/A',
+        volume: 'N/A', change: 0, changePercent: 0,
+        source: 'MCP/Bitfinex',
+      }
+    }
+  } catch {}
+  return null
+}
+
+async function fetchPriceDirect(asset) {
+  // Bitfinex
   try {
     const pair = `t${asset.toUpperCase()}USD`
     const res = await fetch(`https://api-pub.bitfinex.com/v2/ticker/${pair}`, { signal: AbortSignal.timeout(5000) })
@@ -16,7 +34,7 @@ async function fetchPrice(asset) {
     }
   } catch {}
 
-  // Fallback: CoinGecko
+  // CoinGecko fallback
   try {
     const id = { BTC: 'bitcoin', ETH: 'ethereum', SOL: 'solana', USDT: 'tether' }[asset.toUpperCase()] || asset.toLowerCase()
     const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_24hr_change=true`, { signal: AbortSignal.timeout(5000) })
@@ -31,6 +49,15 @@ async function fetchPrice(asset) {
   } catch {}
 
   return null
+}
+
+async function fetchPrice(asset) {
+  // Try MCP pricing tool first
+  const mcpPrice = await fetchPriceViaMCP(asset)
+  if (mcpPrice) return mcpPrice
+
+  // Fallback to direct API calls
+  return fetchPriceDirect(asset)
 }
 
 export async function handleAnalyze(req, res) {
