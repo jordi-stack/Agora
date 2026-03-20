@@ -290,8 +290,9 @@ agora/
 
 - No critical vulnerabilities in application code
 - No hardcoded secrets. All API keys and seed phrases read from environment variables.
-- Sensitive files (`.env`, `me.pem`, `spike.js`) excluded via `.gitignore`
+- Sensitive files excluded via `.gitignore`
 - Self-custodial wallet. Keys never leave the server.
+- Keys wiped from memory on shutdown
 
 ## Known Limitations
 
