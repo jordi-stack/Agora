@@ -52,12 +52,12 @@ async function fetchPriceDirect(asset) {
 }
 
 async function fetchPrice(asset) {
-  // Try MCP pricing tool first
-  const mcpPrice = await fetchPriceViaMCP(asset)
-  if (mcpPrice) return mcpPrice
+  // Try direct Bitfinex/CoinGecko first (full data: high, low, volume, change)
+  const directPrice = await fetchPriceDirect(asset)
+  if (directPrice) return directPrice
 
-  // Fallback to direct API calls
-  return fetchPriceDirect(asset)
+  // Fallback to MCP pricing tool (lastPrice only)
+  return fetchPriceViaMCP(asset)
 }
 
 export async function handleAnalyze(req, res) {
