@@ -43,7 +43,11 @@ async function runCycle(savingsAddress) {
     const recentExpenses = expenses
       .filter(e => Date.now() - e.timestamp < 3600000)
       .reduce((sum, e) => sum + (e.amount || 0), 0)
-    const safety = checkSafety(treasuryBalance, recentExpenses, treasuryBalance)
+    const recentRevenue = revenue
+      .filter(r => Date.now() - r.timestamp < 3600000)
+      .reduce((sum, r) => sum + (r.amount || 0), 0)
+    const balanceOneHourAgo = treasuryBalance - recentRevenue + recentExpenses
+    const safety = checkSafety(treasuryBalance, recentExpenses, balanceOneHourAgo)
 
     if (safety.paused) {
       const decision = { timestamp: Date.now(), action: 'paused', confidence: 1, reasoning: 'Safety rules violated — agent paused', cycle: cycleCount }

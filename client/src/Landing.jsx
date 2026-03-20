@@ -107,7 +107,7 @@ export default function Landing() {
   const ctaOutline = {
     ...ctaBtn,
     background: 'transparent',
-    border: `1px solid ${t.accent}`,
+    border: `1px solid ${t.border}`,
     color: t.accent,
   }
 
@@ -154,6 +154,86 @@ export default function Landing() {
         </div>
       </div>
 
+      {/* Architecture Flow */}
+      <div data-section="flow" style={{ ...fadeIn('flow'), marginBottom: 64, padding: '20px 0' }}>
+        <div style={{ ...sectionTitle, textAlign: 'center' }}>How It Works</div>
+        <h2 style={{ ...sectionHeading, textAlign: 'center' }}>Architecture Flow</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
+          {[
+            { label: 'Buyers / Agents', sub: '/api/analyze ($0.005)\n/api/risk ($0.003)', color: t.muted, icon: '\u2193' },
+            { label: 'x402 Revenue Engine', sub: 'Dynamic Pricing\nAuto-collect USDT0', color: t.orange, icon: '\u2193' },
+            { label: 'Agent Brain (LLM)', sub: '5 min loop\nGroq + LLaMA', color: t.blue, icon: '\u2193' },
+            { label: 'WDK MCP Toolkit', sub: '15 tools\ngetBalance | transfer', color: t.accent, icon: '\u2193' },
+            { label: 'WDK Wallet', sub: 'Treasury | Savings\nDemo Buyer', color: t.accent, side: { label: 'Safety', sub: '4 rules\nenforced', color: t.red }, icon: '\u2193' },
+            { label: 'Plasma Blockchain', sub: 'USDT0 | XPL\nNear-zero gas', color: t.blue },
+          ].map((node, i, arr) => (
+            <React.Fragment key={node.label}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%', maxWidth: 600, justifyContent: 'center' }}>
+                <div style={{
+                  ...card, borderRadius: 12, textAlign: 'center',
+                  width: node.side ? 220 : 280,
+                  animation: `nodeIn 0.4s ease ${i * 0.1}s both`,
+                  borderColor: node.color + '33',
+                }}>
+                  <div style={{ fontSize: 13, fontWeight: 'bold', color: node.color, marginBottom: 4 }}>{node.label}</div>
+                  <div style={{ fontSize: 11, color: t.muted, lineHeight: 1.4, whiteSpace: 'pre-line' }}>{node.sub}</div>
+                </div>
+                {node.side && (
+                  <>
+                    <svg width="36" height="10" viewBox="0 0 36 10" style={{ flexShrink: 0 }}>
+                      <line x1="0" y1="5" x2="36" y2="5" stroke={node.side.color} strokeWidth="2" strokeDasharray="4,4" className="flow-dash-h" opacity="0.5" />
+                    </svg>
+                    <div style={{
+                      ...card, borderRadius: 12, textAlign: 'center', width: 130, flexShrink: 0,
+                      animation: `nodeIn 0.4s ease ${i * 0.1 + 0.05}s both`,
+                      borderColor: node.side.color + '33',
+                    }}>
+                      <div style={{ fontSize: 12, fontWeight: 'bold', color: node.side.color, marginBottom: 2 }}>{node.side.label}</div>
+                      <div style={{ fontSize: 10, color: t.muted }}>{node.side.sub}</div>
+                    </div>
+                  </>
+                )}
+              </div>
+              {i < arr.length - 1 && (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: 32, justifyContent: 'center', margin: '2px 0' }}>
+                  <svg width="20" height="32" viewBox="0 0 20 32">
+                    <line x1="10" y1="0" x2="10" y2="24" stroke={node.color} strokeWidth="2" strokeDasharray="4,4" className="flow-dash-v" opacity="0.7" />
+                    <polygon points="6,22 10,30 14,22" fill={node.color} opacity="0.5" />
+                  </svg>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+        <div style={{ textAlign: 'center', marginTop: 24 }}>
+          <div style={{ display: 'inline-flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <span style={badge(t.accent, t.accentBg)}>Self-Custodial</span>
+            <span style={badge(t.blue, t.blueBg)}>On-Chain</span>
+            <span style={badge(t.orange, mode === 'dark' ? '#ff664422' : '#cc552215')}>Real Revenue</span>
+          </div>
+        </div>
+        <style>{`
+          @keyframes nodeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .flow-dash-v {
+            animation: dashMoveV 0.8s linear infinite;
+          }
+          .flow-dash-h {
+            animation: dashMoveH 0.8s linear infinite;
+          }
+          @keyframes dashMoveV {
+            to { stroke-dashoffset: -16; }
+          }
+          @keyframes dashMoveH {
+            to { stroke-dashoffset: -16; }
+          }
+        `}</style>
+      </div>
+
+      <div style={separator} />
+
       {/* Earns / Decides / Manages */}
       <div data-section="pillars" style={{ ...fadeIn('pillars'), display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16, marginBottom: 64 }}>
         {[
@@ -178,13 +258,13 @@ export default function Landing() {
           The agent sells services using the x402 HTTP payment protocol. Any buyer (human or agent) pays USDT0 per request. No API keys, no accounts, just HTTP.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-          <div style={{ ...card, borderLeft: `3px solid ${t.accent}` }}>
+          <div style={card}>
             <div style={{ fontFamily: 'monospace', fontSize: 12, color: t.accent, marginBottom: 6 }}>POST /api/analyze</div>
             <div style={{ fontSize: 13, color: t.text, marginBottom: 4 }}>Market Analysis</div>
             <div style={{ fontSize: 12, color: t.muted, marginBottom: 8 }}>Bitfinex/CoinGecko price data + LLM reasoning</div>
             <span style={badge(t.accent, t.accentBg)}>$0.005 USDT0</span>
           </div>
-          <div style={{ ...card, borderLeft: `3px solid ${t.blue}` }}>
+          <div style={card}>
             <div style={{ fontFamily: 'monospace', fontSize: 12, color: t.blue, marginBottom: 6 }}>POST /api/risk</div>
             <div style={{ fontSize: 13, color: t.text, marginBottom: 4 }}>Risk Scoring</div>
             <div style={{ fontSize: 12, color: t.muted, marginBottom: 8 }}>Plasma RPC on-chain data + LLM assessment</div>
