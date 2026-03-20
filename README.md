@@ -122,6 +122,12 @@ Live skill file: [agora-agent.xyz/SKILL.md](https://agora-agent.xyz/SKILL.md)
 
 Any agent with USDT0 on Plasma can buy Agora's services using `@x402/fetch`. See [SKILL.md](./SKILL.md) for the full API reference and integration code.
 
+**MCP Server** (for Claude Desktop, Hermes, or any MCP-compatible agent):
+```bash
+node src/mcp/standalone.js
+```
+Exposes 15 wallet tools (getBalance, transfer, getCurrentPrice, etc.) via MCP stdio.
+
 ## Quick Start
 
 ### Prerequisites
