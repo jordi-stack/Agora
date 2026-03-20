@@ -22,7 +22,11 @@ router.get('/api/status', async (req, res) => {
     const recentExpenses = expenses
       .filter(e => Date.now() - e.timestamp < 3600000)
       .reduce((sum, e) => sum + (e.amount || 0), 0)
-    const safety = checkSafety(balances.treasury.usdt0 || 0, recentExpenses, balances.treasury.usdt0 || 0)
+    const recentRevenue = revenue
+      .filter(r => Date.now() - r.timestamp < 3600000)
+      .reduce((sum, r) => sum + (r.amount || 0), 0)
+    const balanceOneHourAgo = (balances.treasury.usdt0 || 0) - recentRevenue + recentExpenses
+    const safety = checkSafety(balances.treasury.usdt0 || 0, recentExpenses, balanceOneHourAgo)
 
     res.json({
       agent: 'agora',
