@@ -12,9 +12,12 @@ Respond ONLY with valid JSON:
 {"action":"hold|transfer|reprice","amount":"0.05","newPrice":"0.006","confidence":0.85,"reasoning":"Revenue up 30% in last hour, demand justifies price increase"}`
 
 export async function getDecision(context) {
-  const userPrompt = `Current state:
-- Treasury balance: ${context.treasuryBalance} USDT0
-- Savings balance: ${context.savingsBalance} USDT0
+  const userPrompt = `MCP Tool Results:
+- getTokenBalance(treasury): ${context.treasuryBalance} USDT0
+- getBalance(treasury): ${context.treasuryXPL?.toFixed(4) || '0'} XPL
+- getTokenBalance(savings): ${context.savingsBalance} USDT0
+
+Agent State:
 - Revenue last hour: ${context.revenueLastHour} USDT0 (${context.revenueCount} payments)
 - Requests last hour: ${context.requestsLastHour}
 - Current prices: analyze=$${(context.prices.analyze / 1e6).toFixed(4)}, risk=$${(context.prices.risk / 1e6).toFixed(4)}

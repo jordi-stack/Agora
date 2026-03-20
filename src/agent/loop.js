@@ -1,4 +1,4 @@
-import { getBalances } from '../mcp/wallet.js'
+import { getBalances, getRecentToolCalls } from '../mcp/wallet.js'
 import { getDecision } from './reasoning.js'
 import { evaluateTreasury, calculatePnL } from './treasury.js'
 import { getPrices, adjustPrices, getRequestVolume, resetHourlyCounters } from '../x402/pricing.js'
@@ -60,6 +60,7 @@ async function runCycle(savingsAddress) {
 
     const decision = await getDecision({
       treasuryBalance,
+      treasuryXPL: balances.treasury.native,
       savingsBalance,
       revenueLastHour,
       revenueCount,
@@ -91,6 +92,7 @@ async function runCycle(savingsAddress) {
       decision.executionResult = { skipped: true, reason: 'confidence below 0.7' }
     }
 
+    decision.mcpTools = getRecentToolCalls()
     await store.addDecision({ ...decision, timestamp: Date.now(), cycle: cycleCount })
     await updateTreasuryState(balances, pnl, prices, safety, volume)
 
