@@ -232,6 +232,7 @@ agora/
 │   ├── wallet/                # WDK wallet manager, TX pipeline
 │   ├── x402/                  # Payment middleware, dynamic pricing, services
 │   ├── agent/                 # LLM wrapper, reasoning engine, treasury, loop
+│   ├── mcp/                   # WDK MCP Toolkit integration (15 tools)
 │   ├── state/                 # In-memory store + WDK Indexer API
 │   └── api/                   # Dashboard API routes
 ├── client/                    # React dashboard (Vite)

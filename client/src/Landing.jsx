@@ -295,19 +295,20 @@ export default function Landing() {
             <tbody>
               {[
                 ['Wallet', '@tetherto/wdk-wallet-evm', 'Self-custodial, BIP-44, multi-account'],
+                ['Agent Framework', 'WDK MCP Toolkit', '15 MCP tools for wallet operations'],
                 ['Payments', 'x402 Protocol (@x402/express)', 'HTTP-native agentic micropayments'],
-                ['LLM', 'Groq / OpenAI / Anthropic / any', 'Universal provider, auto-detected'],
+                ['LLM', 'Groq + LLaMA (open-source)', 'Universal provider, auto-detected'],
                 ['Chain', 'Plasma (eip155:9745)', "Tether's chain, near-zero gas"],
                 ['State', 'In-memory store', 'No external dependencies'],
                 ['Indexer', 'WDK Indexer API', 'Official Tether balances + transfers'],
                 ['Server', 'Express.js', 'x402 middleware compatible'],
                 ['Frontend', 'React + Vite', 'Lightweight, fast builds'],
                 ['Testing', 'Vitest', '22 unit tests'],
-              ].map(([layer, tech, why], i) => (
+              ].map(([layer, tech, why], i, arr) => (
                 <tr key={layer}>
-                  <td style={{ ...td, fontWeight: 'bold', fontSize: 12, ...(i === 8 ? { borderBottom: 'none' } : {}) }}>{layer}</td>
-                  <td style={{ ...td, fontFamily: 'monospace', fontSize: 12, color: t.accent, ...(i === 8 ? { borderBottom: 'none' } : {}) }}>{tech}</td>
-                  <td style={{ ...tdMuted, fontSize: 12, ...(i === 8 ? { borderBottom: 'none' } : {}) }}>{why}</td>
+                  <td style={{ ...td, fontWeight: 'bold', fontSize: 12, ...(i === arr.length - 1 ? { borderBottom: 'none' } : {}) }}>{layer}</td>
+                  <td style={{ ...td, fontFamily: 'monospace', fontSize: 12, color: t.accent, ...(i === arr.length - 1 ? { borderBottom: 'none' } : {}) }}>{tech}</td>
+                  <td style={{ ...tdMuted, fontSize: 12, ...(i === arr.length - 1 ? { borderBottom: 'none' } : {}) }}>{why}</td>
                 </tr>
               ))}
             </tbody>
