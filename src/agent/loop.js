@@ -1,4 +1,5 @@
 import { getBalances, getRecentToolCalls } from '../mcp/wallet.js'
+import { getMCP } from '../mcp/server.js'
 import { getDecision } from './reasoning.js'
 import { evaluateTreasury, calculatePnL } from './treasury.js'
 import { getPrices, adjustPrices, getRequestVolume, resetHourlyCounters } from '../x402/pricing.js'
@@ -33,6 +34,19 @@ async function runCycle(savingsAddress) {
     const treasuryBalance = balances.treasury.usdt0 || 0
     const savingsBalance = balances.savings.usdt0 || 0
     console.log(`[agent] Treasury: ${treasuryBalance} USDT0 (${balances.treasury.native.toFixed(4)} XPL) | Savings: ${savingsBalance} USDT0`)
+
+    // Proof-of-life: sign timestamped message with WDK
+    let proofOfLife = null
+    try {
+      const mcp = getMCP()
+      if (mcp) {
+        const account = await mcp.wdk.getAccount('plasma', 0)
+        const message = `agora-alive-${Date.now()}-cycle-${cycleCount}`
+        const signature = await account.sign(message)
+        proofOfLife = { message, signature: signature.slice(0, 22) + '...' }
+        console.log(`[agent] Proof-of-life: signed cycle #${cycleCount}`)
+      }
+    } catch {}
 
     const revenue = await store.getRevenue(100)
     const expenses = await store.getExpenses(100)
@@ -97,6 +111,7 @@ async function runCycle(savingsAddress) {
     }
 
     decision.mcpTools = getRecentToolCalls()
+    decision.proofOfLife = proofOfLife
     await store.addDecision({ ...decision, timestamp: Date.now(), cycle: cycleCount })
     await updateTreasuryState(balances, pnl, prices, safety, volume)
 

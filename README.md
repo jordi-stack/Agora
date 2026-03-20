@@ -68,8 +68,14 @@ The agent sells its services using the [x402 protocol](https://www.x402.org/). B
 - `POST /api/analyze` - Market analysis (Bitfinex/CoinGecko + LLM reasoning)
 - `POST /api/risk` - Wallet risk scoring (Plasma RPC + LLM assessment)
 
-### Dynamic Pricing
-The agent adjusts prices based on demand. High request volume raises prices. Low demand drops them back to base. Pricing strategy is decided by the LLM.
+### Agentic Payment Design
+The agent implements multiple programmable payment patterns:
+- **Micropayments**: x402 pay-per-request, any agent or human can buy services via HTTP
+- **Conditional transfers**: profits move to savings only when treasury exceeds threshold (1.0 USDT0)
+- **Autonomous pricing**: LLM adjusts prices based on demand (0.5x-3x base)
+- **Payment constraints**: 4 hard-coded safety rules enforced before any transaction
+- **Agent-to-agent**: Demo Buyer (Acc 2) pays Treasury (Acc 0) via x402 on Plasma
+- **Proof-of-life**: agent signs a cryptographic message each cycle as liveness proof
 
 ### Multi-Account Treasury (WDK)
 Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wallet-evm`:
