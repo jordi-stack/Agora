@@ -28,7 +28,7 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 
 - Multi-provider LLM: auto-detects GROQ_API_KEY / OPENAI_API_KEY / TOGETHER_API_KEY / FIREWORKS_API_KEY / ANTHROPIC_API_KEY
 - TX Pipeline: validate amount -> convert to base units -> send via WDK -> retry (3x)
-- Agent Loop: runs every 5 min via setInterval, decisions logged with reasoning
+- Agent Loop: runs every 5 min via setInterval, decisions logged with reasoning, proof-of-life signing each cycle
 - MCP Toolkit: agent loop uses WDK MCP Toolkit for wallet operations (15 tools registered)
 - Dual WDK instances: MCP for agent reasoning, manager.js for x402 payment infrastructure
 - x402: Express middleware, Semantic facilitator handles settlement

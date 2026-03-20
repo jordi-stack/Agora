@@ -23,6 +23,7 @@ export default function ReasoningTrail({ decisions }) {
             </div>
             <div style={{ color: t.sub, fontSize: 11, lineHeight: 1.4 }}>{d.reasoning?.substring(0, 200)}{d.reasoning?.length > 200 ? '...' : ''}</div>
             {d.mcpTools?.length > 0 && <div style={{ fontSize: 10, color: t.dim, marginTop: 4 }}>MCP: {[...new Set(d.mcpTools)].join(', ')}</div>}
+            {d.proofOfLife && <div style={{ fontSize: 10, color: t.dim, marginTop: 2 }}>Signed: {d.proofOfLife.signature}</div>}
           </div>
         ))}
     </div>
