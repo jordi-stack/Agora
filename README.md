@@ -38,11 +38,13 @@ Verified transactions on Plasma:
 graph TD
     subgraph AGORA["AGORA AGENT"]
         BRAIN["Agent Brain\n(LLaMA / GPT / Claude)\nAutonomous Loop · 5 min"]
+        MCP["WDK MCP Toolkit\n15 Tools Registered\ngetBalance · transfer · getCurrentPrice"]
         WALLET["WDK Wallet Layer\nAccount 0: Treasury\nAccount 1: Savings\nAccount 2: Demo Buyer\nChain: Plasma · USDT0"]
         X402["x402 Revenue Engine\nDynamic Pricing\nAuto-collect USDT0"]
         SAFETY["Safety Rules\nMin balance: 0.5 USDT0\nMax tx: 0.1 USDT0\nRate limit · Emergency pause"]
 
-        BRAIN -->|decisions| WALLET
+        BRAIN -->|decisions| MCP
+        MCP -->|tool calls| WALLET
         SAFETY -.->|enforced| WALLET
     end
 
@@ -167,7 +169,7 @@ pm2 save
 npm test
 ```
 
-22 unit tests covering safety rules, dynamic pricing, treasury P&L calculation, and LLM JSON parsing.
+30 unit tests covering safety rules, dynamic pricing, treasury P&L calculation, LLM JSON parsing, and MCP integration.
 
 ### Fund Demo Buyer
 
@@ -237,7 +239,7 @@ agora/
 │   ├── state/                 # In-memory store + WDK Indexer API
 │   └── api/                   # Dashboard API routes
 ├── client/                    # React dashboard (Vite)
-├── test/                      # Unit tests (22 tests)
+├── test/                      # Unit tests (30 tests)
 ├── docs/                      # Architecture diagrams
 ├── scripts/                   # Utility scripts (fund-demo)
 ├── .env.example               # Environment template

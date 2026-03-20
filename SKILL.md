@@ -181,7 +181,7 @@ Dashboard: `http://localhost:4747`
 
 ### Test
 ```bash
-npm test    # 22 unit tests
+npm test    # 30 unit tests
 ```
 
 ### Fund Demo Buyer

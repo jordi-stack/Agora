@@ -303,7 +303,7 @@ export default function Landing() {
                 ['Indexer', 'WDK Indexer API', 'Official Tether balances + transfers'],
                 ['Server', 'Express.js', 'x402 middleware compatible'],
                 ['Frontend', 'React + Vite', 'Lightweight, fast builds'],
-                ['Testing', 'Vitest', '22 unit tests'],
+                ['Testing', 'Vitest', '30 unit tests'],
               ].map(([layer, tech, why], i, arr) => (
                 <tr key={layer}>
                   <td style={{ ...td, fontWeight: 'bold', fontSize: 12, ...(i === arr.length - 1 ? { borderBottom: 'none' } : {}) }}>{layer}</td>
