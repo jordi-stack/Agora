@@ -4,6 +4,7 @@ import cors from 'cors'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { initWallet, dispose } from './wallet/manager.js'
+import { initMCP, disposeMCP } from './mcp/server.js'
 import { initLLM } from './agent/llm.js'
 import { setupX402 } from './x402/middleware.js'
 import { handleAnalyze } from './x402/services/analyze.js'
@@ -31,6 +32,14 @@ async function main() {
 
   // 3. Init WDK wallet (3 accounts)
   const { accounts, addresses } = await initWallet(process.env.WDK_SEED)
+
+  // 3b. Init MCP Toolkit (agent reasoning layer)
+  try {
+    await initMCP(process.env.WDK_SEED)
+  } catch (err) {
+    console.warn('[mcp] MCP Toolkit init failed:', err.message)
+    console.warn('[mcp] Agent loop will use direct WDK calls')
+  }
 
   // 4. Setup Express
   const app = express()
@@ -90,6 +99,7 @@ async function main() {
   const shutdown = () => {
     console.log('\n🛑 Shutting down Agora Agent...')
     stopLoop()
+    disposeMCP()
     dispose()
     server.close()
     process.exit(0)

@@ -1,4 +1,4 @@
-import { getBalances } from '../wallet/manager.js'
+import { getBalances } from '../mcp/wallet.js'
 import { getDecision } from './reasoning.js'
 import { evaluateTreasury, calculatePnL } from './treasury.js'
 import { getPrices, adjustPrices, getRequestVolume, resetHourlyCounters } from '../x402/pricing.js'

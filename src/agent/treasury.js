@@ -1,6 +1,7 @@
 import { SAFETY } from '../config/safety.js'
 import { transferUSDT0 } from '../wallet/tx-pipeline.js'
-import { getAccount } from '../wallet/manager.js'
+import { getMCP } from '../mcp/server.js'
+import { getAccount as getAccountFallback } from '../wallet/manager.js'
 import { store } from '../state/store.js'
 
 const PROFIT_THRESHOLD = 1.0
@@ -20,8 +21,12 @@ export async function evaluateTreasury(treasuryBalance, savingsAddress) {
   }
 
   try {
+    const mcp = getMCP()
+    const account = mcp
+      ? await mcp.wdk.getAccount('plasma', 0)
+      : getAccountFallback('treasury')
     const receipt = await transferUSDT0(
-      getAccount('treasury'),
+      account,
       savingsAddress,
       rounded,
       'Autonomous profit transfer to savings'
