@@ -34,29 +34,9 @@ Verified transactions on Plasma:
 
 ## Architecture
 
-```mermaid
-graph TD
-    subgraph AGORA["AGORA AGENT"]
-        BRAIN["Agent Brain\n(LLaMA / GPT / Claude)\nAutonomous Loop · 5 min"]
-        MCP["WDK MCP Toolkit\n15 Tools Registered\ngetBalance · transfer · getCurrentPrice"]
-        WALLET["WDK Wallet Layer\nAccount 0: Treasury\nAccount 1: Savings\nAccount 2: Demo Buyer\nChain: Plasma · USDT0"]
-        X402["x402 Revenue Engine\nDynamic Pricing\nAuto-collect USDT0"]
-        SAFETY["Safety Rules\nMin balance: 0.5 USDT0\nMax tx: 0.1 USDT0\nRate limit · Emergency pause"]
-
-        BRAIN -->|decisions| MCP
-        MCP -->|tool calls| WALLET
-        SAFETY -.->|enforced| WALLET
-    end
-
-    BUYERS["External Buyers / Agents"] -->|"POST /api/analyze ($0.005)\nPOST /api/risk ($0.003)"| X402
-    X402 -->|"USDT0 revenue"| WALLET
-
-    subgraph DASHBOARD["React Dashboard"]
-        UI["P&L · Revenue Stream · Reasoning Trail\nDynamic Pricing · Safety Status · Demo Buyer"]
-    end
-
-    WALLET -->|"GET /api/status\nGET /api/history"| DASHBOARD
-```
+<p align="center">
+  <img src="assets/architecture.svg" alt="Agora Architecture" width="100%">
+</p>
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed data flow diagrams.
 
