@@ -86,6 +86,21 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 | Savings | 1 | Receives autonomous profit transfers |
 | Demo Buyer | 2 | Pre-funded to test x402 payments |
 
+**WDK Primitives Used:**
+
+| Primitive | Purpose |
+|-----------|---------|
+| `getAccount(index)` | BIP-44 HD wallet derivation (3 accounts) |
+| `getAddress()` | Retrieve wallet address |
+| `getBalance()` | Native token (XPL) balance |
+| `getTokenBalance()` | USDT0 (ERC-20) balance |
+| `transfer()` | Sign and send USDT0 on-chain |
+| `sign()` | Proof-of-life message signing each cycle |
+| `getCurrentPrice()` | Bitfinex spot price via MCP Toolkit |
+| `getHistoricalPrice()` | OHLCV candle data via MCP Toolkit |
+| `getIndexerTokenBalance()` | Token balance via WDK Indexer API |
+| `getTokenTransfers()` | Transfer history via WDK Indexer API |
+
 ### Autonomous Agent Loop
 Every 5 minutes, the agent uses the WDK MCP Toolkit to:
 1. Checks USDT0 and XPL balances via MCP tools
@@ -118,7 +133,7 @@ Built-in test client that triggers real x402 payments with one click. Revenue sh
 A "How It Works" button in the header opens a step-by-step guide covering how the agent earns, decides, manages, and how to test it.
 
 ### Agent Skills (OpenClaw / Hermes)
-Agora includes a [SKILL.md](./SKILL.md) compliant with the [AgentSkills specification](https://agentskills.io/specification). Compatible with Hermes Agent, OpenClaw, and any agent platform that supports the standard.
+Agora includes a [SKILL.md](./SKILL.md) compliant with the [AgentSkills specification](https://agentskills.io/specification). Compatible with the [WDK Agent Skills ecosystem](https://docs.wdk.tether.io/ai/agent-skills), Hermes Agent, OpenClaw, and any agent platform that supports the standard.
 
 ```bash
 npx skills add jordi-stack/agora
