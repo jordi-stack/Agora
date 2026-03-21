@@ -10,7 +10,6 @@ node_modules/
 dist/
 client/dist/
 .next/
-.vercel/
 
 # Logs
 *.log
@@ -23,7 +22,7 @@ Thumbs.db
 # Claude Code / internal context
 .claude/
 CLAUDE.md
-ex.md
+es.md
 
 # Internal planning docs
 docs/superpowers/
@@ -35,7 +34,7 @@ docs/superpowers/
 # Test/spike files
 spike.js
 
-es.md
+
 *.png
 !assets/*.png
 !client/public/logo.png
