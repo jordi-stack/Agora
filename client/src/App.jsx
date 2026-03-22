@@ -71,7 +71,7 @@ export default function App() {
             </div>
           </div>
         </div>
-        <div style={grid}><PnLCard pnl={status.pnl} /><AccountView treasury={status.treasury} savings={status.savings} demoBuyer={status.demoBuyer} /></div>
+        <div style={grid}><PnLCard pnl={status.pnl} treasury={status.treasury} savings={status.savings} /><AccountView treasury={status.treasury} savings={status.savings} demoBuyer={status.demoBuyer} /></div>
         <div style={grid}><SafetyStatus safety={status.safety} /><PricingChart pricing={status.pricing} /></div>
         <div style={{ marginBottom: 16 }}><DemoBuyer onPayment={fetchData} /></div>
         <div style={grid}><RevenueStream revenue={history?.revenue || []} /><ReasoningTrail decisions={history?.decisions || []} /></div>

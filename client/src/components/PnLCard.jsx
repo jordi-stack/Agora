@@ -2,9 +2,10 @@ import React from 'react'
 import { useT } from '../App.jsx'
 import InfoModal from './InfoModal.jsx'
 
-export default function PnLCard({ pnl }) {
+export default function PnLCard({ pnl, treasury, savings }) {
   const { t } = useT()
   if (!pnl) return null
+  const totalAssets = (treasury?.usdt0 || 0) + (savings?.usdt0 || 0)
   const item = { marginBottom: 10, paddingLeft: 12, borderLeft: `2px solid ${t.accentBg}` }
   return (
     <div style={{ background: t.card, borderRadius: 8, padding: 20, border: `1px solid ${t.border}` }}>
@@ -17,13 +18,31 @@ export default function PnLCard({ pnl }) {
           <div style={item}>
             <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b style={{ color: t.blue }}>Saved</b> - Total USDT0 the agent has autonomously transferred from Treasury to Savings. This is profit allocation, not an expense. The money is still owned by the agent in the Savings wallet.</div>
           </div>
+          <div style={item}>
+            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b style={{ color: t.accent }}>Total Assets</b> - Combined USDT0 across Treasury and Savings wallets. This is the agent's total holdings.</div>
+          </div>
           <div style={{ fontSize: 12, color: t.muted, lineHeight: 1.5, marginTop: 12 }}>All data persists to disk and survives server restarts. All amounts in USDT0 (6 decimals).</div>
         </InfoModal>
       </div>
-      <div style={{ color: t.dim, fontSize: 10, marginBottom: 10 }}>Revenue earned and profits saved by the agent</div>
-      <div style={{ display: 'flex', gap: 24 }}>
-        <div><span style={{ color: t.muted, fontSize: 11 }}>Revenue</span><div style={{ color: t.accent, fontSize: 22, fontWeight: 'bold' }}>+{pnl.revenue.toFixed(6)}</div></div>
-        <div><span style={{ color: t.muted, fontSize: 11 }}>Saved</span><div style={{ color: t.blue, fontSize: 22, fontWeight: 'bold' }}>{pnl.expenses.toFixed(6)}</div></div>
+      <div style={{ color: t.dim, fontSize: 10, marginBottom: 12 }}>Revenue earned and profits saved by the agent</div>
+      <div style={{ display: 'flex', gap: 32, marginBottom: 16 }}>
+        <div>
+          <span style={{ color: t.muted, fontSize: 11 }}>Revenue</span>
+          <div style={{ color: t.accent, fontSize: 22, fontWeight: 'bold' }}>+{pnl.revenue.toFixed(6)}</div>
+        </div>
+        <div>
+          <span style={{ color: t.muted, fontSize: 11 }}>Saved</span>
+          <div style={{ color: t.blue, fontSize: 22, fontWeight: 'bold' }}>{pnl.expenses.toFixed(6)}</div>
+        </div>
+      </div>
+      <div style={{ borderTop: `1px solid ${t.border}`, paddingTop: 12 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+          <span style={{ color: t.muted, fontSize: 11 }}>Total Assets</span>
+          <span style={{ color: t.accent, fontSize: 18, fontWeight: 'bold' }}>{totalAssets.toFixed(4)} USDT0</span>
+        </div>
+        <div style={{ color: t.dim, fontSize: 10, textAlign: 'right', marginTop: 2 }}>
+          Treasury {(treasury?.usdt0 || 0).toFixed(4)} + Savings {(savings?.usdt0 || 0).toFixed(4)}
+        </div>
       </div>
     </div>
   )
