@@ -7,7 +7,7 @@ let x402Enabled = false
 export function isX402Enabled() { return x402Enabled }
 
 export async function setupX402(app, sellerAddress) {
-  const facilitatorUrl = process.env.FACILITATOR_URL || 'https://x402.semanticpay.io/'
+  const facilitatorUrl = process.env.FACILITATOR_URL || 'https://facilitator.x402.org/'
 
   // Try to initialize x402 payment middleware with facilitator validation
   try {
@@ -19,7 +19,6 @@ export async function setupX402(app, sellerAddress) {
     const resourceServer = new x402ResourceServer(facilitatorClient)
       .register(CHAIN.network, new ExactEvmScheme())
 
-    // Pre-initialize to catch facilitator errors early (before app.listen)
     await resourceServer.initialize()
 
     const paymentConfig = {
