@@ -7,7 +7,7 @@ Autonomous AI agent that earns USDT0 by selling intelligence services via x402 m
 **Track:** Agent Wallets (WDK / Openclaw and Agents Integration)
 **Hackathon:** [Tether Hackathon Galactica: WDK Edition 1](https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail)
 **Live Demo:** [https://agora-agent.xyz](https://agora-agent.xyz)
-**Demo Video:** *(coming soon)*
+**Demo Video:** *(recording in progress)*
 
 ---
 
@@ -15,7 +15,7 @@ Autonomous AI agent that earns USDT0 by selling intelligence services via x402 m
 
 1. Open the [live demo](https://agora-agent.xyz)
 2. Click **"Buy Market Analysis"** or **"Buy Risk Score"** in the Demo Buyer section
-3. Watch the agent earn USDT0 in real-time. Revenue appears in the P&L card, reasoning in the trail below.
+3. Watch a real USDT0 transfer execute on Sepolia. The transaction hash and explorer link appear in the response.
 4. Wait 5 minutes to see the autonomous loop make a decision (hold, reprice, or transfer to savings)
 
 ## Overview
@@ -54,8 +54,9 @@ The agent implements multiple programmable payment patterns:
 - **Conditional transfers**: profits move to savings only when treasury exceeds threshold (1.0 USDT0)
 - **Autonomous pricing**: LLM adjusts prices based on demand (0.5x-3x base)
 - **Payment constraints**: 4 hard-coded safety rules enforced before any transaction
-- **Agent-to-agent**: Demo Buyer (Acc 2) pays Treasury (Acc 0) via x402 on Sepolia
+- **Agent-to-agent**: Demo Buyer (Acc 2) pays Treasury (Acc 0) via WDK settlement on Sepolia (x402 architecture ready for mainnet)
 - **Proof-of-life**: agent signs a cryptographic message each cycle as liveness proof
+- **Honest revenue**: P&L only counts real on-chain transfers, not API requests
 
 ### Multi-Account Treasury (WDK)
 Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wallet-evm`:
@@ -110,7 +111,7 @@ Auto-detects provider from environment variables. Works with any OpenAI-compatib
 - `LLM_API_KEY` + `LLM_BASE_URL` - Any custom provider
 
 ### Demo Buyer
-Built-in test client that triggers real x402 payments with one click. Revenue shows up in the dashboard immediately.
+Built-in test client that triggers a real USDT0 transfer on Sepolia with one click. Uses x402 payment flow on mainnet; on testnet, falls back to direct WDK `transfer()` as settlement. Every payment produces a verifiable Sepolia transaction hash.
 
 ### Interactive Help
 A "How It Works" button in the header opens a step-by-step guide covering how the agent earns, decides, manages, and how to test it.
@@ -217,7 +218,7 @@ node scripts/fund-demo.js
 | Wallet | [@tetherto/wdk-wallet-evm](https://docs.wallet.tether.io/) | Self-custodial, BIP-44, multi-account |
 | Agent Framework | [WDK MCP Toolkit](https://github.com/tetherto/wdk-mcp-toolkit) | 15 MCP tools for agent wallet operations |
 | Payments | [x402 Protocol](https://www.x402.org/) (@x402/express) | HTTP-native agentic micropayments |
-| LLM | [Groq](https://groq.com/) / OpenAI / Together / Fireworks / Anthropic / any | Universal provider, auto-detected |
+| LLM | [Groq](https://groq.com/) / OpenAI / Together / Fireworks / Anthropic / any | Universal provider with tool-calling, auto-detected |
 | Chain | [Sepolia](https://sepolia.etherscan.io) (eip155:11155111) | EVM testnet with WDK support |
 | State | JSON file persistence (`data/agora-state.json`) | Survives restarts, debounced writes |
 | Indexer | [WDK Indexer API](https://wdk-api.tether.io) | Official Tether token balances and transfer history |
@@ -251,6 +252,8 @@ agora/
 ├── client/                    # React dashboard (Vite)
 ├── test/                      # Unit tests (46 tests)
 ├── docs/                      # Architecture diagrams
+├── data/                      # Persisted agent state (gitignored)
+│   └── agora-state.json       # Revenue, decisions, expenses (survives restart)
 ├── scripts/                   # Utility scripts (fund-demo)
 ├── .env.example               # Environment template
 ├── SKILL.md                   # OpenClaw agent skill definition
@@ -265,7 +268,7 @@ agora/
 |---------|---------|
 | [Tether WDK](https://docs.wallet.tether.io/) | Self-custodial wallet infrastructure |
 | [x402 Protocol](https://www.x402.org/) | HTTP payment protocol |
-| [Semantic Facilitator](https://semanticpay.io/) | x402 payment verification and settlement |
+| [x402 Facilitator](https://facilitator.x402.org/) | x402 payment verification and settlement (mainnet; Sepolia uses WDK direct transfer) |
 | [Groq](https://groq.com/) | LLM inference (LLaMA, open-source) |
 | [WDK Indexer API](https://wdk-api.tether.io) | Token balances and transfer history |
 | [Bitfinex API](https://docs.bitfinex.com/) | Market price data (primary) |
@@ -280,6 +283,7 @@ agora/
 | **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
 | **JSON file persistence** | Agent state persists to `data/agora-state.json` with debounced writes. Survives restarts. No external database needed — zero setup friction. |
 | **Open-source LLM default** | Groq + LLaMA is free and fast. Anyone can run this without paying for API access. Any OpenAI-compatible provider works as a drop-in swap. |
+| **LLM tool-calling** | Agent uses Groq/OpenAI tool-calling API — the LLM decides which MCP tools to call (check_balances, check_revenue, etc.), gathers data autonomously, then makes decisions. Transfer amounts are LLM-influenced but bounded by safety. Falls back to simple prompt if tool-calling fails. |
 | **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. They're enforced in code before any transaction is signed. |
 | **WDK MCP Toolkit** | Agent reasoning layer uses MCP tools for wallet operations. Payment infrastructure (x402) stays separate. Clear separation between agent logic and wallet execution. |
 | **WDK Indexer API** | Official Tether API for token balances and transfer history. More reliable than raw RPC parsing, with graceful fallback if the key isn't set. |
