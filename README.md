@@ -56,14 +56,14 @@ The agent implements multiple programmable payment patterns:
 - **Payment constraints**: 4 hard-coded safety rules enforced before any transaction
 - **Agent-to-agent**: Demo Buyer (Acc 2) pays Treasury (Acc 0) via WDK settlement on Sepolia (x402 architecture ready for mainnet)
 - **Proof-of-life**: agent signs a cryptographic message each cycle as liveness proof
-- **Honest revenue**: P&L only counts real on-chain transfers, not API requests
+- **Honest revenue**: Agent Performance card only counts real on-chain transfers, not API requests
 
 ### Multi-Account Treasury (WDK)
 Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wallet-evm`:
 
 | Account | Index | Purpose |
 |---------|-------|---------|
-| Treasury | 0 | Receives revenue, pays expenses |
+| Treasury | 0 | Receives revenue, transfers profits to Savings |
 | Savings | 1 | Receives autonomous profit transfers |
 | Demo Buyer | 2 | Pre-funded to test payments |
 

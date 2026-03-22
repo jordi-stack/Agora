@@ -71,7 +71,7 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 
 | Account | Index | Role | Description |
 |---------|-------|------|-------------|
-| Treasury | 0 | Operating wallet | Receives revenue, pays operational expenses |
+| Treasury | 0 | Operating wallet | Receives revenue, transfers profits to Savings |
 | Savings | 1 | Profit storage | Receives autonomous profit transfers when treasury exceeds threshold |
 | Demo Buyer | 2 | Testing | Pre-funded wallet for testing payments |
 
@@ -146,7 +146,7 @@ Agora auto-detects the LLM provider from environment variables. Supports any Ope
 ## Dashboard
 
 Real-time React dashboard showing:
-- **P&L Card** - Revenue from verified on-chain payments minus operational costs
+- **Agent Performance** - Revenue earned from verified payments and profits saved to Savings wallet
 - **Account View** - Treasury and Savings USDT0 + ETH balances with Sepoliascan links
 - **Safety Status** - Traffic light indicators for each safety rule
 - **Dynamic Pricing** - Current prices vs base, with demand stats
