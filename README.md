@@ -116,7 +116,7 @@ A "How It Works" button in the header opens a step-by-step guide covering how th
 Agora includes a [SKILL.md](./SKILL.md) compliant with the [AgentSkills specification](https://agentskills.io/specification). Compatible with the [WDK Agent Skills ecosystem](https://docs.wdk.tether.io/ai/agent-skills), Hermes Agent, OpenClaw, and any agent platform that supports the standard.
 
 ```bash
-npx skills add jordi-stack/agora
+npx skills add jordi-stack/Agora
 ```
 
 Live skill file: [agora-agent.xyz/SKILL.md](https://agora-agent.xyz/SKILL.md)

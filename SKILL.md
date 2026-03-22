@@ -5,7 +5,7 @@ license: Apache-2.0
 compatibility: Requires Node.js 20+, a BIP-39 seed phrase with USDT0 and ETH on Sepolia chain, and an LLM API key (Groq recommended).
 metadata:
   version: "1.0.0"
-  repository: https://github.com/jordi-stack/agora
+  repository: https://github.com/jordi-stack/Agora
   base-url: http://localhost:4747
   tags: x402, wdk, tether, sepolia, usdt0, autonomous-agent, micropayments
   requires: "@x402/fetch @x402/evm @tetherto/wdk-wallet-evm"

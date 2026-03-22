@@ -150,7 +150,7 @@ export default function Landing() {
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="#/app" style={ctaBtn}>Open Dashboard</a>
-          <a href="https://github.com/jordi-stack/agora" target="_blank" rel="noopener" style={ctaOutline}>View Source</a>
+          <a href="https://github.com/jordi-stack/Agora" target="_blank" rel="noopener" style={ctaOutline}>View Source</a>
         </div>
       </div>
 
@@ -404,7 +404,7 @@ export default function Landing() {
           <a href="#/app" style={ctaBtn}>Open Dashboard</a>
         </div>
         <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
-          <a href="https://github.com/jordi-stack/agora" target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>GitHub</a>
+          <a href="https://github.com/jordi-stack/Agora" target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>GitHub</a>
           <a href="https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail" target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>Hackathon</a>
           <a href={`https://sepolia.etherscan.io/address/${TREASURY}`} target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>Etherscan</a>
         </div>
