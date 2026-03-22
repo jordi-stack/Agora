@@ -154,7 +154,7 @@ Use your tools to gather more data, then make your decision. Respond with JSON o
 
     const decision = parseDecisionJSON(result.content)
     decision.provider = getProvider()
-    decision.mcpToolsUsed = result.toolCalls.map(t => t.name)
+    decision.reasoningTools = result.toolCalls.map(t => t.name)
     return decision
   } catch (err) {
     console.error('[reasoning] Tool-calling error, falling back to simple prompt:', err.message)

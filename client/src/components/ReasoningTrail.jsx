@@ -22,7 +22,8 @@ export default function ReasoningTrail({ decisions }) {
               <span style={{ color: t.dim, fontSize: 11 }}>#{d.cycle} · {ago(d.timestamp)}</span>
             </div>
             <div style={{ color: t.sub, fontSize: 11, lineHeight: 1.4 }}>{d.reasoning?.substring(0, 200)}{d.reasoning?.length > 200 ? '...' : ''}</div>
-            {d.mcpTools?.length > 0 && <div style={{ fontSize: 10, color: t.dim, marginTop: 4 }}>MCP: {[...new Set(d.mcpTools)].join(', ')}</div>}
+            {d.reasoningTools?.length > 0 && <div style={{ fontSize: 10, color: t.dim, marginTop: 4 }}>LLM Tools: {[...new Set(d.reasoningTools)].join(', ')}</div>}
+            {d.mcpTools?.length > 0 && <div style={{ fontSize: 10, color: t.dim, marginTop: 2 }}>WDK Tools: {[...new Set(d.mcpTools)].join(', ')}</div>}
             {d.proofOfLife && <div style={{ fontSize: 10, color: t.dim, marginTop: 2 }}>Signed: {d.proofOfLife.signature}</div>}
           </div>
         ))}
