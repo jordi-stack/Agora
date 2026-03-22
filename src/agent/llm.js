@@ -96,3 +96,90 @@ export async function chat(systemPrompt, userPrompt, options = {}) {
 
   return response.choices[0]?.message?.content || ''
 }
+
+export async function chatWithTools(systemPrompt, userPrompt, tools, executeTool, options = {}) {
+  const { temperature = 0.3, maxTokens = 1000, maxIterations = 6 } = options
+
+  if (!provider || provider.type === 'mock') {
+    return { content: '{"action":"hold","confidence":0.5,"reasoning":"No LLM configured"}', toolCalls: [] }
+  }
+
+  const allToolCalls = []
+
+  if (provider.type === 'anthropic') {
+    const anthropicTools = tools.map(t => ({
+      name: t.function.name,
+      description: t.function.description,
+      input_schema: t.function.parameters,
+    }))
+    const messages = [{ role: 'user', content: userPrompt }]
+
+    for (let i = 0; i < maxIterations; i++) {
+      const response = await client.messages.create({
+        model: provider.model,
+        max_tokens: maxTokens,
+        system: systemPrompt,
+        messages,
+        tools: anthropicTools,
+        temperature,
+      })
+      const textBlocks = response.content.filter(b => b.type === 'text')
+      const toolUseBlocks = response.content.filter(b => b.type === 'tool_use')
+
+      if (toolUseBlocks.length === 0 || response.stop_reason === 'end_turn') {
+        return { content: textBlocks.map(b => b.text).join('\n') || '', toolCalls: allToolCalls }
+      }
+
+      messages.push({ role: 'assistant', content: response.content })
+      const toolResults = []
+      for (const block of toolUseBlocks) {
+        allToolCalls.push({ name: block.name, args: block.input })
+        const result = await executeTool(block.name, block.input)
+        toolResults.push({
+          type: 'tool_result',
+          tool_use_id: block.id,
+          content: typeof result === 'string' ? result : JSON.stringify(result),
+        })
+      }
+      messages.push({ role: 'user', content: toolResults })
+    }
+    return { content: '{"action":"hold","confidence":0.5,"reasoning":"Max iterations reached"}', toolCalls: allToolCalls }
+  }
+
+  // OpenAI-compatible (Groq, OpenAI, Together, Fireworks)
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: userPrompt },
+  ]
+
+  for (let i = 0; i < maxIterations; i++) {
+    const response = await client.chat.completions.create({
+      model: provider.model,
+      messages,
+      tools,
+      tool_choice: 'auto',
+      temperature,
+      max_tokens: maxTokens,
+    })
+
+    const choice = response.choices[0]
+    const assistantMessage = choice.message
+    messages.push(assistantMessage)
+
+    if (choice.finish_reason !== 'tool_calls' || !assistantMessage.tool_calls?.length) {
+      return { content: assistantMessage.content || '', toolCalls: allToolCalls }
+    }
+
+    for (const toolCall of assistantMessage.tool_calls) {
+      const args = JSON.parse(toolCall.function.arguments)
+      allToolCalls.push({ name: toolCall.function.name, args })
+      const result = await executeTool(toolCall.function.name, args)
+      messages.push({
+        role: 'tool',
+        tool_call_id: toolCall.id,
+        content: typeof result === 'string' ? result : JSON.stringify(result),
+      })
+    }
+  }
+  return { content: '{"action":"hold","confidence":0.5,"reasoning":"Max iterations reached"}', toolCalls: allToolCalls }
+}
