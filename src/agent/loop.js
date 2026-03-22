@@ -93,7 +93,8 @@ async function runCycle(savingsAddress) {
 
     if (decision.confidence >= 0.7) {
       if (decision.action === 'transfer') {
-        const result = await evaluateTreasury(treasuryBalance, savingsAddress)
+        const llmAmount = decision.amount ? parseFloat(decision.amount) : null
+        const result = await evaluateTreasury(treasuryBalance, savingsAddress, llmAmount)
         decision.executionResult = result
         if (result.transferred) console.log(`[agent] 💰 Transferred ${result.amount} USDT0 to savings`)
       } else if (decision.action === 'reprice' && decision.newPrice) {

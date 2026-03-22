@@ -6,14 +6,17 @@ import { store } from '../state/store.js'
 
 const PROFIT_THRESHOLD = 1.0
 
-export async function evaluateTreasury(treasuryBalance, savingsAddress) {
+export async function evaluateTreasury(treasuryBalance, savingsAddress, llmAmount = null) {
   const surplus = treasuryBalance - SAFETY.minOperatingBalance
 
   if (treasuryBalance <= PROFIT_THRESHOLD || surplus <= 0) {
     return { transferred: false, reason: `Treasury ${treasuryBalance.toFixed(4)} below threshold ${PROFIT_THRESHOLD}` }
   }
 
-  const transferAmount = Math.min(surplus * 0.5, SAFETY.maxSingleTx)
+  // LLM suggestion bounded by safety rules
+  const transferAmount = llmAmount != null && llmAmount > 0
+    ? Math.min(llmAmount, surplus, SAFETY.maxSingleTx)
+    : Math.min(surplus * 0.5, SAFETY.maxSingleTx)
   const rounded = Math.round(transferAmount * 1e6) / 1e6
 
   if (rounded <= 0) {
