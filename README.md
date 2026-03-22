@@ -268,7 +268,7 @@ agora/
 |---------|---------|
 | [Tether WDK](https://docs.wallet.tether.io/) | Self-custodial wallet infrastructure |
 | [x402 Protocol](https://www.x402.org/) | HTTP payment protocol |
-| [x402 Facilitator](https://facilitator.x402.org/) | x402 payment verification and settlement (mainnet; Sepolia uses WDK direct transfer) |
+| [x402 Facilitator](https://facilitator.x402.org/) | x402 payment verification and settlement (supported networks only; Sepolia uses WDK direct transfer as fallback) |
 | [Groq](https://groq.com/) | LLM inference (LLaMA, open-source) |
 | [WDK Indexer API](https://wdk-api.tether.io) | Token balances and transfer history |
 | [Bitfinex API](https://docs.bitfinex.com/) | Market price data (primary) |
