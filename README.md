@@ -111,7 +111,7 @@ Auto-detects provider from environment variables. Works with any OpenAI-compatib
 - `LLM_API_KEY` + `LLM_BASE_URL` - Any custom provider
 
 ### Demo Buyer
-Built-in test client that triggers a real USDT0 transfer on Sepolia with one click. Uses x402 payment flow on mainnet; on testnet, falls back to direct WDK `transfer()` as settlement. Every payment produces a verifiable Sepolia transaction hash.
+Built-in test client that triggers a real USDT0 transfer on Sepolia with one click. Tries x402 payment flow first; if the facilitator is unavailable (e.g. on testnet), falls back to direct WDK `transfer()` as settlement. Every payment produces a verifiable Sepolia transaction hash.
 
 ### Interactive Help
 A "How It Works" button in the header opens a step-by-step guide covering how the agent earns, decides, manages, and how to test it.
@@ -207,7 +207,7 @@ node scripts/fund-demo.js
 | GET | `/api/history` | Revenue events, expenses, agent decisions |
 | GET | `/api/reasoning` | Agent decision trail with LLM reasoning |
 | GET | `/api/pricing-history` | Dynamic pricing changes over time |
-| POST | `/api/demo-buy` | Trigger a test x402 payment from the demo buyer wallet |
+| POST | `/api/demo-buy` | Trigger a test payment from the demo buyer wallet |
 | GET | `/api/transfers` | On-chain USDT0 transfer history via WDK Indexer API |
 | GET | `/api/health` | Health check (includes indexer status) |
 
@@ -281,9 +281,9 @@ agora/
 | **Sepolia testnet** | Official WDK-supported testnet with test USDT0. Recommended by Tether DevRel for hackathon development. Zero risk to real funds. |
 | **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header. No signup, no OAuth, no billing dashboard. |
 | **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
-| **JSON file persistence** | Agent state persists to `data/agora-state.json` with debounced writes. Survives restarts. No external database needed — zero setup friction. |
+| **JSON file persistence** | Agent state persists to `data/agora-state.json` with debounced writes. Survives restarts. No external database needed, zero setup friction. |
 | **Open-source LLM default** | Groq + LLaMA is free and fast. Anyone can run this without paying for API access. Any OpenAI-compatible provider works as a drop-in swap. |
-| **LLM tool-calling** | Agent uses Groq/OpenAI tool-calling API — the LLM decides which MCP tools to call (check_balances, check_revenue, etc.), gathers data autonomously, then makes decisions. Transfer amounts are LLM-influenced but bounded by safety. Falls back to simple prompt if tool-calling fails. |
+| **LLM tool-calling** | Agent uses Groq/OpenAI tool-calling API. The LLM decides which tools to call (check_balances, check_revenue, etc.), gathers data autonomously, then makes decisions. Transfer amounts are LLM-influenced but bounded by safety. Falls back to simple prompt if tool-calling fails. |
 | **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. They're enforced in code before any transaction is signed. |
 | **WDK MCP Toolkit** | Agent reasoning layer uses MCP tools for wallet operations. Payment infrastructure (x402) stays separate. Clear separation between agent logic and wallet execution. |
 | **WDK Indexer API** | Official Tether API for token balances and transfer history. More reliable than raw RPC parsing, with graceful fallback if the key isn't set. |
