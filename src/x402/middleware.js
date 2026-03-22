@@ -61,15 +61,18 @@ export async function setupX402(app, sellerAddress) {
     console.warn('[x402] Endpoints will run without x402 paywall (testnet mode)')
   }
 
-  // Revenue logging middleware (always active)
+  // Revenue logging middleware — only records real x402 payments
   app.use('/api/analyze', (req, res, next) => {
     if (req.method === 'POST') {
       recordRequest('analyze')
-      store.addRevenue({
-        timestamp: Date.now(),
-        endpoint: 'analyze',
-        amount: getPrice('analyze') / 1e6,
-      }).catch(() => {})
+      if (x402Enabled) {
+        store.addRevenue({
+          timestamp: Date.now(),
+          endpoint: 'analyze',
+          amount: getPrice('analyze') / 1e6,
+          type: 'x402',
+        }).catch(() => {})
+      }
     }
     next()
   })
@@ -77,11 +80,14 @@ export async function setupX402(app, sellerAddress) {
   app.use('/api/risk', (req, res, next) => {
     if (req.method === 'POST') {
       recordRequest('risk')
-      store.addRevenue({
-        timestamp: Date.now(),
-        endpoint: 'risk',
-        amount: getPrice('risk') / 1e6,
-      }).catch(() => {})
+      if (x402Enabled) {
+        store.addRevenue({
+          timestamp: Date.now(),
+          endpoint: 'risk',
+          amount: getPrice('risk') / 1e6,
+          type: 'x402',
+        }).catch(() => {})
+      }
     }
     next()
   })

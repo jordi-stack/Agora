@@ -112,6 +112,15 @@ router.post('/api/demo-buy', async (req, res) => {
     // Real on-chain transfer via WDK
     const receipt = await transferUSDT0(demoBuyerAccount, treasuryAddress, price, `Demo x402 payment: ${endpoint}`)
 
+    // Log revenue only after confirmed on-chain transfer
+    await store.addRevenue({
+      timestamp: Date.now(),
+      endpoint,
+      amount: price,
+      type: 'wdk-settlement',
+      txHash: receipt.hash,
+    })
+
     // Call endpoint directly
     const response = await fetch(url, {
       method: 'POST',

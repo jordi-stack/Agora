@@ -40,3 +40,6 @@ spike.js
 !client/public/logo.png
 
 me.pem
+
+# Persisted agent state
+data/
