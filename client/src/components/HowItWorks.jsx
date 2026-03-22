@@ -15,22 +15,22 @@ export default function HowItWorks() {
               <h2 style={{ color: t.accent, fontSize: 18 }}>How Agora Works</h2>
               <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: t.muted, cursor: 'pointer', fontSize: 18 }}>X</button>
             </div>
-            <p style={{ color: t.sub, fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>Agora is a self-sustaining AI agent that sells services, earns USDT0, and manages its own treasury autonomously on Sepolia.</p>
+            <p style={{ color: t.sub, fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>Agora is a self-sustaining AI agent that sells services, earns USDT0, and manages its own treasury autonomously on Sepolia. Here is what each section of the dashboard shows.</p>
             {[
-              ['1. EARN', 'Two paid API services: Market Analysis ($0.005 USDT0) uses Bitfinex/CoinGecko price data with LLM reasoning. Risk Scoring ($0.003 USDT0) queries Sepolia RPC for on-chain wallet data with LLM assessment. Buyers pay per request via x402 payment architecture with on-chain WDK settlement.'],
-              ['2. DECIDE', 'Every 5 minutes, the LLM uses tool-calling to autonomously gather data. It calls 6 reasoning tools: check_balances, check_revenue, check_expenses, check_pricing, check_decisions, and check_market_price. Then it decides: hold, transfer profits to savings, or adjust pricing. Decisions execute only when confidence is 0.7 or higher.'],
-              ['3. DYNAMIC PRICING', 'The agent autonomously adjusts service prices based on demand. High request volume increases prices (up to 3x base), low volume decreases them (down to 0.5x base). The LLM evaluates demand patterns via check_pricing and can trigger a reprice action. Anti-thrashing logic prevents erratic price changes between cycles. Current prices are visible in the Dynamic Pricing card above.'],
-              ['4. MANAGE', 'Three self-custodial BIP-44 wallets from one seed phrase via WDK: Treasury (Account 0) receives revenue and pays expenses. Savings (Account 1) stores profits when treasury exceeds 1.0 USDT0. Demo Buyer (Account 2) is pre-funded for testing payments. Transfer amounts are suggested by the LLM but bounded by safety rules.'],
-              ['5. PROTECT', 'Four hard-coded safety rules the LLM cannot override: minimum operating balance (0.5 USDT0), maximum single transaction (0.1 USDT0), spending rate limit (0.2 USDT0/hour), and emergency pause if balance drops more than 50% in one hour. The agent pauses automatically when any rule is violated.'],
-              ['6. PERSIST', 'Agent state (revenue, expenses, decisions, transactions) persists to disk and survives restarts. The Reasoning Trail below shows every autonomous decision the agent has ever made, including which LLM tools and WDK tools were called each cycle.'],
-              ['7. TRY IT', 'Click "Buy Market Analysis" or "Buy Risk Score" below. A real USDT0 transfer executes on Sepolia from the Demo Buyer wallet to Treasury. You will see the transaction hash and can verify it on Sepolia Etherscan. Revenue and P&L update after the confirmed on-chain transfer.'],
+              ['PROFIT & LOSS', 'Shows total revenue earned from verified on-chain payments minus operational expenses (profit transfers to savings). Only counts real USDT0 that moved on-chain, not API requests.'],
+              ['ACCOUNTS', 'Three self-custodial BIP-44 wallets derived from one seed phrase via WDK. Treasury (Acc 0) receives revenue. Savings (Acc 1) stores profits when treasury exceeds 1.0 USDT0. Demo Buyer (Acc 2) is pre-funded for testing payments. Click any address to view on Sepolia Etherscan.'],
+              ['SAFETY STATUS', 'Four hard-coded rules the LLM cannot override. Green = safe, Red = agent paused. Minimum balance: 0.5 USDT0. Max single transaction: 0.1 USDT0. Spending rate: 0.2 USDT0/hour. Emergency pause if balance drops more than 50% in one hour. Click "?" for details.'],
+              ['DYNAMIC PRICING', 'Current service prices and request volume per endpoint. The LLM autonomously adjusts prices based on demand: high volume increases prices (up to 3x base), low volume decreases them (down to 0.5x). Anti-thrashing logic prevents erratic changes between cycles.'],
+              ['DEMO BUYER', 'Click "Buy Market Analysis" ($0.005) or "Buy Risk Score" ($0.003) to trigger a real USDT0 transfer on Sepolia. Demo Buyer wallet pays Treasury wallet on-chain. The response includes a transaction hash you can verify on Sepolia Etherscan. This is how any agent or human would buy services from Agora.'],
+              ['REVENUE STREAM', 'Real-time feed of every verified payment the agent received. Each entry shows the amount, endpoint, and type (wdk-settlement). Only appears after a successful on-chain transfer from Demo Buyer.'],
+              ['REASONING TRAIL', 'Full log of every autonomous decision the agent makes every 5 minutes. The LLM uses tool-calling to gather data: "LLM Tools" shows which reasoning tools it called (check_balances, check_revenue, check_pricing, etc). "WDK Tools" shows the MCP wallet operations triggered (getBalance, getTokenBalance, etc). "Signed" is a proof-of-life cryptographic signature using WDK sign(). Decisions only execute when confidence is 0.7 or higher.'],
             ].map(([title, desc]) => (
               <div key={title} style={step}>
-                <div style={{ color: t.accent, fontWeight: 'bold', fontSize: 14 }}>{title}</div>
-                <div style={{ color: t.sub, fontSize: 13, marginTop: 4, lineHeight: 1.5 }}>{desc}</div>
+                <div style={{ color: t.accent, fontWeight: 'bold', fontSize: 13 }}>{title}</div>
+                <div style={{ color: t.sub, fontSize: 12, marginTop: 4, lineHeight: 1.5 }}>{desc}</div>
               </div>
             ))}
-            <div style={{ marginTop: 20, padding: 12, background: t.accentBg, borderRadius: 6, fontSize: 12, color: t.muted, lineHeight: 1.5 }}>Built with Tether WDK (wdk-wallet-evm + wdk-mcp-toolkit, 15 tools) + x402 protocol + Groq LLaMA (tool-calling) on Sepolia testnet. 50 unit tests. Apache 2.0.</div>
+            <div style={{ marginTop: 20, padding: 12, background: t.accentBg, borderRadius: 6, fontSize: 11, color: t.muted, lineHeight: 1.5 }}>Built with Tether WDK (wdk-wallet-evm + wdk-mcp-toolkit, 15 tools) + x402 payment architecture + Groq LLaMA (tool-calling) on Sepolia testnet. State persists to disk across restarts. 50 unit tests. Apache 2.0.</div>
           </div>
         </div>
       )}

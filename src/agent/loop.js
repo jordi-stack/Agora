@@ -64,9 +64,9 @@ async function runCycle(savingsAddress) {
     const safety = checkSafety(treasuryBalance, recentExpenses, balanceOneHourAgo)
 
     if (safety.paused) {
-      const decision = { timestamp: Date.now(), action: 'paused', confidence: 1, reasoning: 'Safety rules violated — agent paused', cycle: cycleCount }
+      const decision = { timestamp: Date.now(), action: 'paused', confidence: 1, reasoning: 'Safety rules violated  - agent paused', cycle: cycleCount }
       await store.addDecision(decision)
-      console.log('[agent] ⚠️ PAUSED — safety rules violated')
+      console.log('[agent] ⚠️ PAUSED  - safety rules violated')
       await updateTreasuryState(balances, pnl, prices, safety, volume)
       return
     }

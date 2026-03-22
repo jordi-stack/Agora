@@ -47,7 +47,7 @@ async function getUSDT0Balance(account) {
         const data = await res.json()
         const bal = parseFloat(data.tokenBalance?.amount || '0')
         if (bal > 0) return bal
-        // Indexer returned 0 — may track a different token contract, fall through to RPC
+        // Indexer returned 0  - may track a different token contract, fall through to RPC
       }
     } catch {}
   }

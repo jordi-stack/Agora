@@ -52,7 +52,7 @@
 │  ┌────────────────────────────────────────────────────┐   │
 │  │               WDK WALLET LAYER                     │   │
 │  │                                                    │   │
-│  │  Account 0 (Treasury)  ◄── x402 revenue            │   │
+│  │  Account 0 (Treasury)  ◄── revenue                   │   │
 │  │  Account 1 (Savings)   ◄── profit transfers        │   │
 │  │  Account 2 (DemoBuyer) ──► test payments             │   │
 │  │                                                    │   │

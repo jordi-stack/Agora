@@ -10,7 +10,7 @@ import { isX402Enabled } from '../x402/middleware.js'
 
 const router = Router()
 
-// Dashboard status — polled every 10s
+// Dashboard status  - polled every 10s
 router.get('/api/status', async (req, res) => {
   try {
     const balances = await getBalances()
@@ -73,7 +73,7 @@ router.get('/api/pricing-history', async (req, res) => {
   res.json({ history: getPriceHistory() })
 })
 
-// Demo buyer — triggers a test x402 payment (with direct WDK transfer fallback)
+// Demo buyer  - triggers a test x402 payment (with direct WDK transfer fallback)
 router.post('/api/demo-buy', async (req, res) => {
   const allowed = ['analyze', 'risk']
   const endpoint = allowed.includes(req.body?.endpoint) ? req.body.endpoint : 'analyze'

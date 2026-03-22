@@ -63,9 +63,9 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 
 | Account | Index | Purpose |
 |---------|-------|---------|
-| Treasury | 0 | Receives x402 revenue, pays expenses |
+| Treasury | 0 | Receives revenue, pays expenses |
 | Savings | 1 | Receives autonomous profit transfers |
-| Demo Buyer | 2 | Pre-funded to test x402 payments |
+| Demo Buyer | 2 | Pre-funded to test payments |
 
 **WDK Primitives Used:**
 

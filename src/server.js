@@ -19,7 +19,7 @@ const HOST = process.env.HOST || '0.0.0.0'
 
 async function main() {
   console.log('╔══════════════════════════════════════════╗')
-  console.log('║  AGORA — Self-Sustaining AI Agent        ║')
+  console.log('║  AGORA  - Self-Sustaining AI Agent        ║')
   console.log('║  Earning USDT0 via x402 on Sepolia       ║')
   console.log('╚══════════════════════════════════════════╝')
   console.log()

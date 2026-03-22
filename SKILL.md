@@ -71,9 +71,9 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 
 | Account | Index | Role | Description |
 |---------|-------|------|-------------|
-| Treasury | 0 | Operating wallet | Receives x402 revenue, pays operational expenses |
+| Treasury | 0 | Operating wallet | Receives revenue, pays operational expenses |
 | Savings | 1 | Profit storage | Receives autonomous profit transfers when treasury exceeds threshold |
-| Demo Buyer | 2 | Testing | Pre-funded wallet for testing x402 payment flow |
+| Demo Buyer | 2 | Testing | Pre-funded wallet for testing payments |
 
 **WDK Operations (via MCP Toolkit, 15 tools registered):**
 - `WdkMcpServer` - Agent reasoning layer with registered wallet, pricing, and indexer tools
