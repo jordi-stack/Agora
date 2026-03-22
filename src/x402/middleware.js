@@ -61,7 +61,7 @@ export async function setupX402(app, sellerAddress) {
     console.warn('[x402] Endpoints will run without x402 paywall (testnet mode)')
   }
 
-  // Revenue logging middleware — only records real x402 payments
+  // Revenue logging middleware - only records real x402 payments
   app.use('/api/analyze', (req, res, next) => {
     if (req.method === 'POST') {
       recordRequest('analyze')
