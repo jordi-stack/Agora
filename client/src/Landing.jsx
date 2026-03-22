@@ -292,9 +292,9 @@ export default function Landing() {
               </tr>
             </thead>
             <tbody>
-              <tr><td style={{ ...td, color: t.accent, fontWeight: 'bold' }}>Treasury</td><td style={tdMuted}>0</td><td style={td}>Receives x402 revenue, pays expenses</td></tr>
+              <tr><td style={{ ...td, color: t.accent, fontWeight: 'bold' }}>Treasury</td><td style={tdMuted}>0</td><td style={td}>Receives revenue, transfers profits to Savings</td></tr>
               <tr><td style={{ ...td, color: t.blue, fontWeight: 'bold' }}>Savings</td><td style={tdMuted}>1</td><td style={td}>Receives autonomous profit transfers</td></tr>
-              <tr><td style={{ ...td, color: t.orange, fontWeight: 'bold' }}>Demo Buyer</td><td style={tdMuted}>2</td><td style={{ ...td, borderBottom: 'none' }}>Pre-funded to test x402 payments</td></tr>
+              <tr><td style={{ ...td, color: t.orange, fontWeight: 'bold' }}>Demo Buyer</td><td style={tdMuted}>2</td><td style={{ ...td, borderBottom: 'none' }}>Pre-funded to test payments</td></tr>
             </tbody>
           </table>
         </div>
