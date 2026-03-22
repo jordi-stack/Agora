@@ -2,7 +2,7 @@
   <img src="assets/banner.png" alt="AGORA-AGENT" width="100%">
 </p>
 
-Autonomous AI agent that earns USDT0 by selling intelligence services via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes its own financial decisions on the Sepolia blockchain.
+Autonomous AI agent that earns USD₮ by selling intelligence services via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes its own financial decisions on the Sepolia blockchain.
 
 **Track:** Agent Wallets (WDK / Openclaw and Agents Integration)
 **Hackathon:** [Tether Hackathon Galactica: WDK Edition 1](https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail)
@@ -15,14 +15,14 @@ Autonomous AI agent that earns USDT0 by selling intelligence services via x402 m
 
 1. Open the [live demo](https://agora-agent.xyz)
 2. Click **"Buy Market Analysis"** or **"Buy Risk Score"** in the Demo Buyer section
-3. Watch a real USDT0 transfer execute on Sepolia. The transaction hash and explorer link appear in the response.
+3. Watch a real USD₮ transfer execute on Sepolia. The transaction hash and explorer link appear in the response.
 4. Wait 5 minutes to see the autonomous loop make a decision (hold, reprice, or transfer to savings)
 
 ## Overview
 
 Agora operates as an independent economic actor with zero human intervention:
 
-- **Earns** - Sells market analysis and wallet risk scoring via [x402](https://www.x402.org/) micropayments. Buyers pay USDT0 per request through standard HTTP.
+- **Earns** - Sells market analysis and wallet risk scoring via [x402](https://www.x402.org/) micropayments. Buyers pay USD₮ per request through standard HTTP.
 - **Decides** - Runs an autonomous loop every 5 minutes. The LLM uses tool-calling to query balances, revenue, pricing, and market data, then makes autonomous decisions about pricing and profit allocation.
 - **Manages** - Surplus revenue gets transferred to a separate savings wallet via real on-chain transactions. Every decision is logged with the full AI reasoning.
 
@@ -43,7 +43,7 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed data flow diagrams
 ## Key Features
 
 ### x402 Agentic Payments
-The agent sells its services using the [x402 protocol](https://www.x402.org/). Buyers pay USDT0 per request. No API keys, no accounts, just HTTP.
+The agent sells its services using the [x402 protocol](https://www.x402.org/). Buyers pay USD₮ per request. No API keys, no accounts, just HTTP.
 
 - `POST /api/analyze` - Market analysis (Bitfinex/CoinGecko + LLM reasoning)
 - `POST /api/risk` - Wallet risk scoring (Sepolia RPC + LLM assessment)
@@ -51,7 +51,7 @@ The agent sells its services using the [x402 protocol](https://www.x402.org/). B
 ### Agentic Payment Design
 The agent implements multiple programmable payment patterns:
 - **Micropayments**: x402 pay-per-request, any agent or human can buy services via HTTP
-- **Conditional transfers**: profits move to savings only when treasury exceeds threshold (1.0 USDT0)
+- **Conditional transfers**: profits move to savings only when treasury exceeds threshold (1.0 USD₮)
 - **Autonomous pricing**: LLM adjusts prices based on demand (0.5x-3x base)
 - **Payment constraints**: 4 hard-coded safety rules enforced before any transaction
 - **Agent-to-agent**: Demo Buyer (Acc 2) pays Treasury (Acc 0) via WDK settlement on Sepolia (x402 architecture ready for mainnet)
@@ -74,8 +74,8 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 | `getAccount(index)` | BIP-44 HD wallet derivation (3 accounts) |
 | `getAddress()` | Retrieve wallet address |
 | `getBalance()` | Native token (ETH) balance |
-| `getTokenBalance()` | USDT0 (ERC-20) balance |
-| `transfer()` | Sign and send USDT0 on-chain |
+| `getTokenBalance()` | USD₮ (ERC-20) balance |
+| `transfer()` | Sign and send USD₮ on-chain |
 | `sign()` | Proof-of-life message signing each cycle |
 | `getCurrentPrice()` | Bitfinex spot price via MCP Toolkit |
 | `getHistoricalPrice()` | OHLCV candle data via MCP Toolkit |
@@ -84,7 +84,7 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 
 ### Autonomous Agent Loop (LLM Tool-Calling)
 Every 5 minutes, the agent runs a tool-calling loop where the LLM autonomously decides what data to gather:
-1. LLM calls `check_balances` → reads USDT0 + ETH via MCP tools
+1. LLM calls `check_balances` → reads USD₮ + ETH via MCP tools
 2. LLM calls `check_revenue` / `check_expenses` → analyzes financial trends
 3. LLM calls `check_pricing` → evaluates demand and current prices
 4. LLM calls `check_decisions` → reviews its own recent behavior
@@ -95,9 +95,9 @@ Every 5 minutes, the agent runs a tool-calling loop where the LLM autonomously d
 
 ### Safety System
 Hard-coded rules that the agent cannot override:
-- Minimum operating balance: 0.5 USDT0
-- Maximum single transaction: 0.1 USDT0
-- Spending rate limit: 5.0 USDT0/hour
+- Minimum operating balance: 0.5 USD₮
+- Maximum single transaction: 0.1 USD₮
+- Spending rate limit: 5.0 USD₮/hour
 - Emergency pause if balance drops more than 50% in 1 hour
 - Process recovery via pm2 (auto-restart on crash, persists across reboots)
 
@@ -111,7 +111,7 @@ Auto-detects provider from environment variables. Works with any OpenAI-compatib
 - `LLM_API_KEY` + `LLM_BASE_URL` - Any custom provider
 
 ### Demo Buyer
-Built-in test client that triggers a real USDT0 transfer on Sepolia with one click. Tries x402 payment flow first; if the facilitator is unavailable (e.g. on testnet), falls back to direct WDK `transfer()` as settlement. Every payment produces a verifiable Sepolia transaction hash.
+Built-in test client that triggers a real USD₮ transfer on Sepolia with one click. Tries x402 payment flow first; if the facilitator is unavailable (e.g. on testnet), falls back to direct WDK `transfer()` as settlement. Every payment produces a verifiable Sepolia transaction hash.
 
 ### Interactive Help
 A "How It Works" button in the header opens a step-by-step guide covering how the agent earns, decides, manages, and how to test it.
@@ -125,7 +125,7 @@ npx skills add jordi-stack/Agora
 
 Live skill file: [agora-agent.xyz/SKILL.md](https://agora-agent.xyz/SKILL.md)
 
-Any agent with USDT0 on Sepolia can buy Agora's services using `@x402/fetch`. See [SKILL.md](./SKILL.md) for the full API reference and integration code.
+Any agent with USD₮ on Sepolia can buy Agora's services using `@x402/fetch`. See [SKILL.md](./SKILL.md) for the full API reference and integration code.
 
 **MCP Server** (for Claude Desktop, Hermes, or any MCP-compatible agent):
 ```bash
@@ -137,7 +137,7 @@ Exposes 15 wallet tools (getBalance, transfer, getCurrentPrice, etc.) via MCP st
 
 ### Prerequisites
 - Node.js 20+
-- A BIP-39 seed phrase with USDT0 + ETH on Sepolia
+- A BIP-39 seed phrase with USD₮ + ETH on Sepolia
 - An LLM API key (Groq recommended, free at [console.groq.com](https://console.groq.com))
 
 ### Setup
@@ -184,7 +184,7 @@ npm test
 
 ### Fund Demo Buyer
 
-Transfer a small amount of USDT0 to the demo buyer account:
+Transfer a small amount of USD₮ to the demo buyer account:
 
 ```bash
 node scripts/fund-demo.js
@@ -196,8 +196,8 @@ node scripts/fund-demo.js
 
 | Method | Path | Price | Description |
 |--------|------|-------|-------------|
-| POST | `/api/analyze` | $0.005 USDT0 | Market analysis with real price data and LLM reasoning |
-| POST | `/api/risk` | $0.003 USDT0 | Wallet risk scoring with on-chain data and LLM assessment |
+| POST | `/api/analyze` | $0.005 USD₮ | Market analysis with real price data and LLM reasoning |
+| POST | `/api/risk` | $0.003 USD₮ | Wallet risk scoring with on-chain data and LLM assessment |
 
 ### Free (Dashboard)
 
@@ -208,7 +208,7 @@ node scripts/fund-demo.js
 | GET | `/api/reasoning` | Agent decision trail with LLM reasoning |
 | GET | `/api/pricing-history` | Dynamic pricing changes over time |
 | POST | `/api/demo-buy` | Trigger a test payment from the demo buyer wallet |
-| GET | `/api/transfers` | On-chain USDT0 transfer history via WDK Indexer API |
+| GET | `/api/transfers` | On-chain USD₮ transfer history via WDK Indexer API |
 | GET | `/api/health` | Health check (includes indexer status) |
 
 ## Tech Stack
@@ -233,7 +233,7 @@ node scripts/fund-demo.js
 | Chain | Sepolia (eip155:11155111) |
 | RPC | `https://sepolia.drpc.org` |
 | Gas Token | SepoliaETH |
-| USDT0 Contract | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
+| USD₮ Contract | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
 | Explorer | [sepolia.etherscan.io](https://sepolia.etherscan.io) |
 
 ## Project Structure
@@ -278,7 +278,7 @@ agora/
 
 | Decision | Why |
 |----------|-----|
-| **Sepolia testnet** | Official WDK-supported testnet with test USDT0. Recommended by Tether DevRel for hackathon development. Zero risk to real funds. |
+| **Sepolia testnet** | Official WDK-supported testnet with test USD₮. Recommended by Tether DevRel for hackathon development. Zero risk to real funds. |
 | **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header. No signup, no OAuth, no billing dashboard. |
 | **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
 | **JSON file persistence** | Agent state persists to `data/agora-state.json` with debounced writes. Survives restarts. No external database needed, zero setup friction. |

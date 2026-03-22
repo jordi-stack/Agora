@@ -21,7 +21,7 @@ export default function HowItWorks() {
             </div>
 
             <p style={{ color: t.sub, fontSize: 13, marginBottom: 24, lineHeight: 1.6 }}>
-              Agora is a self-sustaining AI agent that sells services, earns USDT0, and manages its own treasury autonomously on Sepolia.
+              Agora is a self-sustaining AI agent that sells services, earns USD₮, and manages its own treasury autonomously on Sepolia.
             </p>
 
             <div style={divider} />
@@ -30,7 +30,7 @@ export default function HowItWorks() {
               <div style={title}>Agent Performance</div>
               <div style={text}>Revenue earned from verified on-chain payments and profits saved to the Savings wallet.</div>
               <div style={bullet}>
-                <span style={{ color: t.accent }}>Revenue</span> - real USDT0 received from service payments<br/>
+                <span style={{ color: t.accent }}>Revenue</span> - real USD₮ received from service payments<br/>
                 <span style={{ color: t.blue }}>Saved</span> - profits the agent autonomously moved to Savings
               </div>
             </div>
@@ -40,7 +40,7 @@ export default function HowItWorks() {
               <div style={text}>Three self-custodial BIP-44 wallets from one seed phrase via WDK.</div>
               <div style={bullet}>
                 <span style={{ color: t.accent }}>Treasury (Acc 0)</span> - receives revenue, transfers profits to Savings<br/>
-                <span style={{ color: t.blue }}>Savings (Acc 1)</span> - stores profits when Treasury exceeds 1.0 USDT0<br/>
+                <span style={{ color: t.blue }}>Savings (Acc 1)</span> - stores profits when Treasury exceeds 1.0 USD₮<br/>
                 <span style={{ color: t.orange }}>Demo Buyer (Acc 2)</span> - pre-funded for testing payments
               </div>
               <div style={{ ...text, marginTop: 6, color: t.dim }}>Click any address to view on Sepolia Etherscan.</div>
@@ -50,9 +50,9 @@ export default function HowItWorks() {
               <div style={title}>Safety Status</div>
               <div style={text}>Four hard-coded rules the LLM cannot override. Green = safe, Red = agent paused.</div>
               <div style={bullet}>
-                Minimum balance: 0.5 USDT0<br/>
-                Max single transaction: 0.1 USDT0<br/>
-                Spending rate: 5.0 USDT0/hour<br/>
+                Minimum balance: 0.5 USD₮<br/>
+                Max single transaction: 0.1 USD₮<br/>
+                Spending rate: 5.0 USD₮/hour<br/>
                 Emergency pause: balance drops more than 50% in one hour
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function HowItWorks() {
             <div style={section}>
               <div style={title}>Demo Buyer</div>
               <div style={text}>
-                Click <b>"Buy Market Analysis"</b> ($0.005) or <b>"Buy Risk Score"</b> ($0.003) to trigger a real USDT0 transfer on Sepolia.
+                Click <b>"Buy Market Analysis"</b> ($0.005) or <b>"Buy Risk Score"</b> ($0.003) to trigger a real USD₮ transfer on Sepolia.
                 Demo Buyer wallet pays Treasury wallet on-chain. The response includes a transaction hash you can verify on Sepolia Etherscan.
               </div>
             </div>

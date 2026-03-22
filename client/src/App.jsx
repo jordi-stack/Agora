@@ -56,7 +56,7 @@ export default function App() {
                 Agora <span style={{ color: t.dim, fontSize: 14, fontWeight: 'normal', marginLeft: 12 }}>Self-Sustaining AI Agent</span>
               </h1>
               <div style={{ color: t.muted, fontSize: 11, marginTop: 4 }}>
-                Earning USDT0 via x402 on Sepolia
+                Earning USD₮ via x402 on Sepolia
                 <span style={{ ...badge, background: t.accentBg, color: t.accent }}>{status.safety?.overall === 'green' ? 'ACTIVE' : status.safety?.overall === 'yellow' ? 'CAUTION' : 'PAUSED'}</span>
                 <span style={{ ...badge, background: t.blueBg, color: t.blue }}>{status.llmProvider?.toUpperCase()}</span>
                 <span style={{ ...badge, background: mode === 'dark' ? '#ffffff11' : '#00000011', color: t.muted }}>Sepolia</span>

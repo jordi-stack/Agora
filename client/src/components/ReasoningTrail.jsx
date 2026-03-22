@@ -21,13 +21,13 @@ function ReasoningHelp({ t }) {
               <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>⏸</span> <b>HOLD</b> - Agent evaluated the current state and decided no action is needed. Treasury is stable, pricing is appropriate, no surplus to transfer.</div>
             </div>
             <div style={item}>
-              <div style={{ fontSize: 12, color: t.accent, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>💰</span> <b>TRANSFER</b> - Agent detected surplus in Treasury (above 1.0 USDT0 threshold) and transferred profits to Savings. Amount is suggested by LLM but capped at 0.1 USDT0 per transaction.</div>
+              <div style={{ fontSize: 12, color: t.accent, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>💰</span> <b>TRANSFER</b> - Agent detected surplus in Treasury (above 1.0 USD₮ threshold) and transferred profits to Savings. Amount is suggested by LLM but capped at 0.1 USD₮ per transaction.</div>
             </div>
             <div style={item}>
               <div style={{ fontSize: 12, color: t.blue, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>📊</span> <b>REPRICE</b> - Agent adjusted service prices based on demand patterns. High request volume increases prices (up to 3x), low volume decreases them (down to 0.5x).</div>
             </div>
             <div style={item}>
-              <div style={{ fontSize: 12, color: t.red, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>⚠️</span> <b>PAUSED</b> - Safety rules violated. Agent halts all operations until conditions return to safe levels. Triggers: balance below 0.5 USDT0, spending over 5.0/hour, or balance dropped over 50% in one hour.</div>
+              <div style={{ fontSize: 12, color: t.red, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>⚠️</span> <b>PAUSED</b> - Safety rules violated. Agent halts all operations until conditions return to safe levels. Triggers: balance below 0.5 USD₮, spending over 5.0/hour, or balance dropped over 50% in one hour.</div>
             </div>
             <div style={item}>
               <div style={{ fontSize: 12, color: t.red, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>❌</span> <b>ERROR</b> - Agent cycle encountered an error (network issue, LLM timeout, etc). Agent will retry on next cycle automatically.</div>

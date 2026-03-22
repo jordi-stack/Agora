@@ -17,19 +17,19 @@ export default function SafetyStatus({ safety }) {
           <InfoModal title="Safety System">
             <div style={{ fontSize: 12, color: t.muted, lineHeight: 1.5, marginBottom: 14 }}>Four hard-coded safety rules that the LLM cannot override. These are enforced in code before any transaction is signed. If any rule turns red, the agent pauses automatically.</div>
             <div style={item}>
-              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Minimum Balance (0.5 USDT0)</b> - Treasury must stay above this threshold. Prevents the agent from draining its operating funds.</div>
+              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Minimum Balance (0.5 USD₮)</b> - Treasury must stay above this threshold. Prevents the agent from draining its operating funds.</div>
             </div>
             <div style={item}>
-              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Max Single Transaction (0.1 USDT0)</b> - Caps any outgoing transfer. Even if the LLM suggests a larger amount, it is clamped to this limit.</div>
+              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Max Single Transaction (0.1 USD₮)</b> - Caps any outgoing transfer. Even if the LLM suggests a larger amount, it is clamped to this limit.</div>
             </div>
             <div style={item}>
-              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Spending Rate (5.0 USDT0/hour)</b> - Limits total outgoing transfers per hour. Turns yellow at 1.25x, red at 1.5x. Prevents runaway spending.</div>
+              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Spending Rate (5.0 USD₮/hour)</b> - Limits total outgoing transfers per hour. Turns yellow at 1.25x, red at 1.5x. Prevents runaway spending.</div>
             </div>
             <div style={item}>
               <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Balance Stability (50%)</b> - Emergency pause if treasury balance drops more than 50% within one hour. Protects against unexpected losses.</div>
             </div>
             <div style={{ fontSize: 12, color: t.muted, lineHeight: 1.5, marginTop: 12 }}>
-              <b style={{ color: t.sub }}>Reading the values</b> - Each rule shows current value / threshold. For example "0.35 / 0.2" means 0.35 USDT0 spent this hour against a 0.2 limit (exceeded, red).
+              <b style={{ color: t.sub }}>Reading the values</b> - Each rule shows current value / threshold. For example "0.35 / 0.2" means 0.35 USD₮ spent this hour against a 0.2 limit (exceeded, red).
             </div>
           </InfoModal>
         </div>

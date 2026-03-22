@@ -8,7 +8,7 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 
 - `src/agent/` - Agent brain (LLM reasoning, autonomous loop, treasury management)
 - `src/mcp/` - WDK MCP Toolkit integration (agent reasoning layer, 15 tools)
-- `src/wallet/` - WDK wallet layer (3 BIP-44 accounts, USDT0 transfers, x402 backend)
+- `src/wallet/` - WDK wallet layer (3 BIP-44 accounts, USD₮ transfers, x402 backend)
 - `src/x402/` - Revenue engine (x402 payment middleware, dynamic pricing, services)
 - `src/state/` - JSON file persistence (data/agora-state.json) + WDK Indexer API client
 - `src/api/` - Dashboard API routes
@@ -21,7 +21,7 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 - No TypeScript - plain JavaScript for hackathon speed
 - Seed phrases and keys via environment variables only
 - All WDK packages under `@tetherto` scope
-- USDT0 amounts in 6-decimal base units (1 USDT0 = 1000000)
+- USD₮ amounts in 6-decimal base units (1 USD₮ = 1000000)
 - SepoliaETH (native gas) in 18-decimal wei
 
 ## Key Patterns
@@ -42,7 +42,7 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 
 ## Safety Rules (hardcoded, agent cannot override)
 
-- Min operating balance: 0.5 USDT0
-- Max single transaction: 0.1 USDT0
-- Spending rate limit: 5.0 USDT0/hour
+- Min operating balance: 0.5 USD₮
+- Max single transaction: 0.1 USD₮
+- Spending rate limit: 5.0 USD₮/hour
 - Emergency pause: balance drops >50% in 1 hour

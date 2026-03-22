@@ -146,7 +146,7 @@ export default function Landing() {
           Self-Sustaining AI Agent
         </h1>
         <p style={{ fontSize: 15, color: t.muted, maxWidth: 560, margin: '0 auto 40px', lineHeight: 1.6 }}>
-          Earns USDT0 by selling intelligence services via x402 micropayments, manages its own multi-account treasury through Tether WDK, and makes financial decisions on the Sepolia testnet.
+          Earns USD₮ by selling intelligence services via x402 micropayments, manages its own multi-account treasury through Tether WDK, and makes financial decisions on the Sepolia testnet.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="#/app" style={ctaBtn}>Open Dashboard</a>
@@ -161,11 +161,11 @@ export default function Landing() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
           {[
             { label: 'Buyers / Agents', sub: '/api/analyze ($0.005)\n/api/risk ($0.003)', color: t.muted, icon: '\u2193' },
-            { label: 'x402 Revenue Engine', sub: 'Dynamic Pricing\nAuto-collect USDT0', color: t.orange, icon: '\u2193' },
+            { label: 'x402 Revenue Engine', sub: 'Dynamic Pricing\nAuto-collect USD₮', color: t.orange, icon: '\u2193' },
             { label: 'Agent Brain (LLM)', sub: '5 min loop\nGroq + LLaMA', color: t.blue, icon: '\u2193' },
             { label: 'WDK MCP Toolkit', sub: '15 tools\ngetBalance | transfer', color: t.accent, icon: '\u2193' },
             { label: 'WDK Wallet', sub: 'Treasury | Savings\nDemo Buyer', color: t.accent, side: { label: 'Safety', sub: '4 rules\nenforced', color: t.red }, icon: '\u2193' },
-            { label: 'Sepolia Testnet', sub: 'USDT0 | ETH\nEVM testnet', color: t.blue },
+            { label: 'Sepolia Testnet', sub: 'USD₮ | ETH\nEVM testnet', color: t.blue },
           ].map((node, i, arr) => (
             <React.Fragment key={node.label}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%', maxWidth: 600, justifyContent: 'center' }}>
@@ -237,7 +237,7 @@ export default function Landing() {
       {/* Earns / Decides / Manages */}
       <div data-section="pillars" style={{ ...fadeIn('pillars'), display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16, marginBottom: 64 }}>
         {[
-          { title: 'Earns', color: t.accent, desc: 'Sells market analysis and wallet risk scoring via x402 micropayments. Buyers pay USDT0 per request through standard HTTP.' },
+          { title: 'Earns', color: t.accent, desc: 'Sells market analysis and wallet risk scoring via x402 micropayments. Buyers pay USD₮ per request through standard HTTP.' },
           { title: 'Decides', color: t.blue, desc: 'Runs an autonomous loop every 5 minutes. The LLM evaluates revenue trends, adjusts pricing, and determines when to secure profits.' },
           { title: 'Manages', color: t.orange, desc: 'Surplus revenue gets transferred to a separate savings wallet via real on-chain transactions. Every decision is logged.' },
         ].map(p => (
@@ -255,20 +255,20 @@ export default function Landing() {
         <div style={sectionTitle}>Revenue Engine</div>
         <h2 style={sectionHeading}>x402 Agentic Payments</h2>
         <p style={{ color: t.muted, fontSize: 14, marginBottom: 24, lineHeight: 1.6 }}>
-          The agent sells services using the x402 HTTP payment protocol. Any buyer (human or agent) pays USDT0 per request. No API keys, no accounts, just HTTP.
+          The agent sells services using the x402 HTTP payment protocol. Any buyer (human or agent) pays USD₮ per request. No API keys, no accounts, just HTTP.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
           <div style={card}>
             <div style={{ fontFamily: 'monospace', fontSize: 12, color: t.accent, marginBottom: 6 }}>POST /api/analyze</div>
             <div style={{ fontSize: 13, color: t.text, marginBottom: 4 }}>Market Analysis</div>
             <div style={{ fontSize: 12, color: t.muted, marginBottom: 8 }}>Bitfinex/CoinGecko price data + LLM reasoning</div>
-            <span style={badge(t.accent, t.accentBg)}>$0.005 USDT0</span>
+            <span style={badge(t.accent, t.accentBg)}>$0.005 USD₮</span>
           </div>
           <div style={card}>
             <div style={{ fontFamily: 'monospace', fontSize: 12, color: t.blue, marginBottom: 6 }}>POST /api/risk</div>
             <div style={{ fontSize: 13, color: t.text, marginBottom: 4 }}>Risk Scoring</div>
             <div style={{ fontSize: 12, color: t.muted, marginBottom: 8 }}>Sepolia RPC on-chain data + LLM assessment</div>
-            <span style={badge(t.blue, t.blueBg)}>$0.003 USDT0</span>
+            <span style={badge(t.blue, t.blueBg)}>$0.003 USD₮</span>
           </div>
         </div>
       </div>
@@ -310,7 +310,7 @@ export default function Landing() {
           <div style={card}>
             <div style={{ fontSize: 12, color: t.sub, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Every 5 Minutes</div>
             {[
-              { n: '1', label: 'Check USDT0 + ETH balances via WDK' },
+              { n: '1', label: 'Check USD₮ + ETH balances via WDK' },
               { n: '2', label: 'Analyze revenue trends from state history' },
               { n: '3', label: 'Query LLM for decision (hold / transfer / reprice)' },
               { n: '4', label: 'Execute if confidence >= 0.7' },
@@ -327,8 +327,8 @@ export default function Landing() {
             <p style={{ fontSize: 12, color: t.muted, marginBottom: 16 }}>Hard-coded rules the agent cannot override:</p>
             <table style={tableStyle}>
               <tbody>
-                <tr><td style={{ ...td, fontSize: 12 }}>Min operating balance</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>0.5 USDT0</td></tr>
-                <tr><td style={{ ...td, fontSize: 12 }}>Max single transaction</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>0.1 USDT0</td></tr>
+                <tr><td style={{ ...td, fontSize: 12 }}>Min operating balance</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>0.5 USD₮</td></tr>
+                <tr><td style={{ ...td, fontSize: 12 }}>Max single transaction</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>0.1 USD₮</td></tr>
                 <tr><td style={{ ...td, fontSize: 12 }}>Spending rate limit</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>5.0/hour</td></tr>
                 <tr><td style={{ ...td, fontSize: 12, borderBottom: 'none' }}>Emergency pause</td><td style={{ ...td, color: t.red, fontFamily: 'monospace', fontSize: 12, borderBottom: 'none', textAlign: 'right' }}>&gt;50% drop/hr</td></tr>
               </tbody>

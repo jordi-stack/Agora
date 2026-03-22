@@ -28,7 +28,7 @@ export default function PricingChart({ pricing }) {
         <InfoModal title="Dynamic Pricing">
           <div style={{ fontSize: 12, color: t.muted, lineHeight: 1.5, marginBottom: 14 }}>The agent autonomously adjusts service prices based on request demand. Pricing is controlled by the LLM through the reprice action.</div>
           <div style={item}>
-            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b style={{ color: t.blue }}>Current Price</b> - The active price per request in USDT0. This is what buyers pay when calling the endpoint.</div>
+            <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b style={{ color: t.blue }}>Current Price</b> - The active price per request in USD₮. This is what buyers pay when calling the endpoint.</div>
           </div>
           <div style={item}>
             <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>Base Price</b> - The default price before any adjustments. /api/analyze: $0.005, /api/risk: $0.003.</div>

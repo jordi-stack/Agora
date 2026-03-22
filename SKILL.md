@@ -1,8 +1,8 @@
 ---
 name: agora
-description: Self-sustaining AI agent that earns USDT0 by selling market analysis and risk scoring via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes autonomous financial decisions on the Sepolia blockchain. Use when you need crypto market analysis or wallet risk scoring.
+description: Self-sustaining AI agent that earns USD₮ by selling market analysis and risk scoring via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes autonomous financial decisions on the Sepolia blockchain. Use when you need crypto market analysis or wallet risk scoring.
 license: Apache-2.0
-compatibility: Requires Node.js 20+, a BIP-39 seed phrase with USDT0 and ETH on Sepolia chain, and an LLM API key (Groq recommended).
+compatibility: Requires Node.js 20+, a BIP-39 seed phrase with USD₮ and ETH on Sepolia chain, and an LLM API key (Groq recommended).
 metadata:
   version: "1.0.0"
   repository: https://github.com/jordi-stack/Agora
@@ -23,14 +23,14 @@ The agent runs a continuous decision loop powered by LLM reasoning, making auton
 
 ### Revenue Generation (x402 Protocol)
 
-Agora exposes paid API endpoints using the x402 HTTP payment protocol. Any buyer (human or agent) pays USDT0 per request through standard HTTP - no API keys, no accounts, no subscriptions.
+Agora exposes paid API endpoints using the x402 HTTP payment protocol. Any buyer (human or agent) pays USD₮ per request through standard HTTP - no API keys, no accounts, no subscriptions.
 
 **Available Services:**
 
 | Service | Endpoint | Price | Description |
 |---------|----------|-------|-------------|
-| Market Analysis | `POST /api/analyze` | $0.005 USDT0 | Real-time crypto market analysis using Bitfinex/CoinGecko price data combined with LLM reasoning. Returns price data, trend analysis, sentiment, and actionable insights. |
-| Risk Scoring | `POST /api/risk` | $0.003 USDT0 | On-chain wallet risk assessment. Queries Sepolia RPC for wallet balance, transaction count, and activity patterns. LLM evaluates risk factors and assigns a score (0-100). |
+| Market Analysis | `POST /api/analyze` | $0.005 USD₮ | Real-time crypto market analysis using Bitfinex/CoinGecko price data combined with LLM reasoning. Returns price data, trend analysis, sentiment, and actionable insights. |
+| Risk Scoring | `POST /api/risk` | $0.003 USD₮ | On-chain wallet risk assessment. Queries Sepolia RPC for wallet balance, transaction count, and activity patterns. LLM evaluates risk factors and assigns a score (0-100). |
 
 **Request Examples:**
 
@@ -78,8 +78,8 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 **WDK Operations (via MCP Toolkit, 15 tools registered):**
 - `WdkMcpServer` - Agent reasoning layer with registered wallet, pricing, and indexer tools
 - `getBalance` - Check native ETH balance
-- `getTokenBalance` - Check registered USDT0 balance
-- `transfer` - Transfer USDT0 (ERC-20)
+- `getTokenBalance` - Check registered USD₮ balance
+- `transfer` - Transfer USD₮ (ERC-20)
 - `getCurrentPrice` / `getHistoricalPrice` - Bitfinex market data
 - `getIndexerTokenBalance` / `getTokenTransfers` - WDK Indexer API
 - `sign` / `verify` - Message signing and verification
@@ -92,7 +92,7 @@ Every 5 minutes, Agora runs an autonomous decision cycle using LLM tool-calling:
 ```
 1. REASON   → LLM receives current state summary
 2. GATHER   → LLM calls tools autonomously to gather data it needs:
-              - check_balances: USDT0 + ETH for all accounts
+              - check_balances: USD₮ + ETH for all accounts
               - check_revenue: recent revenue events and trends
               - check_expenses: recent expense events
               - check_pricing: current prices and request volume
@@ -106,7 +106,7 @@ Every 5 minutes, Agora runs an autonomous decision cycle using LLM tool-calling:
 **Decision Types:**
 - `hold` - No action needed, current state is optimal
 - `reprice` - Adjust service prices based on demand (dynamic pricing)
-- `transfer` - Move surplus USDT0 from Treasury to Savings (LLM-suggested amount, bounded by safety)
+- `transfer` - Move surplus USD₮ from Treasury to Savings (LLM-suggested amount, bounded by safety)
 
 **LLM Tool-Calling:**
 The agent uses Groq/OpenAI-compatible tool-calling API. The LLM genuinely decides which data to gather by calling tools, then makes its decision based on the results. Transfer amounts are influenced by the LLM's suggestion but bounded by 3 safety layers (treasury surplus cap, SAFETY.maxSingleTx, tx-pipeline validation). Falls back to simple prompt if tool-calling fails.
@@ -117,9 +117,9 @@ Hard-coded safety rules that the agent cannot override, regardless of LLM output
 
 | Rule | Value | Purpose |
 |------|-------|---------|
-| Minimum operating balance | 0.5 USDT0 | Never drain treasury below this |
-| Maximum single transaction | 0.1 USDT0 | Cap any outgoing payment |
-| Spending rate limit | 5.0 USDT0/hour | Prevent runaway spending |
+| Minimum operating balance | 0.5 USD₮ | Never drain treasury below this |
+| Maximum single transaction | 0.1 USD₮ | Cap any outgoing payment |
+| Spending rate limit | 5.0 USD₮/hour | Prevent runaway spending |
 | Emergency pause | Balance drops >50% in 1 hour | Halt all operations |
 
 ### Dynamic Pricing
@@ -147,19 +147,19 @@ Agora auto-detects the LLM provider from environment variables. Supports any Ope
 
 Real-time React dashboard showing:
 - **Agent Performance** - Revenue earned from verified payments and profits saved to Savings wallet
-- **Account View** - Treasury and Savings USDT0 + ETH balances with Sepoliascan links
+- **Account View** - Treasury and Savings USD₮ + ETH balances with Sepoliascan links
 - **Safety Status** - Traffic light indicators for each safety rule
 - **Dynamic Pricing** - Current prices vs base, with demand stats
 - **Revenue Stream** - Real-time feed of each verified payment received
 - **Reasoning Trail** - Full log of every autonomous LLM decision with reasoning
-- **Demo Buyer** - One-click button to trigger a real USDT0 payment for testing
+- **Demo Buyer** - One-click button to trigger a real USD₮ payment for testing
 - **How It Works** - Interactive modal explaining the agent for new users
 
 ## Setup
 
 ### Prerequisites
 - Node.js 20+
-- BIP-39 seed phrase with USDT0 + ETH on Sepolia chain
+- BIP-39 seed phrase with USD₮ + ETH on Sepolia chain
 - Any LLM API key (Groq recommended - free at console.groq.com)
 
 ### Install
@@ -191,7 +191,7 @@ npm test    # 50 unit tests
 
 ### Fund Demo Buyer
 ```bash
-node scripts/fund-demo.js    # Transfer 0.1 USDT0 to demo buyer account
+node scripts/fund-demo.js    # Transfer 0.1 USD₮ to demo buyer account
 ```
 
 ## API Reference
@@ -202,13 +202,13 @@ node scripts/fund-demo.js    # Transfer 0.1 USDT0 to demo buyer account
 Market analysis for any crypto asset.
 - **Input:** `{ "asset": "BTC" }` (supports BTC, ETH, SOL, etc.)
 - **Output:** Price data, LLM analysis, confidence score
-- **Price:** $0.005 USDT0 (dynamic, adjusts with demand)
+- **Price:** $0.005 USD₮ (dynamic, adjusts with demand)
 
 #### POST /api/risk
 Wallet risk scoring on Sepolia chain.
 - **Input:** `{ "address": "0x..." }`
 - **Output:** Risk score (0-100), tier, on-chain data, AI assessment
-- **Price:** $0.003 USDT0 (dynamic, adjusts with demand)
+- **Price:** $0.003 USD₮ (dynamic, adjusts with demand)
 
 ### Free Endpoints
 
@@ -219,7 +219,7 @@ Wallet risk scoring on Sepolia chain.
 | `GET /api/reasoning` | Agent decision trail with full LLM reasoning |
 | `GET /api/pricing-history` | Dynamic pricing changes over time |
 | `POST /api/demo-buy` | Trigger test payment from demo buyer |
-| `GET /api/transfers` | On-chain USDT0 transfer history via WDK Indexer API |
+| `GET /api/transfers` | On-chain USD₮ transfer history via WDK Indexer API |
 | `GET /api/health` | Health check (includes indexer status) |
 
 ## Architecture
@@ -228,7 +228,7 @@ Wallet risk scoring on Sepolia chain.
 Agent Brain (LLM Tool-Calling) ──▶ WDK Wallet (Sepolia) ──▶ Revenue Engine
       │                                  │                        │
   6 reasoning tools              3 BIP-44 accounts       Payment collection
-  15 MCP wallet tools            USDT0 transfers          Dynamic pricing
+  15 MCP wallet tools            USD₮ transfers          Dynamic pricing
   Safety rules                   Self-custodial           On-chain settlement
 ```
 
@@ -239,8 +239,8 @@ Agent Brain (LLM Tool-Calling) ──▶ WDK Wallet (Sepolia) ──▶ Revenue 
 | Network | Sepolia (eip155:11155111) |
 | RPC | `https://sepolia.drpc.org` |
 | Gas Token | SepoliaETH |
-| Payment Token | USDT0 (6 decimals) |
-| USDT0 Contract | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
+| Payment Token | USD₮ (6 decimals) |
+| USD₮ Contract | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
 | Explorer | [sepolia.etherscan.io](https://sepolia.etherscan.io) |
 | Facilitator | [facilitator.x402.org](https://facilitator.x402.org/) |
 
@@ -259,7 +259,7 @@ Agent Brain (LLM Tool-Calling) ──▶ WDK Wallet (Sepolia) ──▶ Revenue 
 
 ## Quick Integration
 
-Any agent with USDT0 on Sepolia can buy Agora's services in 10 lines:
+Any agent with USD₮ on Sepolia can buy Agora's services in 10 lines:
 
 ```bash
 npm install @x402/fetch @x402/evm @tetherto/wdk-wallet-evm
@@ -270,7 +270,7 @@ import WalletManagerEvm from "@tetherto/wdk-wallet-evm"
 import { x402Client, wrapFetchWithPayment } from "@x402/fetch"
 import { registerExactEvmScheme } from "@x402/evm/exact/client"
 
-// Setup wallet (needs USDT0 + SepoliaETH on Sepolia)
+// Setup wallet (needs USD₮ + SepoliaETH on Sepolia)
 const account = await new WalletManagerEvm(process.env.SEED, {
   provider: "https://sepolia.drpc.org",
 }).getAccount()
@@ -280,7 +280,7 @@ const client = new x402Client()
 registerExactEvmScheme(client, { signer: account })
 const fetchWithPayment = wrapFetchWithPayment(fetch, client)
 
-// Buy market analysis ($0.005 USDT0)
+// Buy market analysis ($0.005 USD₮)
 const res = await fetchWithPayment("http://localhost:4747/api/analyze", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -289,7 +289,7 @@ const res = await fetchWithPayment("http://localhost:4747/api/analyze", {
 const data = await res.json()
 console.log(data.analysis, data.price)
 
-// Buy risk score ($0.003 USDT0)
+// Buy risk score ($0.003 USD₮)
 const risk = await fetchWithPayment("http://localhost:4747/api/risk", {
   method: "POST",
   headers: { "Content-Type": "application/json" },

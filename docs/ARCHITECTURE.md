@@ -57,7 +57,7 @@
 │  │  Account 2 (DemoBuyer) ──► test payments             │   │
 │  │                                                    │   │
 │  │  Chain: Sepolia (eip155:11155111)                   │   │
-│  │  Token: USDT0                                      │   │
+│  │  Token: USD₮                                      │   │
 │  │  Self-custodial (BIP-44 from seed phrase)          │   │
 │  └────────────────────────────────────────────────────┘   │
 │         │                                                 │
@@ -65,7 +65,7 @@
 │  ┌────────────────────────────────────────────────────┐   │
 │  │        WDK INDEXER API (wdk-api.tether.io)         │   │
 │  │                                                    │   │
-│  │  - Token balances (USDT0 per account)              │   │
+│  │  - Token balances (USD₮ per account)              │   │
 │  │  - Transfer history (on-chain tx log)              │   │
 │  │  - Fallback: raw RPC if API key not set            │   │
 │  └────────────────────────────────────────────────────┘   │
@@ -74,9 +74,9 @@
 │  ┌────────────────────────────────────────────────────┐   │
 │  │                 SAFETY SYSTEM                      │   │
 │  │                                                    │   │
-│  │  - Min balance: 0.5 USDT0                         │   │
-│  │  - Max single tx: 0.1 USDT0                       │   │
-│  │  - Rate limit: 5.0 USDT0/hour                     │   │
+│  │  - Min balance: 0.5 USD₮                         │   │
+│  │  - Max single tx: 0.1 USD₮                       │   │
+│  │  - Rate limit: 5.0 USD₮/hour                     │   │
 │  │  - Emergency pause: >50% drop in 1 hour           │   │
 │  └────────────────────────────────────────────────────┘   │
 └────────────────────────────────────────────────────────────┘
@@ -118,7 +118,7 @@ Buyer ──POST──▶ /api/analyze
           (Bitfinex + LLM)
                   │
           Facilitator settles on-chain
-          (USDT0 transferred on Sepolia)
+          (USD₮ transferred on Sepolia)
                   │
           Revenue logged to state store
                   │
@@ -131,7 +131,7 @@ Buyer ──POST──▶ /api/analyze
 Every 5 minutes:
 
   ┌──────────────────┐
-  │ Check USDT0      │
+  │ Check USD₮      │
   │ via MCP Toolkit   │
   └────────┬─────────┘
            ▼
@@ -176,5 +176,5 @@ Every 5 minutes:
 | Indexer | WDK Indexer API (wdk-api.tether.io) |
 | Frontend | React + Vite |
 | Chain | Sepolia (eip155:11155111) |
-| Token | USDT0 (6 decimals) |
+| Token | USD₮ (6 decimals) |
 | Gas | SepoliaETH |

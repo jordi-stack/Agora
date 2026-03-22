@@ -18,7 +18,7 @@ export default function AccountView({ treasury, savings, demoBuyer }) {
         <div style={{ fontSize: 10, color: t.dim }}>{role}</div>
       </div>
       <div style={{ display: 'flex', gap: 16, alignItems: 'baseline', marginTop: 4 }}>
-        <span style={{ fontSize: 20, fontWeight: 'bold', color: t.accent }}>{data.usdt0?.toFixed(4) || '0.0000'} USDT0</span>
+        <span style={{ fontSize: 20, fontWeight: 'bold', color: t.accent }}>{data.usdt0?.toFixed(4) || '0.0000'} USD₮</span>
         <span style={{ fontSize: 13, color: t.muted }}>{data.native?.toFixed(4)} ETH</span>
       </div>
       <a href={`https://sepolia.etherscan.io/address/${data.address}`} target="_blank" rel="noopener" style={{ fontSize: 10, color: t.dim, wordBreak: 'break-all', textDecoration: 'none' }}>{data.address}</a>
@@ -32,16 +32,16 @@ export default function AccountView({ treasury, savings, demoBuyer }) {
         <InfoModal title="Accounts">
           <div style={{ fontSize: 12, color: t.muted, lineHeight: 1.5, marginBottom: 14 }}>Three self-custodial BIP-44 wallets derived from a single seed phrase using @tetherto/wdk-wallet-evm. All wallets are non-custodial - only the seed phrase holder can access them.</div>
           <div style={item}>
-            <div style={{ fontSize: 12, color: t.accent, lineHeight: 1.5 }}><b>Treasury (Account 0)</b> - Operating wallet. Receives USDT0 from service payments. Pays expenses (profit transfers to Savings). The agent's main financial account.</div>
+            <div style={{ fontSize: 12, color: t.accent, lineHeight: 1.5 }}><b>Treasury (Account 0)</b> - Operating wallet. Receives USD₮ from service payments. Pays expenses (profit transfers to Savings). The agent's main financial account.</div>
           </div>
           <div style={item}>
-            <div style={{ fontSize: 12, color: t.blue, lineHeight: 1.5 }}><b>Savings (Account 1)</b> - Profit storage. Receives autonomous transfers when Treasury balance exceeds 1.0 USDT0 threshold. The agent moves surplus here to protect profits. Owner can withdraw anytime via seed phrase.</div>
+            <div style={{ fontSize: 12, color: t.blue, lineHeight: 1.5 }}><b>Savings (Account 1)</b> - Profit storage. Receives autonomous transfers when Treasury balance exceeds 1.0 USD₮ threshold. The agent moves surplus here to protect profits. Owner can withdraw anytime via seed phrase.</div>
           </div>
           <div style={item}>
-            <div style={{ fontSize: 12, color: t.orange, lineHeight: 1.5 }}><b>Demo Buyer (Account 2)</b> - Test wallet pre-funded with USDT0 and ETH for gas. Used by the Demo Buyer buttons to trigger real on-chain payments to Treasury. Simulates an external buyer purchasing services.</div>
+            <div style={{ fontSize: 12, color: t.orange, lineHeight: 1.5 }}><b>Demo Buyer (Account 2)</b> - Test wallet pre-funded with USD₮ and ETH for gas. Used by the Demo Buyer buttons to trigger real on-chain payments to Treasury. Simulates an external buyer purchasing services.</div>
           </div>
           <div style={{ fontSize: 12, color: t.muted, lineHeight: 1.5, marginTop: 12 }}>
-            <b style={{ color: t.sub }}>USDT0</b> - Payment token (ERC-20, 6 decimals) on Sepolia testnet.<br/>
+            <b style={{ color: t.sub }}>USD₮</b> - Payment token (ERC-20, 6 decimals) on Sepolia testnet.<br/>
             <b style={{ color: t.sub }}>ETH</b> - Gas token needed to execute on-chain transactions.<br/>
             <b style={{ color: t.sub }}>Address</b> - Click to view on Sepolia Etherscan.
           </div>
