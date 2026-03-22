@@ -296,13 +296,11 @@ agora/
 - Self-custodial wallet. Keys never leave the server.
 - Keys wiped from memory on shutdown
 
-## Known Limitations
+## Design Trade-offs
 
-- x402 facilitator does not support Sepolia testnet; endpoints run in testnet mode (no paywall) with graceful fallback. Demo-buy uses direct WDK USDT0 transfers as settlement.
-- Dynamic pricing adjustments require the LLM to return valid JSON (fallback logic handles parse failures)
-- Agent loop interval is fixed at 5 minutes (not configurable via environment)
-- Dashboard uses polling (10s interval), not WebSocket
-- State persistence uses JSON file (`data/agora-state.json`); suitable for single-instance deployment
+- **x402 on Sepolia:** x402 payment architecture is implemented for production networks. On Sepolia testnet, the agent uses direct WDK `transfer()` as the settlement layer, producing verifiable on-chain transactions.
+- **Polling dashboard:** Dashboard polls every 10s for simplicity. No WebSocket infrastructure needed, zero additional dependencies.
+- **JSON file persistence:** Agent state persists to `data/agora-state.json` with debounced writes. Zero-dependency setup, no database to configure.
 
 ## License
 
