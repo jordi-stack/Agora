@@ -26,19 +26,26 @@
 │         │                                    │            │
 │         ▼                                    ▼            │
 │  ┌────────────────────────────────────────────────────┐   │
-│  │             STATE STORE (In-Memory)                │   │
+│  │       STATE STORE (JSON file, debounced 5s)        │   │
 │  │  revenue[] · expenses[] · decisions[] · pricing    │   │
+│  │  Persists to data/agora-state.json                 │   │
 │  └────────────────────────────────────────────────────┘   │
 │         │                                                 │
 │         ▼                                                 │
 │  ┌────────────────────────────────────────────────────┐   │
 │  │          AUTONOMOUS AGENT LOOP (5 min)             │   │
 │  │                                                    │   │
-│  │  1. getBalances()     ──▶ MCP Toolkit ──▶ WDK     │   │
-│  │  2. analyzeRevenue()  ──▶ state history            │   │
-│  │  3. getDecision()     ──▶ LLM reasoning            │   │
-│  │  4. execute()         ──▶ reprice / transfer / hold│   │
-│  │  5. logDecision()     ──▶ state store + console    │   │
+│  │  1. LLM receives state summary                    │   │
+│  │  2. LLM calls tools (tool-calling API):            │   │
+│  │     - check_balances  ──▶ MCP Toolkit ──▶ WDK     │   │
+│  │     - check_revenue   ──▶ state store              │   │
+│  │     - check_expenses  ──▶ state store              │   │
+│  │     - check_pricing   ──▶ pricing engine            │   │
+│  │     - check_decisions ──▶ decision history          │   │
+│  │     - check_market_price ──▶ MCP/Bitfinex          │   │
+│  │  3. LLM returns JSON decision                      │   │
+│  │  4. execute()  ──▶ reprice / transfer / hold       │   │
+│  │  5. logDecision() ──▶ state store + console        │   │
 │  └────────────────────────────────────────────────────┘   │
 │         │                                                 │
 │         ▼                                                 │
@@ -47,7 +54,7 @@
 │  │                                                    │   │
 │  │  Account 0 (Treasury)  ◄── x402 revenue            │   │
 │  │  Account 1 (Savings)   ◄── profit transfers        │   │
-│  │  Account 2 (DemoBuyer) ──► test x402 payments      │   │
+│  │  Account 2 (DemoBuyer) ──► test payments             │   │
 │  │                                                    │   │
 │  │  Chain: Sepolia (eip155:11155111)                   │   │
 │  │  Token: USDT0                                      │   │
@@ -83,7 +90,7 @@
 │  │   Card   │  │   View   │  │  Status  │  │  Chart   │  │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │
 │  ┌──────────────────────────────────────────────────────┐ │
-│  │                DEMO BUYER (x402 test)                │ │
+│  │                    DEMO BUYER                        │ │
 │  └──────────────────────────────────────────────────────┘ │
 │  ┌────────────────────┐  ┌──────────────────────────────┐ │
 │  │   Revenue Stream   │  │      Reasoning Trail         │ │
@@ -101,9 +108,9 @@ Buyer ──POST──▶ /api/analyze
           x402 middleware checks payment
                   │
           ┌───────▼────────┐
-          │   Semantic      │
+          │     x402        │
           │   Facilitator   │ ◄── verifies EIP-3009 signature
-          │   (x402.semanticpay.io)
+          │ (facilitator.x402.org)
           └───────┬────────┘
                   │ payment valid
                   ▼
@@ -129,11 +136,14 @@ Every 5 minutes:
   └────────┬─────────┘
            ▼
   ┌──────────────────┐
-  │ LLM analyzes:    │
+  │ LLM tool-calling: │
   │                   │
-  │ - revenue trend   │
-  │ - balance vs min  │
-  │ - request volume  │
+  │ - check_balances  │
+  │ - check_revenue   │
+  │ - check_expenses  │
+  │ - check_pricing   │
+  │ - check_decisions │
+  │ - check_market    │
   └────────┬─────────┘
            ▼
   ┌──────────────────┐
@@ -162,7 +172,7 @@ Every 5 minutes:
 | Agent Framework | @tetherto/wdk-mcp-toolkit (15 tools) |
 | Payments | @x402/express, @x402/evm, @x402/core |
 | LLM | Groq / OpenAI / Together / Fireworks / Anthropic / custom |
-| State | In-memory |
+| State | JSON file persistence (data/agora-state.json) |
 | Indexer | WDK Indexer API (wdk-api.tether.io) |
 | Frontend | React + Vite |
 | Chain | Sepolia (eip155:11155111) |
