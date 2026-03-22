@@ -1,4 +1,4 @@
-import { PLASMA } from '../config/chains.js'
+import { CHAIN } from '../config/chains.js'
 import { SAFETY } from '../config/safety.js'
 
 const MAX_RETRIES = 3
@@ -20,7 +20,7 @@ export async function transferUSDT0(fromAccount, toAddress, amountHuman, reason)
       console.log(`[tx] Attempt ${attempt}/${MAX_RETRIES}: Transfer ${amountHuman} USDT0 to ${toAddress.slice(0, 10)}...`)
 
       const result = await fromAccount.transfer({
-        token: PLASMA.usdt0,
+        token: CHAIN.usdt0,
         recipient: toAddress,
         amount: amountBaseUnits,
       })
@@ -32,7 +32,7 @@ export async function transferUSDT0(fromAccount, toAddress, amountHuman, reason)
         amount: amountHuman,
         timestamp: Date.now(),
         reason,
-        explorer: PLASMA.explorerTx(result.hash),
+        explorer: CHAIN.explorerTx(result.hash),
       }
 
       console.log(`[tx] ✅ Success: ${receipt.explorer}`)

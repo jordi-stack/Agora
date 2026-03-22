@@ -1,11 +1,11 @@
-export const PLASMA = {
-  name: 'plasma',
-  chainId: 9745,
-  network: 'eip155:9745',
-  rpc: process.env.PLASMA_RPC || 'https://rpc.plasma.to',
-  usdt0: '0xB8CE59FC3717ada4C02eaDF9682A9e934F625ebb',
+export const CHAIN = {
+  name: 'sepolia',
+  chainId: 11155111,
+  network: 'eip155:11155111',
+  rpc: process.env.CHAIN_RPC || 'https://sepolia.drpc.org',
+  usdt0: '0xd077a400968890eacc75cdc901f0356c943e4fdb',
   usdt0Decimals: 6,
-  explorer: 'https://plasmascan.to',
-  explorerTx: (hash) => `https://plasmascan.to/tx/${hash}`,
-  explorerAddress: (addr) => `https://plasmascan.to/address/${addr}`,
+  explorer: 'https://sepolia.etherscan.io',
+  explorerTx: (hash) => `https://sepolia.etherscan.io/tx/${hash}`,
+  explorerAddress: (addr) => `https://sepolia.etherscan.io/address/${addr}`,
 }

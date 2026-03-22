@@ -72,34 +72,63 @@ router.get('/api/pricing-history', async (req, res) => {
   res.json({ history: getPriceHistory() })
 })
 
-// Demo buyer — triggers a test x402 payment
+// Demo buyer — triggers a test x402 payment (with direct WDK transfer fallback)
 router.post('/api/demo-buy', async (req, res) => {
+  const allowed = ['analyze', 'risk']
+  const endpoint = allowed.includes(req.body?.endpoint) ? req.body.endpoint : 'analyze'
+  const port = process.env.PORT || 4747
+  const url = `http://localhost:${port}/api/${endpoint}`
+  const body = endpoint === 'risk'
+    ? { address: getAddresses().treasury }
+    : { asset: req.body?.asset || 'BTC' }
+
+  // Try x402 payment flow first (production path)
   try {
     const { x402Client, wrapFetchWithPayment } = await import('@x402/fetch')
     const { registerExactEvmScheme } = await import('@x402/evm/exact/client')
-
     const demoBuyerAccount = getAccount('demoBuyer')
     const client = new x402Client()
     registerExactEvmScheme(client, { signer: demoBuyerAccount })
     const fetchWithPayment = wrapFetchWithPayment(fetch, client)
-
-    const allowed = ['analyze', 'risk']
-    const endpoint = allowed.includes(req.body?.endpoint) ? req.body.endpoint : 'analyze'
-    const port = process.env.PORT || 4747
-    const url = `http://localhost:${port}/api/${endpoint}`
-
-    const body = endpoint === 'risk'
-      ? { address: getAddresses().treasury }
-      : { asset: req.body?.asset || 'BTC' }
 
     const response = await fetchWithPayment(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     })
-
     const data = await response.json()
-    res.json({ success: true, endpoint, response: data, status: response.status })
+    return res.json({ success: true, endpoint, response: data, paymentMethod: 'x402' })
+  } catch (x402Err) {
+    console.warn('[demo-buy] x402 payment failed, using direct WDK transfer:', x402Err.message)
+  }
+
+  // Fallback: direct WDK transfer + call endpoint
+  try {
+    const { transferUSDT0 } = await import('../wallet/tx-pipeline.js')
+    const demoBuyerAccount = getAccount('demoBuyer')
+    const treasuryAddress = getAddresses().treasury
+    const price = endpoint === 'analyze' ? 0.005 : 0.003
+
+    // Real on-chain transfer via WDK
+    const receipt = await transferUSDT0(demoBuyerAccount, treasuryAddress, price, `Demo x402 payment: ${endpoint}`)
+
+    // Call endpoint directly
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    const data = await response.json()
+
+    return res.json({
+      success: true,
+      endpoint,
+      response: data,
+      paymentMethod: 'direct-wdk-transfer',
+      txHash: receipt.hash,
+      explorer: receipt.explorer,
+      amount: price,
+    })
   } catch (err) {
     res.status(500).json({ success: false, error: err.message })
   }
@@ -113,8 +142,8 @@ router.get('/api/transfers', async (req, res) => {
   try {
     const addresses = getAddresses()
     const [treasuryTransfers, savingsTransfers] = await Promise.all([
-      getTokenTransfers('plasma', 'usdt', addresses.treasury, 20),
-      getTokenTransfers('plasma', 'usdt', addresses.savings, 20),
+      getTokenTransfers('sepolia', 'usdt', addresses.treasury, 20),
+      getTokenTransfers('sepolia', 'usdt', addresses.savings, 20),
     ])
     res.json({
       enabled: true,

@@ -49,7 +49,7 @@
 │  │  Account 1 (Savings)   ◄── profit transfers        │   │
 │  │  Account 2 (DemoBuyer) ──► test x402 payments      │   │
 │  │                                                    │   │
-│  │  Chain: Plasma (eip155:9745)                       │   │
+│  │  Chain: Sepolia (eip155:11155111)                   │   │
 │  │  Token: USDT0                                      │   │
 │  │  Self-custodial (BIP-44 from seed phrase)          │   │
 │  └────────────────────────────────────────────────────┘   │
@@ -111,7 +111,7 @@ Buyer ──POST──▶ /api/analyze
           (Bitfinex + LLM)
                   │
           Facilitator settles on-chain
-          (USDT0 transferred on Plasma)
+          (USDT0 transferred on Sepolia)
                   │
           Revenue logged to state store
                   │
@@ -165,6 +165,6 @@ Every 5 minutes:
 | State | In-memory |
 | Indexer | WDK Indexer API (wdk-api.tether.io) |
 | Frontend | React + Vite |
-| Chain | Plasma (eip155:9745) |
+| Chain | Sepolia (eip155:11155111) |
 | Token | USDT0 (6 decimals) |
-| Gas | XPL (near-zero cost) |
+| Gas | SepoliaETH |

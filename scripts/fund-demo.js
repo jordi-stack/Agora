@@ -2,8 +2,8 @@ import 'dotenv/config'
 import WalletManagerEvm from '@tetherto/wdk-wallet-evm'
 
 const SEED = process.env.WDK_SEED
-const RPC = process.env.PLASMA_RPC || 'https://rpc.plasma.to'
-const USDT0 = '0xB8CE59FC3717ada4C02eaDF9682A9e934F625ebb'
+const RPC = process.env.CHAIN_RPC || 'https://sepolia.drpc.org'
+const USDT0 = '0xd077a400968890eacc75cdc901f0356c943e4fdb'
 
 async function main() {
   const manager = new WalletManagerEvm(SEED, { provider: RPC })
@@ -28,7 +28,7 @@ async function main() {
   })
 
   console.log('✅ TX Hash:', result.hash)
-  console.log('Explorer:', `https://plasmascan.to/tx/${result.hash}`)
+  console.log('Explorer:', `https://sepolia.etherscan.io/tx/${result.hash}`)
   process.exit(0)
 }
 

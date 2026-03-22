@@ -27,7 +27,7 @@ export default function DemoBuyer({ onPayment }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
         <div>
           <h3 style={{ color: t.accent, fontSize: 14, marginBottom: 2 }}>Demo Buyer - Test x402 Payments</h3>
-          <span style={{ color: t.muted, fontSize: 11 }}>Trigger a real x402 micropayment on Plasma. Agent earns USDT0 instantly.</span>
+          <span style={{ color: t.muted, fontSize: 11 }}>Trigger a real x402 micropayment on Sepolia. Agent earns USDT0 instantly.</span>
         </div>
         {count > 0 && <span style={{ color: t.accent, fontSize: 11, background: t.accentBg, padding: '2px 8px', borderRadius: 4 }}>{count} sent</span>}
       </div>
@@ -35,7 +35,7 @@ export default function DemoBuyer({ onPayment }) {
         <button onClick={() => buy('analyze')} disabled={loading} style={btn(t.accent)}>{loading && ep === 'analyze' ? 'Signing x402...' : 'Buy Market Analysis ($0.005)'}</button>
         <button onClick={() => buy('risk')} disabled={loading} style={btn(t.blue)}>{loading && ep === 'risk' ? 'Signing x402...' : 'Buy Risk Score ($0.003)'}</button>
       </div>
-      {loading && <div style={{ color: t.accent, fontSize: 12, marginBottom: 8 }}>Processing x402 payment on Plasma...</div>}
+      {loading && <div style={{ color: t.accent, fontSize: 12, marginBottom: 8 }}>Processing x402 payment on Sepolia...</div>}
       {error && <div style={{ background: t.redBg, color: t.red, padding: 10, borderRadius: 4, fontSize: 12, marginBottom: 8 }}>{error}</div>}
       {result && (
         <div style={{ background: t.accentBg, border: `1px solid ${t.accent}33`, padding: 12, borderRadius: 4, fontSize: 12 }}>

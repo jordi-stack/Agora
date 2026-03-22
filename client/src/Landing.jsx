@@ -139,14 +139,14 @@ export default function Landing() {
       <div style={{ padding: '80px 0 64px', textAlign: 'center' }}>
         <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 20, flexWrap: 'wrap' }}>
           <span style={badge(t.accent, t.accentBg)}>AUTONOMOUS</span>
-          <span style={badge(t.blue, t.blueBg)}>PLASMA</span>
+          <span style={badge(t.blue, t.blueBg)}>SEPOLIA</span>
           <span style={badge(t.orange, mode === 'dark' ? '#ff664422' : '#cc552215')}>x402</span>
         </div>
         <h1 style={{ fontSize: 36, fontWeight: 'bold', color: t.text, lineHeight: 1.2, marginBottom: 16 }}>
           Self-Sustaining AI Agent
         </h1>
         <p style={{ fontSize: 15, color: t.muted, maxWidth: 560, margin: '0 auto 40px', lineHeight: 1.6 }}>
-          Earns USDT0 by selling intelligence services via x402 micropayments, manages its own multi-account treasury through Tether WDK, and makes financial decisions on the Plasma blockchain.
+          Earns USDT0 by selling intelligence services via x402 micropayments, manages its own multi-account treasury through Tether WDK, and makes financial decisions on the Sepolia testnet.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="#/app" style={ctaBtn}>Open Dashboard</a>
@@ -165,7 +165,7 @@ export default function Landing() {
             { label: 'Agent Brain (LLM)', sub: '5 min loop\nGroq + LLaMA', color: t.blue, icon: '\u2193' },
             { label: 'WDK MCP Toolkit', sub: '15 tools\ngetBalance | transfer', color: t.accent, icon: '\u2193' },
             { label: 'WDK Wallet', sub: 'Treasury | Savings\nDemo Buyer', color: t.accent, side: { label: 'Safety', sub: '4 rules\nenforced', color: t.red }, icon: '\u2193' },
-            { label: 'Plasma Blockchain', sub: 'USDT0 | XPL\nNear-zero gas', color: t.blue },
+            { label: 'Sepolia Testnet', sub: 'USDT0 | ETH\nEVM testnet', color: t.blue },
           ].map((node, i, arr) => (
             <React.Fragment key={node.label}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%', maxWidth: 600, justifyContent: 'center' }}>
@@ -267,7 +267,7 @@ export default function Landing() {
           <div style={card}>
             <div style={{ fontFamily: 'monospace', fontSize: 12, color: t.blue, marginBottom: 6 }}>POST /api/risk</div>
             <div style={{ fontSize: 13, color: t.text, marginBottom: 4 }}>Risk Scoring</div>
-            <div style={{ fontSize: 12, color: t.muted, marginBottom: 8 }}>Plasma RPC on-chain data + LLM assessment</div>
+            <div style={{ fontSize: 12, color: t.muted, marginBottom: 8 }}>Sepolia RPC on-chain data + LLM assessment</div>
             <span style={badge(t.blue, t.blueBg)}>$0.003 USDT0</span>
           </div>
         </div>
@@ -310,7 +310,7 @@ export default function Landing() {
           <div style={card}>
             <div style={{ fontSize: 12, color: t.sub, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Every 5 Minutes</div>
             {[
-              { n: '1', label: 'Check USDT0 + XPL balances via WDK' },
+              { n: '1', label: 'Check USDT0 + ETH balances via WDK' },
               { n: '2', label: 'Analyze revenue trends from state history' },
               { n: '3', label: 'Query LLM for decision (hold / transfer / reprice)' },
               { n: '4', label: 'Execute if confidence >= 0.7' },
@@ -344,15 +344,15 @@ export default function Landing() {
         <div style={sectionTitle}>Verification</div>
         <h2 style={sectionHeading}>On-Chain Proof</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-          <a href={`https://plasmascan.to/address/${TREASURY}`} target="_blank" rel="noopener" style={{ ...card, textDecoration: 'none', transition: 'border-color 0.2s' }}>
+          <a href={`https://sepolia.etherscan.io/address/${TREASURY}`} target="_blank" rel="noopener" style={{ ...card, textDecoration: 'none', transition: 'border-color 0.2s' }}>
             <div style={{ fontSize: 11, color: t.sub, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 6 }}>Treasury Address</div>
             <div style={{ fontFamily: 'monospace', fontSize: 12, color: t.accent, wordBreak: 'break-all' }}>{TREASURY}</div>
-            <div style={{ fontSize: 11, color: t.dim, marginTop: 8 }}>View on Plasmascan &#8599;</div>
+            <div style={{ fontSize: 11, color: t.dim, marginTop: 8 }}>View on Etherscan &#8599;</div>
           </a>
-          <a href={`https://plasmascan.to/tx/${FUNDING_TX}`} target="_blank" rel="noopener" style={{ ...card, textDecoration: 'none', transition: 'border-color 0.2s' }}>
+          <a href={`https://sepolia.etherscan.io/tx/${FUNDING_TX}`} target="_blank" rel="noopener" style={{ ...card, textDecoration: 'none', transition: 'border-color 0.2s' }}>
             <div style={{ fontSize: 11, color: t.sub, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 6 }}>Demo Buyer Funding TX</div>
             <div style={{ fontFamily: 'monospace', fontSize: 12, color: t.blue, wordBreak: 'break-all' }}>{FUNDING_TX.slice(0, 24)}...</div>
-            <div style={{ fontSize: 11, color: t.dim, marginTop: 8 }}>View on Plasmascan &#8599;</div>
+            <div style={{ fontSize: 11, color: t.dim, marginTop: 8 }}>View on Etherscan &#8599;</div>
           </a>
         </div>
       </div>
@@ -378,7 +378,7 @@ export default function Landing() {
                 ['Agent Framework', 'WDK MCP Toolkit', '15 MCP tools for wallet operations'],
                 ['Payments', 'x402 Protocol (@x402/express)', 'HTTP-native agentic micropayments'],
                 ['LLM', 'Groq + LLaMA (open-source)', 'Universal provider, auto-detected'],
-                ['Chain', 'Plasma (eip155:9745)', "Tether's chain, near-zero gas"],
+                ['Chain', 'Sepolia (eip155:11155111)', 'EVM testnet with WDK support'],
                 ['State', 'In-memory store', 'No external dependencies'],
                 ['Indexer', 'WDK Indexer API', 'Official Tether balances + transfers'],
                 ['Server', 'Express.js', 'x402 middleware compatible'],
@@ -406,7 +406,7 @@ export default function Landing() {
         <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
           <a href="https://github.com/jordi-stack/agora" target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>GitHub</a>
           <a href="https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail" target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>Hackathon</a>
-          <a href={`https://plasmascan.to/address/${TREASURY}`} target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>Plasmascan</a>
+          <a href={`https://sepolia.etherscan.io/address/${TREASURY}`} target="_blank" rel="noopener" style={{ ...link, fontSize: 12 }}>Etherscan</a>
         </div>
         <div style={{ color: t.dim, fontSize: 10 }}>
           Agora - Hackathon Galactica: WDK Edition 1 - Apache 2.0

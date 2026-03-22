@@ -1,13 +1,13 @@
 ---
 name: agora
-description: Self-sustaining AI agent that earns USDT0 by selling market analysis and risk scoring via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes autonomous financial decisions on the Plasma blockchain. Use when you need crypto market analysis or wallet risk scoring.
+description: Self-sustaining AI agent that earns USDT0 by selling market analysis and risk scoring via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes autonomous financial decisions on the Sepolia blockchain. Use when you need crypto market analysis or wallet risk scoring.
 license: Apache-2.0
-compatibility: Requires Node.js 20+, a BIP-39 seed phrase with USDT0 and XPL on Plasma chain, and an LLM API key (Groq recommended).
+compatibility: Requires Node.js 20+, a BIP-39 seed phrase with USDT0 and ETH on Sepolia chain, and an LLM API key (Groq recommended).
 metadata:
   version: "1.0.0"
   repository: https://github.com/jordi-stack/agora
   base-url: http://localhost:4747
-  tags: x402, wdk, tether, plasma, usdt0, autonomous-agent, micropayments
+  tags: x402, wdk, tether, sepolia, usdt0, autonomous-agent, micropayments
   requires: "@x402/fetch @x402/evm @tetherto/wdk-wallet-evm"
 ---
 
@@ -15,9 +15,9 @@ metadata:
 
 ## Overview
 
-Agora is an autonomous AI agent that operates as an independent economic actor on the Plasma blockchain. Unlike traditional bots that require human funding and oversight, Agora earns its own revenue by selling AI-powered analysis services via the x402 HTTP payment protocol, then autonomously manages its treasury using Tether's Wallet Development Kit (WDK).
+Agora is an autonomous AI agent that operates as an independent economic actor on the Sepolia blockchain. Unlike traditional bots that require human funding and oversight, Agora earns its own revenue by selling AI-powered analysis services via the x402 HTTP payment protocol, then autonomously manages its treasury using Tether's Wallet Development Kit (WDK).
 
-The agent runs a continuous decision loop powered by LLM reasoning, making autonomous choices about pricing strategy, profit allocation, and risk management - all verifiable on-chain via Plasmascan.
+The agent runs a continuous decision loop powered by LLM reasoning, making autonomous choices about pricing strategy, profit allocation, and risk management - all verifiable on-chain via Sepoliascan.
 
 ## Capabilities
 
@@ -30,7 +30,7 @@ Agora exposes paid API endpoints using the x402 HTTP payment protocol. Any buyer
 | Service | Endpoint | Price | Description |
 |---------|----------|-------|-------------|
 | Market Analysis | `POST /api/analyze` | $0.005 USDT0 | Real-time crypto market analysis using Bitfinex/CoinGecko price data combined with LLM reasoning. Returns price data, trend analysis, sentiment, and actionable insights. |
-| Risk Scoring | `POST /api/risk` | $0.003 USDT0 | On-chain wallet risk assessment. Queries Plasma RPC for wallet balance, transaction count, and activity patterns. LLM evaluates risk factors and assigns a score (0-100). |
+| Risk Scoring | `POST /api/risk` | $0.003 USDT0 | On-chain wallet risk assessment. Queries Sepolia RPC for wallet balance, transaction count, and activity patterns. LLM evaluates risk factors and assigns a score (0-100). |
 
 **Request Examples:**
 
@@ -59,9 +59,9 @@ POST /api/risk
   "address": "0x51329...",
   "riskScore": 60,
   "tier": "Medium",
-  "onChainData": { "balance": 10.027, "txCount": 1, "chain": "Plasma" },
+  "onChainData": { "balance": 10.027, "txCount": 1, "chain": "Sepolia" },
   "aiAssessment": "Moderate risk due to low transaction count...",
-  "explorer": "https://plasmascan.to/address/0x51329..."
+  "explorer": "https://sepolia.etherscan.io/address/0x51329BA9..."
 }
 ```
 
@@ -77,7 +77,7 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 
 **WDK Operations (via MCP Toolkit, 15 tools registered):**
 - `WdkMcpServer` - Agent reasoning layer with registered wallet, pricing, and indexer tools
-- `getBalance` - Check native XPL balance
+- `getBalance` - Check native ETH balance
 - `getTokenBalance` - Check registered USDT0 balance
 - `transfer` - Transfer USDT0 (ERC-20)
 - `getCurrentPrice` / `getHistoricalPrice` - Bitfinex market data
@@ -90,7 +90,7 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 Every 5 minutes, Agora runs an autonomous decision cycle:
 
 ```
-1. CHECK    → Read USDT0 + XPL balances via MCP Toolkit
+1. CHECK    → Read USDT0 + ETH balances via MCP Toolkit
 2. ANALYZE  → Compare revenue trends from state history
 3. REASON   → Query LLM with full context (balances, revenue, pricing, safety rules)
 4. DECIDE   → LLM returns structured JSON: { action, confidence, reasoning }
@@ -142,7 +142,7 @@ Agora auto-detects the LLM provider from environment variables. Supports any Ope
 
 Real-time React dashboard showing:
 - **P&L Card** - Revenue from x402 payments minus operational costs
-- **Account View** - Treasury and Savings USDT0 + XPL balances with Plasmascan links
+- **Account View** - Treasury and Savings USDT0 + ETH balances with Sepoliascan links
 - **Safety Status** - Traffic light indicators for each safety rule
 - **Dynamic Pricing** - Current prices vs base, with demand stats
 - **Revenue Stream** - Real-time feed of each x402 micropayment received
@@ -154,7 +154,7 @@ Real-time React dashboard showing:
 
 ### Prerequisites
 - Node.js 20+
-- BIP-39 seed phrase with USDT0 + XPL on Plasma chain
+- BIP-39 seed phrase with USDT0 + ETH on Sepolia chain
 - Any LLM API key (Groq recommended - free at console.groq.com)
 
 ### Install
@@ -200,7 +200,7 @@ Market analysis for any crypto asset.
 - **Price:** $0.005 USDT0 (dynamic, adjusts with demand)
 
 #### POST /api/risk
-Wallet risk scoring on Plasma chain.
+Wallet risk scoring on Sepolia chain.
 - **Input:** `{ "address": "0x..." }`
 - **Output:** Risk score (0-100), tier, on-chain data, AI assessment
 - **Price:** $0.003 USDT0 (dynamic, adjusts with demand)
@@ -220,7 +220,7 @@ Wallet risk scoring on Plasma chain.
 ## Architecture
 
 ```
-Agent Brain (LLM) ──▶ WDK Wallet (Plasma) ──▶ x402 Revenue Engine
+Agent Brain (LLM) ──▶ WDK Wallet (Sepolia) ──▶ x402 Revenue Engine
       │                      │                        │
   Reasoning loop       3 BIP-44 accounts       Micropayment collection
   Safety rules         USDT0 transfers          Dynamic pricing
@@ -231,12 +231,12 @@ Agent Brain (LLM) ──▶ WDK Wallet (Plasma) ──▶ x402 Revenue Engine
 
 | Item | Value |
 |------|-------|
-| Network | Plasma (eip155:9745) |
-| RPC | `https://rpc.plasma.to` |
-| Gas Token | XPL (~$0.10, near-zero gas costs) |
+| Network | Sepolia (eip155:11155111) |
+| RPC | `https://sepolia.drpc.org` |
+| Gas Token | SepoliaETH |
 | Payment Token | USDT0 (6 decimals) |
-| USDT0 Contract | `0xB8CE59FC3717ada4C02eaDF9682A9e934F625ebb` |
-| Explorer | [plasmascan.to](https://plasmascan.to) |
+| USDT0 Contract | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
+| Explorer | [sepolia.etherscan.io](https://sepolia.etherscan.io) |
 | Facilitator | [x402.semanticpay.io](https://x402.semanticpay.io) |
 
 ## Dependencies
@@ -253,7 +253,7 @@ Agent Brain (LLM) ──▶ WDK Wallet (Plasma) ──▶ x402 Revenue Engine
 
 ## Quick Integration
 
-Any agent with USDT0 on Plasma can buy Agora's services in 10 lines:
+Any agent with USDT0 on Sepolia can buy Agora's services in 10 lines:
 
 ```bash
 npm install @x402/fetch @x402/evm @tetherto/wdk-wallet-evm
@@ -264,9 +264,9 @@ import WalletManagerEvm from "@tetherto/wdk-wallet-evm"
 import { x402Client, wrapFetchWithPayment } from "@x402/fetch"
 import { registerExactEvmScheme } from "@x402/evm/exact/client"
 
-// Setup wallet (needs USDT0 + XPL on Plasma)
+// Setup wallet (needs USDT0 + SepoliaETH on Sepolia)
 const account = await new WalletManagerEvm(process.env.SEED, {
-  provider: "https://rpc.plasma.to",
+  provider: "https://sepolia.drpc.org",
 }).getAccount()
 
 // Setup x402 payment client

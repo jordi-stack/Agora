@@ -1,6 +1,6 @@
 import { getMCP } from './server.js'
 import { getBalances as getBalancesFallback } from '../wallet/manager.js'
-import { PLASMA } from '../config/chains.js'
+import { CHAIN } from '../config/chains.js'
 
 let toolCalls = []
 
@@ -39,7 +39,7 @@ async function getAccountBalances(mcp, index) {
   const names = ['treasury', 'savings', 'demoBuyer']
   const label = names[index] || `account${index}`
 
-  const account = await mcp.wdk.getAccount('plasma', index)
+  const account = await mcp.wdk.getAccount('sepolia', index)
 
   const address = await mcpTool('getAddress', { account: label },
     () => account.getAddress())
@@ -54,7 +54,7 @@ async function getAccountBalances(mcp, index) {
     usdt0 = await mcpTool('getIndexerTokenBalance', { account: label },
       async () => {
         try {
-          const res = await fetch(`https://wdk-api.tether.io/api/v1/plasma/usdt/${address}/token-balances`, {
+          const res = await fetch(`https://wdk-api.tether.io/api/v1/sepolia/usdt/${address}/token-balances`, {
             headers: { 'x-api-key': process.env.WDK_INDEXER_API_KEY },
             signal: AbortSignal.timeout(5000),
           })
@@ -70,12 +70,12 @@ async function getAccountBalances(mcp, index) {
     usdt0 = await mcpTool('getTokenBalance', { account: label },
       async () => {
         try {
-          const res = await fetch(PLASMA.rpc, {
+          const res = await fetch(CHAIN.rpc, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               jsonrpc: '2.0', method: 'eth_call', id: 1,
-              params: [{ to: PLASMA.usdt0, data: '0x70a08231000000000000000000000000' + address.slice(2).toLowerCase() }, 'latest'],
+              params: [{ to: CHAIN.usdt0, data: '0x70a08231000000000000000000000000' + address.slice(2).toLowerCase() }, 'latest'],
             }),
           })
           const data = await res.json()

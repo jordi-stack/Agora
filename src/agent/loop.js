@@ -33,14 +33,14 @@ async function runCycle(savingsAddress) {
     const balances = await getBalances()
     const treasuryBalance = balances.treasury.usdt0 || 0
     const savingsBalance = balances.savings.usdt0 || 0
-    console.log(`[agent] Treasury: ${treasuryBalance} USDT0 (${balances.treasury.native.toFixed(4)} XPL) | Savings: ${savingsBalance} USDT0`)
+    console.log(`[agent] Treasury: ${treasuryBalance} USDT0 (${balances.treasury.native.toFixed(4)} ETH) | Savings: ${savingsBalance} USDT0`)
 
     // Proof-of-life: sign timestamped message with WDK
     let proofOfLife = null
     try {
       const mcp = getMCP()
       if (mcp) {
-        const account = await mcp.wdk.getAccount('plasma', 0)
+        const account = await mcp.wdk.getAccount('sepolia', 0)
         const message = `agora-alive-${Date.now()}-cycle-${cycleCount}`
         const signature = await account.sign(message)
         proofOfLife = { message, signature: signature.slice(0, 22) + '...' }
@@ -78,7 +78,7 @@ async function runCycle(savingsAddress) {
 
     const decision = await getDecision({
       treasuryBalance,
-      treasuryXPL: balances.treasury.native,
+      treasuryNative: balances.treasury.native,
       savingsBalance,
       revenueLastHour,
       revenueCount,

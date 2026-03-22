@@ -40,7 +40,7 @@ export default function App() {
         <img src="/logo.png" alt="Agora" style={{ width: 64, height: 64, marginBottom: 16 }} />
         <div style={{ color: t.accent, fontSize: 18, fontWeight: 'bold' }}>AGORA</div>
         <div style={{ color: t.muted, fontSize: 13, marginTop: 4 }}>Self-Sustaining AI Agent</div>
-        <div style={{ color: t.dim, fontSize: 12, marginTop: 16 }}>{error ? `Connection error: ${error}` : 'Connecting to Plasma blockchain...'}</div>
+        <div style={{ color: t.dim, fontSize: 12, marginTop: 16 }}>{error ? `Connection error: ${error}` : 'Connecting to Sepolia testnet...'}</div>
         {error && <button onClick={fetchData} style={{ marginTop: 12, padding: '6px 16px', background: t.accent, color: t.btnText, border: 'none', borderRadius: 4, cursor: 'pointer', fontFamily: 'inherit', fontSize: 12 }}>Retry</button>}
       </div>
     </ThemeCtx.Provider>
@@ -56,10 +56,10 @@ export default function App() {
                 Agora <span style={{ color: t.dim, fontSize: 14, fontWeight: 'normal', marginLeft: 12 }}>Self-Sustaining AI Agent</span>
               </h1>
               <div style={{ color: t.muted, fontSize: 11, marginTop: 4 }}>
-                Earning USDT0 via x402 on Plasma
+                Earning USDT0 via x402 on Sepolia
                 <span style={{ ...badge, background: t.accentBg, color: t.accent }}>{status.safety?.overall === 'green' ? 'ACTIVE' : status.safety?.overall === 'yellow' ? 'CAUTION' : 'PAUSED'}</span>
                 <span style={{ ...badge, background: t.blueBg, color: t.blue }}>{status.llmProvider?.toUpperCase()}</span>
-                <span style={{ ...badge, background: mode === 'dark' ? '#ffffff11' : '#00000011', color: t.muted }}>Plasma</span>
+                <span style={{ ...badge, background: mode === 'dark' ? '#ffffff11' : '#00000011', color: t.muted }}>Sepolia</span>
               </div>
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>

@@ -2,7 +2,7 @@
   <img src="assets/banner.png" alt="AGORA-AGENT" width="100%">
 </p>
 
-Autonomous AI agent that earns USDT0 by selling intelligence services via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes its own financial decisions on the Plasma blockchain.
+Autonomous AI agent that earns USDT0 by selling intelligence services via x402 micropayments, manages a multi-account treasury through Tether WDK, and makes its own financial decisions on the Sepolia blockchain.
 
 **Track:** Agent Wallets (WDK / Openclaw and Agents Integration)
 **Hackathon:** [Tether Hackathon Galactica: WDK Edition 1](https://dorahacks.io/hackathon/hackathon-galactica-wdk-2026-01/detail)
@@ -28,9 +28,9 @@ Agora operates as an independent economic actor with zero human intervention:
 
 ## On-Chain Proof
 
-Verified transactions on Plasma:
-- Demo buyer funding: [`0x1f08cc3d...`](https://plasmascan.to/tx/0x1f08cc3dc47c5a8f647c4ab9a47dc720b8c6a51f7c0a4b31bedb2c8773f2f9d9)
-- Treasury address: [`0x51329BA9...`](https://plasmascan.to/address/0x51329BA9cE9703A44CBFB437a668187b505fACa7)
+Verified transactions on Sepolia:
+- Demo buyer funding: [`0x1f08cc3d...`](https://sepolia.etherscan.io/tx/0x1f08cc3dc47c5a8f647c4ab9a47dc720b8c6a51f7c0a4b31bedb2c8773f2f9d9)
+- Treasury address: [`0x51329BA9...`](https://sepolia.etherscan.io/address/0x51329BA9cE9703A44CBFB437a668187b505fACa7)
 
 ## Architecture
 
@@ -46,7 +46,7 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed data flow diagrams
 The agent sells its services using the [x402 protocol](https://www.x402.org/). Buyers pay USDT0 per request. No API keys, no accounts, just HTTP.
 
 - `POST /api/analyze` - Market analysis (Bitfinex/CoinGecko + LLM reasoning)
-- `POST /api/risk` - Wallet risk scoring (Plasma RPC + LLM assessment)
+- `POST /api/risk` - Wallet risk scoring (Sepolia RPC + LLM assessment)
 
 ### Agentic Payment Design
 The agent implements multiple programmable payment patterns:
@@ -54,7 +54,7 @@ The agent implements multiple programmable payment patterns:
 - **Conditional transfers**: profits move to savings only when treasury exceeds threshold (1.0 USDT0)
 - **Autonomous pricing**: LLM adjusts prices based on demand (0.5x-3x base)
 - **Payment constraints**: 4 hard-coded safety rules enforced before any transaction
-- **Agent-to-agent**: Demo Buyer (Acc 2) pays Treasury (Acc 0) via x402 on Plasma
+- **Agent-to-agent**: Demo Buyer (Acc 2) pays Treasury (Acc 0) via x402 on Sepolia
 - **Proof-of-life**: agent signs a cryptographic message each cycle as liveness proof
 
 ### Multi-Account Treasury (WDK)
@@ -72,7 +72,7 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 |-----------|---------|
 | `getAccount(index)` | BIP-44 HD wallet derivation (3 accounts) |
 | `getAddress()` | Retrieve wallet address |
-| `getBalance()` | Native token (XPL) balance |
+| `getBalance()` | Native token (ETH) balance |
 | `getTokenBalance()` | USDT0 (ERC-20) balance |
 | `transfer()` | Sign and send USDT0 on-chain |
 | `sign()` | Proof-of-life message signing each cycle |
@@ -83,7 +83,7 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 
 ### Autonomous Agent Loop
 Every 5 minutes, the agent uses the WDK MCP Toolkit to:
-1. Checks USDT0 and XPL balances via MCP tools
+1. Checks USDT0 and ETH balances via MCP tools
 2. Analyzes revenue trends from state history
 3. Queries the LLM for a decision (hold / transfer / reprice)
 4. Executes the decision if confidence >= 0.7
@@ -121,7 +121,7 @@ npx skills add jordi-stack/agora
 
 Live skill file: [agora-agent.xyz/SKILL.md](https://agora-agent.xyz/SKILL.md)
 
-Any agent with USDT0 on Plasma can buy Agora's services using `@x402/fetch`. See [SKILL.md](./SKILL.md) for the full API reference and integration code.
+Any agent with USDT0 on Sepolia can buy Agora's services using `@x402/fetch`. See [SKILL.md](./SKILL.md) for the full API reference and integration code.
 
 **MCP Server** (for Claude Desktop, Hermes, or any MCP-compatible agent):
 ```bash
@@ -133,7 +133,7 @@ Exposes 15 wallet tools (getBalance, transfer, getCurrentPrice, etc.) via MCP st
 
 ### Prerequisites
 - Node.js 20+
-- A BIP-39 seed phrase with USDT0 + XPL on Plasma
+- A BIP-39 seed phrase with USDT0 + ETH on Sepolia
 - An LLM API key (Groq recommended, free at [console.groq.com](https://console.groq.com))
 
 ### Setup
@@ -215,7 +215,7 @@ node scripts/fund-demo.js
 | Agent Framework | [WDK MCP Toolkit](https://github.com/tetherto/wdk-mcp-toolkit) | 15 MCP tools for agent wallet operations |
 | Payments | [x402 Protocol](https://www.x402.org/) (@x402/express) | HTTP-native agentic micropayments |
 | LLM | [Groq](https://groq.com/) / OpenAI / Together / Fireworks / Anthropic / any | Universal provider, auto-detected |
-| Chain | [Plasma](https://plasma.to/) (eip155:9745) | Tether's chain, near-zero gas |
+| Chain | [Sepolia](https://sepolia.etherscan.io) (eip155:11155111) | EVM testnet with WDK support |
 | State | In-memory store | Lightweight, no external dependencies |
 | Indexer | [WDK Indexer API](https://wdk-api.tether.io) | Official Tether token balances and transfer history |
 | Server | Express.js | x402 middleware compatible |
@@ -226,11 +226,11 @@ node scripts/fund-demo.js
 
 | Item | Value |
 |------|-------|
-| Chain | Plasma (eip155:9745) |
-| RPC | `https://rpc.plasma.to` |
-| Gas Token | XPL (near-zero cost) |
-| USDT0 Contract | `0xB8CE59FC3717ada4C02eaDF9682A9e934F625ebb` |
-| Explorer | [plasmascan.to](https://plasmascan.to) |
+| Chain | Sepolia (eip155:11155111) |
+| RPC | `https://sepolia.drpc.org` |
+| Gas Token | SepoliaETH |
+| USDT0 Contract | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
+| Explorer | [sepolia.etherscan.io](https://sepolia.etherscan.io) |
 
 ## Project Structure
 
@@ -272,7 +272,7 @@ agora/
 
 | Decision | Why |
 |----------|-----|
-| **Plasma chain** | Tether's own chain. Near-zero gas (~$0.0001/tx) makes micropayments viable. No bridging needed for USDT0. |
+| **Sepolia chain** | Tether's own chain. Near-zero gas (~$0.0001/tx) makes micropayments viable. No bridging needed for USDT0. |
 | **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header. No signup, no OAuth, no billing dashboard. |
 | **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
 | **In-memory state** | Wallet state lives on-chain, reasoning is ephemeral. No database means zero setup friction and no data to leak. |

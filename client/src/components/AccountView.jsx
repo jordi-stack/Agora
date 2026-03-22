@@ -18,14 +18,14 @@ export default function AccountView({ treasury, savings, demoBuyer }) {
       </div>
       <div style={{ display: 'flex', gap: 16, alignItems: 'baseline', marginTop: 4 }}>
         <span style={{ fontSize: 20, fontWeight: 'bold', color: t.accent }}>{data.usdt0?.toFixed(4) || '0.0000'} USDT0</span>
-        <span style={{ fontSize: 13, color: t.muted }}>{data.native?.toFixed(4)} XPL</span>
+        <span style={{ fontSize: 13, color: t.muted }}>{data.native?.toFixed(4)} ETH</span>
       </div>
-      <a href={`https://plasmascan.to/address/${data.address}`} target="_blank" rel="noopener" style={{ fontSize: 10, color: t.dim, wordBreak: 'break-all', textDecoration: 'none' }}>{data.address}</a>
+      <a href={`https://sepolia.etherscan.io/address/${data.address}`} target="_blank" rel="noopener" style={{ fontSize: 10, color: t.dim, wordBreak: 'break-all', textDecoration: 'none' }}>{data.address}</a>
     </div>
   )
   return (
     <div style={{ background: t.card, borderRadius: 8, padding: 20, border: `1px solid ${t.border}` }}>
-      <h3 style={{ color: t.sub, fontSize: 12, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>Accounts (Plasma)</h3>
+      <h3 style={{ color: t.sub, fontSize: 12, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>Accounts (Sepolia)</h3>
       <div style={{ color: t.dim, fontSize: 10, marginBottom: 12 }}>3 BIP-44 accounts from one seed phrase via WDK</div>
       <Acc name="Treasury (Acc 0)" role={roles.treasury} data={treasury} color={t.accent} />
       <Acc name="Savings (Acc 1)" role={roles.savings} data={savings} color={t.blue} />

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Agora is an autonomous AI agent that operates as an independent economic actor on the Plasma blockchain. It sells AI-powered analysis services via x402 micropayments and manages its own treasury via Tether WDK.
+Agora is an autonomous AI agent that operates as an independent economic actor on the Sepolia testnet. It sells AI-powered analysis services via x402 micropayments and manages its own treasury via Tether WDK.
 
 ## Architecture
 
@@ -22,7 +22,7 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 - Seed phrases and keys via environment variables only
 - All WDK packages under `@tetherto` scope
 - USDT0 amounts in 6-decimal base units (1 USDT0 = 1000000)
-- XPL (Plasma native) in 18-decimal wei
+- SepoliaETH (native gas) in 18-decimal wei
 
 ## Key Patterns
 

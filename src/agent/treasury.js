@@ -23,7 +23,7 @@ export async function evaluateTreasury(treasuryBalance, savingsAddress) {
   try {
     const mcp = getMCP()
     const account = mcp
-      ? await mcp.wdk.getAccount('plasma', 0)
+      ? await mcp.wdk.getAccount('sepolia', 0)
       : getAccountFallback('treasury')
     const receipt = await transferUSDT0(
       account,

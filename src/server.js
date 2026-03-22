@@ -20,7 +20,7 @@ const HOST = process.env.HOST || '0.0.0.0'
 async function main() {
   console.log('╔══════════════════════════════════════════╗')
   console.log('║  AGORA — Self-Sustaining AI Agent        ║')
-  console.log('║  Earning USDT0 via x402 on Plasma        ║')
+  console.log('║  Earning USDT0 via x402 on Sepolia       ║')
   console.log('╚══════════════════════════════════════════╝')
   console.log()
 
@@ -47,12 +47,7 @@ async function main() {
   app.use(express.json())
 
   // 5. Setup x402 payment middleware (BEFORE route handlers)
-  try {
-    setupX402(app, addresses.treasury)
-  } catch (err) {
-    console.warn('[x402] Setup failed:', err.message)
-    console.warn('[x402] Running without payment gate — endpoints are free')
-  }
+  await setupX402(app, addresses.treasury)
 
   // 6. Paid service routes (behind x402 paywall)
   app.post('/api/analyze', handleAnalyze)

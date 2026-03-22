@@ -1,7 +1,7 @@
 {
   "name": "agora",
   "version": "1.0.0",
-  "description": "Autonomous AI agent that sells intelligence via x402 micropayments and manages its own treasury on Plasma",
+  "description": "Autonomous AI agent that sells intelligence via x402 micropayments and manages its own treasury on Sepolia",
   "main": "src/server.js",
   "scripts": {
     "test": "vitest run",
@@ -13,7 +13,7 @@
     "x402",
     "wdk",
     "tether",
-    "plasma",
+    "sepolia",
     "usdt0",
     "autonomous",
     "defi"

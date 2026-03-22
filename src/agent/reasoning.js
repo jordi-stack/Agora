@@ -1,6 +1,6 @@
 import { chat, getProvider } from './llm.js'
 
-const SYSTEM_PROMPT = `You are Agora, an autonomous self-sustaining AI treasury agent on the Plasma blockchain. You earn USDT0 by selling AI analysis services via x402 micropayments and manage your own treasury autonomously.
+const SYSTEM_PROMPT = `You are Agora, an autonomous self-sustaining AI treasury agent on the Sepolia testnet. You earn USDT0 by selling AI analysis services via x402 micropayments and manage your own treasury autonomously.
 
 Analyze the provided data and return a JSON decision. Consider:
 - Revenue trends (increasing/decreasing/stable)
@@ -14,7 +14,7 @@ Respond ONLY with valid JSON:
 export async function getDecision(context) {
   const userPrompt = `MCP Tool Results:
 - getTokenBalance(treasury): ${context.treasuryBalance} USDT0
-- getBalance(treasury): ${context.treasuryXPL?.toFixed(4) || '0'} XPL
+- getBalance(treasury): ${context.treasuryNative?.toFixed(4) || '0'} ETH
 - getTokenBalance(savings): ${context.savingsBalance} USDT0
 
 Agent State:
@@ -70,8 +70,8 @@ Price: $${priceData.lastPrice}, 24h Change: ${(Number(priceData.changePercent) *
 }
 
 export async function assessRisk(address, onChainData) {
-  const prompt = `Assess the risk of this Plasma chain wallet. Return a brief risk assessment in 2 sentences with a score 0-100 (0=safest).
-Address: ${address}, Native balance: ${onChainData.balance.toFixed(4)} XPL, Transaction count: ${onChainData.txCount}`
+  const prompt = `Assess the risk of this Sepolia testnet wallet. Return a brief risk assessment in 2 sentences with a score 0-100 (0=safest).
+Address: ${address}, Native balance: ${onChainData.balance.toFixed(4)} ETH, Transaction count: ${onChainData.txCount}`
 
   try {
     return await chat('You are a blockchain risk analyst. Be concise and specific.', prompt, { temperature: 0.3, maxTokens: 150 })

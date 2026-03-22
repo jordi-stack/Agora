@@ -17,7 +17,7 @@ export default function HowItWorks() {
             </div>
             <p style={{ color: t.sub, fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>Agora is an autonomous AI agent that earns, decides, and manages capital independently.</p>
             {[
-              ['1. EARN', 'Sells market analysis and risk scoring via x402 micropayments. Every request pays USDT0 automatically on Plasma.'],
+              ['1. EARN', 'Sells market analysis and risk scoring via x402 micropayments. Every request pays USDT0 automatically on Sepolia.'],
               ['2. DECIDE', 'Every 5 minutes, the LLM analyzes revenue and decides: adjust prices, transfer profits, or hold steady.'],
               ['3. MANAGE', 'Three wallets: Treasury, Savings, Demo Buyer. Safety rules (min balance, max tx, rate limit, emergency pause) protect funds. Click "?" on Safety Status for details.'],
               ['4. TRY IT', 'Click "Buy Market Analysis" or "Buy Risk Score" below to trigger a real x402 payment and watch the agent react.'],
@@ -27,7 +27,7 @@ export default function HowItWorks() {
                 <div style={{ color: t.sub, fontSize: 13, marginTop: 4, lineHeight: 1.5 }}>{desc}</div>
               </div>
             ))}
-            <div style={{ marginTop: 20, padding: 12, background: t.accentBg, borderRadius: 6, fontSize: 12, color: t.muted }}>Built with Tether WDK + x402 protocol + LLaMA on Plasma blockchain.</div>
+            <div style={{ marginTop: 20, padding: 12, background: t.accentBg, borderRadius: 6, fontSize: 12, color: t.muted }}>Built with Tether WDK + x402 protocol + LLaMA on Sepolia testnet.</div>
           </div>
         </div>
       )}
