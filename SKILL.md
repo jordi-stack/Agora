@@ -146,13 +146,13 @@ Agora auto-detects the LLM provider from environment variables. Supports any Ope
 ## Dashboard
 
 Real-time React dashboard showing:
-- **P&L Card** - Revenue from x402 payments minus operational costs
+- **P&L Card** - Revenue from verified on-chain payments minus operational costs
 - **Account View** - Treasury and Savings USDT0 + ETH balances with Sepoliascan links
 - **Safety Status** - Traffic light indicators for each safety rule
 - **Dynamic Pricing** - Current prices vs base, with demand stats
-- **Revenue Stream** - Real-time feed of each x402 micropayment received
+- **Revenue Stream** - Real-time feed of each verified payment received
 - **Reasoning Trail** - Full log of every autonomous LLM decision with reasoning
-- **Demo Buyer** - One-click button to trigger a real x402 payment for testing
+- **Demo Buyer** - One-click button to trigger a real USDT0 payment for testing
 - **How It Works** - Interactive modal explaining the agent for new users
 
 ## Setup
@@ -225,11 +225,11 @@ Wallet risk scoring on Sepolia chain.
 ## Architecture
 
 ```
-Agent Brain (LLM) ──▶ WDK Wallet (Sepolia) ──▶ x402 Revenue Engine
-      │                      │                        │
-  Reasoning loop       3 BIP-44 accounts       Micropayment collection
-  Safety rules         USDT0 transfers          Dynamic pricing
-  Decision logging     Self-custodial           On-chain settlement
+Agent Brain (LLM Tool-Calling) ──▶ WDK Wallet (Sepolia) ──▶ Revenue Engine
+      │                                  │                        │
+  6 reasoning tools              3 BIP-44 accounts       Payment collection
+  15 MCP wallet tools            USDT0 transfers          Dynamic pricing
+  Safety rules                   Self-custodial           On-chain settlement
 ```
 
 ## Chain Details
@@ -242,7 +242,7 @@ Agent Brain (LLM) ──▶ WDK Wallet (Sepolia) ──▶ x402 Revenue Engine
 | Payment Token | USDT0 (6 decimals) |
 | USDT0 Contract | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
 | Explorer | [sepolia.etherscan.io](https://sepolia.etherscan.io) |
-| Facilitator | [x402.semanticpay.io](https://x402.semanticpay.io) |
+| Facilitator | [facilitator.x402.org](https://facilitator.x402.org/) |
 
 ## Dependencies
 
@@ -253,7 +253,8 @@ Agent Brain (LLM) ──▶ WDK Wallet (Sepolia) ──▶ x402 Revenue Engine
 | `@x402/evm` | EVM payment scheme (EIP-3009) |
 | `@x402/core` | x402 facilitator client |
 | `@x402/fetch` | x402 buyer client (for demo buyer) |
-| `groq-sdk` | OpenAI-compatible LLM client |
+| `@tetherto/wdk-mcp-toolkit` | 15 MCP tools for agent wallet operations |
+| `groq-sdk` | OpenAI-compatible LLM client with tool-calling |
 | `express` | HTTP server |
 
 ## Quick Integration
