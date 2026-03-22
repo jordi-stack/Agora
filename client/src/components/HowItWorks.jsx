@@ -17,7 +17,7 @@ export default function HowItWorks() {
             </div>
             <p style={{ color: t.sub, fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>Agora is a self-sustaining AI agent that sells services, earns USDT0, and manages its own treasury autonomously on Sepolia. Here is what each section of the dashboard shows.</p>
             {[
-              ['PROFIT & LOSS', 'Shows total revenue earned from verified on-chain payments minus operational expenses (profit transfers to savings). Only counts real USDT0 that moved on-chain, not API requests.'],
+              ['AGENT PERFORMANCE', 'Shows revenue earned from verified on-chain payments and profits saved to the Savings wallet. Revenue only counts real USDT0 transfers, not API requests. Saved shows how much the agent has autonomously moved to Savings.'],
               ['ACCOUNTS', 'Three self-custodial BIP-44 wallets derived from one seed phrase via WDK. Treasury (Acc 0) receives revenue. Savings (Acc 1) stores profits when treasury exceeds 1.0 USDT0. Demo Buyer (Acc 2) is pre-funded for testing payments. Click any address to view on Sepolia Etherscan.'],
               ['SAFETY STATUS', 'Four hard-coded rules the LLM cannot override. Green = safe, Red = agent paused. Minimum balance: 0.5 USDT0. Max single transaction: 0.1 USDT0. Spending rate: 5.0 USDT0/hour. Emergency pause if balance drops more than 50% in one hour. Click "?" for details.'],
               ['DYNAMIC PRICING', 'Current service prices and request volume per endpoint. The LLM autonomously adjusts prices based on demand: high volume increases prices (up to 3x base), low volume decreases them (down to 0.5x). Anti-thrashing logic prevents erratic changes between cycles.'],
