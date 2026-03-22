@@ -15,19 +15,21 @@ export default function HowItWorks() {
               <h2 style={{ color: t.accent, fontSize: 18 }}>How Agora Works</h2>
               <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: t.muted, cursor: 'pointer', fontSize: 18 }}>X</button>
             </div>
-            <p style={{ color: t.sub, fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>Agora is an autonomous AI agent that earns, decides, and manages capital independently.</p>
+            <p style={{ color: t.sub, fontSize: 13, marginBottom: 20, lineHeight: 1.6 }}>Agora is a self-sustaining AI agent that sells services, earns USDT0, and manages its own treasury autonomously on Sepolia.</p>
             {[
-              ['1. EARN', 'Sells market analysis and risk scoring via x402 micropayments. Every request pays USDT0 automatically on Sepolia.'],
-              ['2. DECIDE', 'Every 5 minutes, the LLM analyzes revenue and decides: adjust prices, transfer profits, or hold steady.'],
-              ['3. MANAGE', 'Three wallets: Treasury, Savings, Demo Buyer. Safety rules (min balance, max tx, rate limit, emergency pause) protect funds. Click "?" on Safety Status for details.'],
-              ['4. TRY IT', 'Click "Buy Market Analysis" or "Buy Risk Score" below to trigger a real x402 payment and watch the agent react.'],
+              ['1. EARN', 'Two paid API services: Market Analysis ($0.005 USDT0) and Risk Scoring ($0.003 USDT0). Prices adjust dynamically based on demand (0.5x to 3x base). Buyers pay per request via x402 payment architecture with on-chain WDK settlement.'],
+              ['2. DECIDE', 'Every 5 minutes, the LLM uses tool-calling to autonomously gather data. It calls 6 reasoning tools: check_balances, check_revenue, check_expenses, check_pricing, check_decisions, and check_market_price. Then it decides: hold, transfer profits to savings, or adjust pricing. Decisions execute only when confidence is 0.7 or higher.'],
+              ['3. MANAGE', 'Three self-custodial BIP-44 wallets from one seed phrase via WDK: Treasury (Account 0) receives revenue and pays expenses. Savings (Account 1) stores profits when treasury exceeds 1.0 USDT0. Demo Buyer (Account 2) is pre-funded for testing payments. Transfer amounts are suggested by the LLM but bounded by safety rules.'],
+              ['4. PROTECT', 'Four hard-coded safety rules the LLM cannot override: minimum operating balance (0.5 USDT0), maximum single transaction (0.1 USDT0), spending rate limit (0.2 USDT0/hour), and emergency pause if balance drops more than 50% in one hour. The agent pauses automatically when any rule is violated.'],
+              ['5. PERSIST', 'Agent state (revenue, expenses, decisions, transactions) persists to disk and survives restarts. The Reasoning Trail below shows every autonomous decision the agent has ever made, including which LLM tools and WDK tools were called each cycle.'],
+              ['6. TRY IT', 'Click "Buy Market Analysis" or "Buy Risk Score" below. A real USDT0 transfer executes on Sepolia from the Demo Buyer wallet to Treasury. You will see the transaction hash and can verify it on Sepolia Etherscan. Revenue and P&L update after the confirmed on-chain transfer.'],
             ].map(([title, desc]) => (
               <div key={title} style={step}>
                 <div style={{ color: t.accent, fontWeight: 'bold', fontSize: 14 }}>{title}</div>
                 <div style={{ color: t.sub, fontSize: 13, marginTop: 4, lineHeight: 1.5 }}>{desc}</div>
               </div>
             ))}
-            <div style={{ marginTop: 20, padding: 12, background: t.accentBg, borderRadius: 6, fontSize: 12, color: t.muted }}>Built with Tether WDK + x402 protocol + LLaMA on Sepolia testnet.</div>
+            <div style={{ marginTop: 20, padding: 12, background: t.accentBg, borderRadius: 6, fontSize: 12, color: t.muted, lineHeight: 1.5 }}>Built with Tether WDK (wdk-wallet-evm + wdk-mcp-toolkit, 15 tools) + x402 protocol + Groq LLaMA (tool-calling) on Sepolia testnet. 50 unit tests. Apache 2.0.</div>
           </div>
         </div>
       )}
