@@ -29,8 +29,8 @@ Agora operates as an independent economic actor with zero human intervention:
 ## On-Chain Proof
 
 Verified transactions on Sepolia:
-- Demo buyer funding: [`0x1f08cc3d...`](https://sepolia.etherscan.io/tx/0x1f08cc3dc47c5a8f647c4ab9a47dc720b8c6a51f7c0a4b31bedb2c8773f2f9d9)
-- Treasury address: [`0x51329BA9...`](https://sepolia.etherscan.io/address/0x51329BA9cE9703A44CBFB437a668187b505fACa7)
+- Treasury funding (USDT swap): [`0xb6388446...`](https://sepolia.etherscan.io/tx/0xb638844645e2d645f0625834ac2b2f193cd6f75780af57ad56c03ceeabac0ddf)
+- Treasury address: [`0x68447fC3...`](https://sepolia.etherscan.io/address/0x68447fC30c930b67D1492cA15E413191c9383C9b)
 
 ## Architecture
 
@@ -139,8 +139,8 @@ Exposes 15 wallet tools (getBalance, transfer, getCurrentPrice, etc.) via MCP st
 ### Setup
 
 ```bash
-git clone https://github.com/jordi-stack/agora.git
-cd agora
+git clone https://github.com/jordi-stack/Agora.git
+cd Agora
 
 # Install server dependencies
 npm install
@@ -272,7 +272,7 @@ agora/
 
 | Decision | Why |
 |----------|-----|
-| **Sepolia chain** | Tether's own chain. Near-zero gas (~$0.0001/tx) makes micropayments viable. No bridging needed for USDT0. |
+| **Sepolia testnet** | Official WDK-supported testnet with test USDT0. Recommended by Tether DevRel for hackathon development. Zero risk to real funds. |
 | **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header. No signup, no OAuth, no billing dashboard. |
 | **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
 | **In-memory state** | Wallet state lives on-chain, reasoning is ephemeral. No database means zero setup friction and no data to leak. |
@@ -291,7 +291,7 @@ agora/
 
 ## Known Limitations
 
-- x402 payment settlement depends on the Semantic facilitator being available
+- x402 facilitator does not support Sepolia testnet; endpoints run in testnet mode (no paywall) with graceful fallback
 - Dynamic pricing adjustments require the LLM to return valid JSON (fallback logic handles parse failures)
 - Agent loop interval is fixed at 5 minutes (not configurable via environment)
 - Dashboard uses polling (10s interval), not WebSocket

@@ -52,16 +52,16 @@ POST /api/analyze
 **Risk Scoring:**
 ```
 POST /api/risk
-{ "address": "0x51329BA9cE9703A44CBFB437a668187b505fACa7" }
+{ "address": "0x68447fC30c930b67D1492cA15E413191c9383C9b" }
 ```
 ```json
 {
-  "address": "0x51329...",
+  "address": "0x68447...",
   "riskScore": 60,
   "tier": "Medium",
   "onChainData": { "balance": 10.027, "txCount": 1, "chain": "Sepolia" },
   "aiAssessment": "Moderate risk due to low transaction count...",
-  "explorer": "https://sepolia.etherscan.io/address/0x51329BA9..."
+  "explorer": "https://sepolia.etherscan.io/address/0x68447fC3..."
 }
 ```
 
@@ -159,8 +159,8 @@ Real-time React dashboard showing:
 
 ### Install
 ```bash
-git clone https://github.com/jordi-stack/agora.git
-cd agora
+git clone https://github.com/jordi-stack/Agora.git
+cd Agora
 npm install
 cd client && npm install && npx vite build && cd ..
 cp .env.example .env

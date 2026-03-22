@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jordi-stack/agora.git"
+    "url": "https://github.com/jordi-stack/Agora.git"
   },
   "devDependencies": {
     "vitest": "^4.1.0"

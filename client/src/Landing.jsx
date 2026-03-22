@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { getTheme } from './theme.js'
 
-const TREASURY = '0x51329BA9cE9703A44CBFB437a668187b505fACa7'
-const FUNDING_TX = '0x1f08cc3dc47c5a8f647c4ab9a47dc720b8c6a51f7c0a4b31bedb2c8773f2f9d9'
+const TREASURY = '0x68447fC30c930b67D1492cA15E413191c9383C9b'
+const FUNDING_TX = '0xb638844645e2d645f0625834ac2b2f193cd6f75780af57ad56c03ceeabac0ddf'
 
 export default function Landing() {
   const [mode, setMode] = useState(() => localStorage.getItem('agora-theme') || 'dark')
