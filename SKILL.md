@@ -218,7 +218,7 @@ Wallet risk scoring on Sepolia chain.
 | `GET /api/history` | Revenue events, expenses, agent decisions |
 | `GET /api/reasoning` | Agent decision trail with full LLM reasoning |
 | `GET /api/pricing-history` | Dynamic pricing changes over time |
-| `POST /api/demo-buy` | Trigger test x402 payment from demo buyer |
+| `POST /api/demo-buy` | Trigger test payment from demo buyer |
 | `GET /api/transfers` | On-chain USDT0 transfer history via WDK Indexer API |
 | `GET /api/health` | Health check (includes indexer status) |
 
