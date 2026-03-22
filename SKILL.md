@@ -85,26 +85,31 @@ Agora manages three self-custodial wallets derived from a single BIP-39 seed phr
 - `sign` / `verify` - Message signing and verification
 - Fallback: direct WDK calls via `WalletManagerEvm` if MCP unavailable
 
-### Autonomous Decision-Making (Agent Loop)
+### Autonomous Decision-Making (LLM Tool-Calling Loop)
 
-Every 5 minutes, Agora runs an autonomous decision cycle:
+Every 5 minutes, Agora runs an autonomous decision cycle using LLM tool-calling:
 
 ```
-1. CHECK    → Read USDT0 + ETH balances via MCP Toolkit
-2. ANALYZE  → Compare revenue trends from state history
-3. REASON   → Query LLM with full context (balances, revenue, pricing, safety rules)
-4. DECIDE   → LLM returns structured JSON: { action, confidence, reasoning }
-5. EXECUTE  → If confidence >= 0.7: reprice services / transfer profits / hold
-6. LOG      → Store decision with full reasoning trail
+1. REASON   → LLM receives current state summary
+2. GATHER   → LLM calls tools autonomously to gather data it needs:
+              - check_balances: USDT0 + ETH for all accounts
+              - check_revenue: recent revenue events and trends
+              - check_expenses: recent expense events
+              - check_pricing: current prices and request volume
+              - check_decisions: last 5 agent decisions (pattern awareness)
+              - check_market_price: BTC/ETH prices via MCP/Bitfinex
+3. DECIDE   → LLM returns structured JSON: { action, confidence, reasoning, amount }
+4. EXECUTE  → If confidence >= 0.7: reprice services / transfer profits / hold
+5. LOG      → Store decision with full reasoning trail + tool calls used
 ```
 
 **Decision Types:**
 - `hold` - No action needed, current state is optimal
 - `reprice` - Adjust service prices based on demand (dynamic pricing)
-- `transfer` - Move surplus USDT0 from Treasury to Savings
+- `transfer` - Move surplus USDT0 from Treasury to Savings (LLM-suggested amount, bounded by safety)
 
-**LLM Reasoning:**
-The agent uses a structured system prompt that enforces JSON output and includes anti-thrashing logic (no price reversal within 2 cycles unless conditions shift >20%). Failed JSON parsing triggers a 3-step fallback: extract from code block → extract any JSON object → default to hold.
+**LLM Tool-Calling:**
+The agent uses Groq/OpenAI-compatible tool-calling API. The LLM genuinely decides which data to gather by calling tools, then makes its decision based on the results. Transfer amounts are influenced by the LLM's suggestion but bounded by 3 safety layers (treasury surplus cap, SAFETY.maxSingleTx, tx-pipeline validation). Falls back to simple prompt if tool-calling fails.
 
 ### Safety System
 
@@ -181,7 +186,7 @@ Dashboard: `http://localhost:4747`
 
 ### Test
 ```bash
-npm test    # 30 unit tests
+npm test    # 46 unit tests
 ```
 
 ### Fund Demo Buyer

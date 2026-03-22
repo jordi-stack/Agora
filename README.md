@@ -23,7 +23,7 @@ Autonomous AI agent that earns USDT0 by selling intelligence services via x402 m
 Agora operates as an independent economic actor with zero human intervention:
 
 - **Earns** - Sells market analysis and wallet risk scoring via [x402](https://www.x402.org/) micropayments. Buyers pay USDT0 per request through standard HTTP.
-- **Decides** - Runs an autonomous loop every 5 minutes. The LLM evaluates revenue trends, adjusts pricing based on demand, and determines when to move profits to savings.
+- **Decides** - Runs an autonomous loop every 5 minutes. The LLM uses tool-calling to query balances, revenue, pricing, and market data, then makes autonomous decisions about pricing and profit allocation.
 - **Manages** - Surplus revenue gets transferred to a separate savings wallet via real on-chain transactions. Every decision is logged with the full AI reasoning.
 
 ## On-Chain Proof
@@ -81,13 +81,16 @@ Three BIP-44 accounts derived from a single seed phrase using `@tetherto/wdk-wal
 | `getIndexerTokenBalance()` | Token balance via WDK Indexer API |
 | `getTokenTransfers()` | Transfer history via WDK Indexer API |
 
-### Autonomous Agent Loop
-Every 5 minutes, the agent uses the WDK MCP Toolkit to:
-1. Checks USDT0 and ETH balances via MCP tools
-2. Analyzes revenue trends from state history
-3. Queries the LLM for a decision (hold / transfer / reprice)
-4. Executes the decision if confidence >= 0.7
-5. Logs the full reasoning trail with timestamps
+### Autonomous Agent Loop (LLM Tool-Calling)
+Every 5 minutes, the agent runs a tool-calling loop where the LLM autonomously decides what data to gather:
+1. LLM calls `check_balances` → reads USDT0 + ETH via MCP tools
+2. LLM calls `check_revenue` / `check_expenses` → analyzes financial trends
+3. LLM calls `check_pricing` → evaluates demand and current prices
+4. LLM calls `check_decisions` → reviews its own recent behavior
+5. LLM calls `check_market_price` → gets BTC/ETH prices via MCP/Bitfinex
+6. LLM returns a structured JSON decision (hold / transfer / reprice)
+7. If confidence >= 0.7, the decision is executed with safety bounds
+8. Full reasoning trail + tool calls logged with timestamps
 
 ### Safety System
 Hard-coded rules that the agent cannot override:
@@ -176,7 +179,7 @@ pm2 save
 npm test
 ```
 
-30 unit tests covering safety rules, dynamic pricing, treasury P&L calculation, LLM JSON parsing, and MCP integration.
+46 unit tests covering safety rules, dynamic pricing, treasury P&L calculation, LLM JSON parsing, MCP integration, state persistence, and revenue logging.
 
 ### Fund Demo Buyer
 
@@ -216,7 +219,7 @@ node scripts/fund-demo.js
 | Payments | [x402 Protocol](https://www.x402.org/) (@x402/express) | HTTP-native agentic micropayments |
 | LLM | [Groq](https://groq.com/) / OpenAI / Together / Fireworks / Anthropic / any | Universal provider, auto-detected |
 | Chain | [Sepolia](https://sepolia.etherscan.io) (eip155:11155111) | EVM testnet with WDK support |
-| State | In-memory store | Lightweight, no external dependencies |
+| State | JSON file persistence (`data/agora-state.json`) | Survives restarts, debounced writes |
 | Indexer | [WDK Indexer API](https://wdk-api.tether.io) | Official Tether token balances and transfer history |
 | Server | Express.js | x402 middleware compatible |
 | Frontend | React + Vite | Lightweight, fast builds |
@@ -243,10 +246,10 @@ agora/
 │   ├── x402/                  # Payment middleware, dynamic pricing, services
 │   ├── agent/                 # LLM wrapper, reasoning engine, treasury, loop
 │   ├── mcp/                   # WDK MCP Toolkit integration (15 tools)
-│   ├── state/                 # In-memory store + WDK Indexer API
+│   ├── state/                 # JSON file persistence + WDK Indexer API
 │   └── api/                   # Dashboard API routes
 ├── client/                    # React dashboard (Vite)
-├── test/                      # Unit tests (30 tests)
+├── test/                      # Unit tests (46 tests)
 ├── docs/                      # Architecture diagrams
 ├── scripts/                   # Utility scripts (fund-demo)
 ├── .env.example               # Environment template
@@ -275,7 +278,7 @@ agora/
 | **Sepolia testnet** | Official WDK-supported testnet with test USDT0. Recommended by Tether DevRel for hackathon development. Zero risk to real funds. |
 | **x402 over REST + API keys** | Agents don't have accounts. x402 lets any HTTP client pay per request with a single header. No signup, no OAuth, no billing dashboard. |
 | **Multi-account BIP-44** | One seed, three wallets. Treasury earns, savings accumulates, demo buyer tests. Clean separation without managing multiple keys. |
-| **In-memory state** | Wallet state lives on-chain, reasoning is ephemeral. No database means zero setup friction and no data to leak. |
+| **JSON file persistence** | Agent state persists to `data/agora-state.json` with debounced writes. Survives restarts. No external database needed — zero setup friction. |
 | **Open-source LLM default** | Groq + LLaMA is free and fast. Anyone can run this without paying for API access. Any OpenAI-compatible provider works as a drop-in swap. |
 | **Hard-coded safety rules** | The LLM cannot override min balance, max tx, or rate limits. They're enforced in code before any transaction is signed. |
 | **WDK MCP Toolkit** | Agent reasoning layer uses MCP tools for wallet operations. Payment infrastructure (x402) stays separate. Clear separation between agent logic and wallet execution. |
@@ -291,10 +294,11 @@ agora/
 
 ## Known Limitations
 
-- x402 facilitator does not support Sepolia testnet; endpoints run in testnet mode (no paywall) with graceful fallback
+- x402 facilitator does not support Sepolia testnet; endpoints run in testnet mode (no paywall) with graceful fallback. Demo-buy uses direct WDK USDT0 transfers as settlement.
 - Dynamic pricing adjustments require the LLM to return valid JSON (fallback logic handles parse failures)
 - Agent loop interval is fixed at 5 minutes (not configurable via environment)
 - Dashboard uses polling (10s interval), not WebSocket
+- State persistence uses JSON file (`data/agora-state.json`); suitable for single-instance deployment
 
 ## License
 
