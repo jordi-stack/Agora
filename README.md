@@ -180,7 +180,7 @@ pm2 save
 npm test
 ```
 
-46 unit tests covering safety rules, dynamic pricing, treasury P&L calculation, LLM JSON parsing, MCP integration, state persistence, and revenue logging.
+50 unit tests covering safety rules, dynamic pricing, treasury P&L calculation, LLM JSON parsing, MCP integration, state persistence, and revenue logging.
 
 ### Fund Demo Buyer
 
@@ -250,7 +250,7 @@ agora/
 │   ├── state/                 # JSON file persistence + WDK Indexer API
 │   └── api/                   # Dashboard API routes
 ├── client/                    # React dashboard (Vite)
-├── test/                      # Unit tests (46 tests)
+├── test/                      # Unit tests (50 tests)
 ├── docs/                      # Architecture diagrams
 ├── data/                      # Persisted agent state (gitignored)
 │   └── agora-state.json       # Revenue, decisions, expenses (survives restart)
