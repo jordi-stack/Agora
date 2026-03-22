@@ -6,6 +6,7 @@ import { calculatePnL } from '../agent/treasury.js'
 import { store } from '../state/store.js'
 import { getProvider } from '../agent/llm.js'
 import { isIndexerEnabled, getTokenBalance, getTokenTransfers } from '../state/indexer.js'
+import { isX402Enabled } from '../x402/middleware.js'
 
 const router = Router()
 
@@ -82,27 +83,29 @@ router.post('/api/demo-buy', async (req, res) => {
     ? { address: getAddresses().treasury }
     : { asset: req.body?.asset || 'BTC' }
 
-  // Try x402 payment flow first (production path)
-  try {
-    const { x402Client, wrapFetchWithPayment } = await import('@x402/fetch')
-    const { registerExactEvmScheme } = await import('@x402/evm/exact/client')
-    const demoBuyerAccount = getAccount('demoBuyer')
-    const client = new x402Client()
-    registerExactEvmScheme(client, { signer: demoBuyerAccount })
-    const fetchWithPayment = wrapFetchWithPayment(fetch, client)
+  // Try x402 payment flow first (only when facilitator is active)
+  if (isX402Enabled()) {
+    try {
+      const { x402Client, wrapFetchWithPayment } = await import('@x402/fetch')
+      const { registerExactEvmScheme } = await import('@x402/evm/exact/client')
+      const demoBuyerAccount = getAccount('demoBuyer')
+      const client = new x402Client()
+      registerExactEvmScheme(client, { signer: demoBuyerAccount })
+      const fetchWithPayment = wrapFetchWithPayment(fetch, client)
 
-    const response = await fetchWithPayment(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    })
-    const data = await response.json()
-    return res.json({ success: true, endpoint, response: data, paymentMethod: 'x402' })
-  } catch (x402Err) {
-    console.warn('[demo-buy] x402 payment failed, using direct WDK transfer:', x402Err.message)
+      const response = await fetchWithPayment(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      const data = await response.json()
+      return res.json({ success: true, endpoint, response: data, paymentMethod: 'x402' })
+    } catch (x402Err) {
+      console.warn('[demo-buy] x402 payment failed, using direct WDK transfer:', x402Err.message)
+    }
   }
 
-  // Fallback: direct WDK transfer + call endpoint
+  // WDK settlement: direct USDT0 transfer on-chain
   try {
     const { transferUSDT0 } = await import('../wallet/tx-pipeline.js')
     const demoBuyerAccount = getAccount('demoBuyer')
