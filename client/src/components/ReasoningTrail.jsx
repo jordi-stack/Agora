@@ -27,7 +27,7 @@ function ReasoningHelp({ t }) {
               <div style={{ fontSize: 12, color: t.blue, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>📊</span> <b>REPRICE</b> - Agent adjusted service prices based on demand patterns. High request volume increases prices (up to 3x), low volume decreases them (down to 0.5x).</div>
             </div>
             <div style={item}>
-              <div style={{ fontSize: 12, color: t.red, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>⚠️</span> <b>PAUSED</b> - Safety rules violated. Agent halts all operations until conditions return to safe levels. Triggers: balance below 0.5 USDT0, spending over 0.2/hour, or balance dropped over 50% in one hour.</div>
+              <div style={{ fontSize: 12, color: t.red, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>⚠️</span> <b>PAUSED</b> - Safety rules violated. Agent halts all operations until conditions return to safe levels. Triggers: balance below 0.5 USDT0, spending over 5.0/hour, or balance dropped over 50% in one hour.</div>
             </div>
             <div style={item}>
               <div style={{ fontSize: 12, color: t.red, lineHeight: 1.5 }}><span style={{ fontSize: 14 }}>❌</span> <b>ERROR</b> - Agent cycle encountered an error (network issue, LLM timeout, etc). Agent will retry on next cycle automatically.</div>

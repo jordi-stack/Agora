@@ -97,7 +97,7 @@ Every 5 minutes, the agent runs a tool-calling loop where the LLM autonomously d
 Hard-coded rules that the agent cannot override:
 - Minimum operating balance: 0.5 USDT0
 - Maximum single transaction: 0.1 USDT0
-- Spending rate limit: 0.2 USDT0/hour
+- Spending rate limit: 5.0 USDT0/hour
 - Emergency pause if balance drops more than 50% in 1 hour
 - Process recovery via pm2 (auto-restart on crash, persists across reboots)
 

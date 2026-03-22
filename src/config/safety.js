@@ -1,7 +1,7 @@
 export const SAFETY = {
   minOperatingBalance: 0.5,
   maxSingleTx: 0.1,
-  spendingRateLimit: 0.2,
+  spendingRateLimit: 5.0,
   emergencyDropThreshold: 0.5,
 }
 

@@ -119,7 +119,7 @@ Hard-coded safety rules that the agent cannot override, regardless of LLM output
 |------|-------|---------|
 | Minimum operating balance | 0.5 USDT0 | Never drain treasury below this |
 | Maximum single transaction | 0.1 USDT0 | Cap any outgoing payment |
-| Spending rate limit | 0.2 USDT0/hour | Prevent runaway spending |
+| Spending rate limit | 5.0 USDT0/hour | Prevent runaway spending |
 | Emergency pause | Balance drops >50% in 1 hour | Halt all operations |
 
 ### Dynamic Pricing

@@ -15,7 +15,7 @@ describe('Safety Rules', () => {
   })
 
   it('returns red when spending rate exceeded', () => {
-    const result = checkSafety(1.0, 0.5, 1.0)
+    const result = checkSafety(1.0, 10.0, 1.0)
     expect(result.rules.find(r => r.name === 'spendingRate').status).toBe('red')
   })
 
@@ -26,14 +26,14 @@ describe('Safety Rules', () => {
   })
 
   it('returns yellow when approaching spending limit', () => {
-    const result = checkSafety(1.0, 0.25, 1.0) // 125% of limit
+    const result = checkSafety(1.0, 6.25, 1.0) // 125% of limit
     expect(result.rules.find(r => r.name === 'spendingRate').status).toBe('yellow')
   })
 
   it('has correct threshold values', () => {
     expect(SAFETY.minOperatingBalance).toBe(0.5)
     expect(SAFETY.maxSingleTx).toBe(0.1)
-    expect(SAFETY.spendingRateLimit).toBe(0.2)
+    expect(SAFETY.spendingRateLimit).toBe(5.0)
     expect(SAFETY.emergencyDropThreshold).toBe(0.5)
   })
 })

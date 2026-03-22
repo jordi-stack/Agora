@@ -23,7 +23,7 @@ export default function SafetyStatus({ safety }) {
               <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Max Single Transaction (0.1 USDT0)</b> - Caps any outgoing transfer. Even if the LLM suggests a larger amount, it is clamped to this limit.</div>
             </div>
             <div style={item}>
-              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Spending Rate (0.2 USDT0/hour)</b> - Limits total outgoing transfers per hour. Turns yellow at 1.25x, red at 1.5x. Prevents runaway spending.</div>
+              <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Spending Rate (5.0 USDT0/hour)</b> - Limits total outgoing transfers per hour. Turns yellow at 1.25x, red at 1.5x. Prevents runaway spending.</div>
             </div>
             <div style={item}>
               <div style={{ fontSize: 12, color: t.sub, lineHeight: 1.5 }}><b>🟢 Balance Stability (50%)</b> - Emergency pause if treasury balance drops more than 50% within one hour. Protects against unexpected losses.</div>

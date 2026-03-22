@@ -44,5 +44,5 @@ Agora is an autonomous AI agent that operates as an independent economic actor o
 
 - Min operating balance: 0.5 USDT0
 - Max single transaction: 0.1 USDT0
-- Spending rate limit: 0.2 USDT0/hour
+- Spending rate limit: 5.0 USDT0/hour
 - Emergency pause: balance drops >50% in 1 hour

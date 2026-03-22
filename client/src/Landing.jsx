@@ -329,7 +329,7 @@ export default function Landing() {
               <tbody>
                 <tr><td style={{ ...td, fontSize: 12 }}>Min operating balance</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>0.5 USDT0</td></tr>
                 <tr><td style={{ ...td, fontSize: 12 }}>Max single transaction</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>0.1 USDT0</td></tr>
-                <tr><td style={{ ...td, fontSize: 12 }}>Spending rate limit</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>0.2/hour</td></tr>
+                <tr><td style={{ ...td, fontSize: 12 }}>Spending rate limit</td><td style={{ ...td, color: t.accent, fontFamily: 'monospace', fontSize: 12, textAlign: 'right' }}>5.0/hour</td></tr>
                 <tr><td style={{ ...td, fontSize: 12, borderBottom: 'none' }}>Emergency pause</td><td style={{ ...td, color: t.red, fontFamily: 'monospace', fontSize: 12, borderBottom: 'none', textAlign: 'right' }}>&gt;50% drop/hr</td></tr>
               </tbody>
             </table>

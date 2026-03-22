@@ -76,7 +76,7 @@
 │  │                                                    │   │
 │  │  - Min balance: 0.5 USDT0                         │   │
 │  │  - Max single tx: 0.1 USDT0                       │   │
-│  │  - Rate limit: 0.2 USDT0/hour                     │   │
+│  │  - Rate limit: 5.0 USDT0/hour                     │   │
 │  │  - Emergency pause: >50% drop in 1 hour           │   │
 │  └────────────────────────────────────────────────────┘   │
 └────────────────────────────────────────────────────────────┘
