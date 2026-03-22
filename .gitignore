@@ -22,7 +22,6 @@ Thumbs.db
 # Claude Code / internal context
 .claude/
 CLAUDE.md
-es.md
 
 # Internal planning docs
 docs/superpowers/
@@ -31,15 +30,10 @@ docs/superpowers/
 .vscode/
 .idea/
 
-# Test/spike files
-spike.js
-
-
+# etc images
 *.png
 !assets/*.png
 !client/public/logo.png
-
-me.pem
 
 # Persisted agent state
 data/
